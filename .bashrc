@@ -1,0 +1,123 @@
+#!/bin/sh
+
+# Bashrc sbdchd
+
+# Make commands more verbose and safe
+alias ls='ls -A -G' 
+
+# Easier movement
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias .....='cd ../../../..'
+
+# https://github.com/necolas/dotfiles/blob/master/shell/bash_prompt
+prompt_git() {
+    local s=""
+    local branchName=""
+
+    # check if the current directory is in a git repository
+    if [ $(git rev-parse --is-inside-work-tree &>/dev/null; printf "%s" $?) == 0 ]; then
+
+        # check if the current directory is in .git before running git checks
+        if [ "$(git rev-parse --is-inside-git-dir 2> /dev/null)" == "false" ]; then
+
+            # ensure index is up to date
+            git update-index --really-refresh  -q &>/dev/null
+
+            # check for uncommitted changes in the index
+            if ! $(git diff --quiet --ignore-submodules --cached); then
+                s="$s+";
+            fi
+
+            # check for unstaged changes
+            if ! $(git diff-files --quiet --ignore-submodules --); then
+                s="$s!";
+            fi
+
+            # check for untracked files
+            if [ -n "$(git ls-files --others --exclude-standard)" ]; then
+                s="$s?";
+            fi
+
+            # check for stashed files
+            if $(git rev-parse --verify refs/stash &>/dev/null); then
+                s="$s$";
+            fi
+            # https://gist.github.com/woods/31967
+           # Set arrow icon based on status against remote.
+              remote_pattern="# Your branch is (.*) of"
+              if [[ $(git status 2> /dev/null) =~ ${remote_pattern} ]]; then
+                if [[ ${BASH_REMATCH[1]} == "ahead" ]]; then
+                  remote=">" # Ahead
+                else
+                  remote="<" # Behind
+                fi
+              else
+                remote="" # Equal
+              fi
+              diverge_pattern="# Your branch and (.*) have diverged"
+              if [[ $(git status 2> /dev/null) =~ ${diverge_pattern} ]]; then
+                remote="<>" # Diverged
+              fi
+
+        fi
+
+        # get the short symbolic ref
+        # if HEAD isn't a symbolic ref, get the short SHA
+        # otherwise, just give up
+        branchName="$(git symbolic-ref --quiet --short HEAD 2> /dev/null || \
+                      git rev-parse --short HEAD 2> /dev/null || \
+                      printf "(unknown)")"
+
+        [ -n "$s" ] && s=" [$s]"
+
+        printf "%s" "$1$branchName$s$remote"
+    else
+        return
+    fi
+}
+
+set_prompts() {
+    # set the terminal title to the current working directory
+    PS1="\[\033]0;\w\007\]"
+
+    PS1+="\n" # newline
+    PS1+="\u" # username
+    PS1+="@"
+    PS1+="\h" # host
+    PS1+=": "
+    PS1+="\w" # working directory
+    PS1+="\$(prompt_git \" on \")" # git repository details
+    PS1+="\n"
+    PS1+="\$ " # $ or # depending on user status
+
+    export PS1
+}
+
+set_prompts
+unset set_prompts
+
+# Functions
+
+# Make directory and enter it
+md () { mkdir -p "$@" && cd "$@"; }
+
+# http://serverfault.com/a/28649
+# move up directories more easily
+up() { cd $(eval printf '../'%.0s {1..$1}); }
+
+# https://wiki.archlinux.org/index.php/Bash/Functions#cd_and_ls_in_one
+# cd and ls combined 
+cl() {
+local dir="$1"
+local dir="${dir:=$HOME}"
+    if [[ -d "$dir" ]]; then
+        cd "$dir" >/dev/null; ls
+    else
+        echo "bash: cl: $dir: Directory not found"
+    fi
+}
+
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
