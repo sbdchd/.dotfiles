@@ -173,6 +173,10 @@ set undodir=~/.vim/undo
 " number of undo levels
 set undolevels=5000
 
+" make vim use a different folder for swp files
+set dir-=.
+set dir+=/tmp
+
 " ensure wrapping is enabled
 set wrap
 " show break with chars
