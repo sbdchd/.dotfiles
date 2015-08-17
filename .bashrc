@@ -3,13 +3,32 @@
 # Bashrc sbdchd
 
 # Make commands more verbose and safe
-alias ls='ls -A -G' 
+alias ls='ls -A -G'
 
 # Easier movement
 alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
 alias .....='cd ../../../..'
+alias ~="cd ~"  # https://github.com/necolas/dotfiles
+
+# IP addresses - https://github.com/necolas/dotfiles
+alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
+alias localip="ipconfig getifaddr en1"
+
+# Copy my public key to the pasteboard - https://github.com/necolas/dotfiles
+alias pubkey="more ~/.ssh/id_rsa.pub | pbcopy | printf '=> Public key copied to pasteboard.\n'"
+
+# Flush DNS cache - https://github.com/necolas/dotfiles
+alias flushdns="dscacheutil -flushcache"
+
+# Empty the Trash on all mounted volumes and the main HDD - https://github.com/necolas/dotfiles
+# Also, clear Apple’s System Logs to improve shell startup speed
+alias emptytrash="sudo rm -rfv /Volumes/*/.Trashes; sudo rm -rfv ~/.Trash; sudo rm -rfv /private/var/log/asl/*.asl"
+
+# Show/hide hidden files in Finder - https://github.com/necolas/dotfiles
+alias showdotfiles="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
+alias hidedotfiles="defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder"
 
 # https://github.com/necolas/dotfiles/blob/master/shell/bash_prompt
 prompt_git() {
@@ -108,7 +127,7 @@ md () { mkdir -p "$@" && cd "$@"; }
 up() { cd $(eval printf '../'%.0s {1..$1}); }
 
 # https://wiki.archlinux.org/index.php/Bash/Functions#cd_and_ls_in_one
-# cd and ls combined 
+# cd and ls combined
 cl() {
 local dir="$1"
 local dir="${dir:=$HOME}"
