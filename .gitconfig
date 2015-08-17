@@ -1,8 +1,12 @@
-[push]
-    defaul = simple
-[color]
-    ui = auto
+[user]
+  email = steve@dignam.xyz
+  name = Steve Dignam
 [core]
-    autocrlf = input
-    excludesfile = ~/.gitignore
-    attributesfile = ~/.gitattributes
+  editor = vim
+  autocrlf = false
+  excludesfile = ~/.gitignore
+  attributesfile = ~/.gitattributes
+[push]
+  default = simple
+[color]
+  ui = auto
