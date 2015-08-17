@@ -30,6 +30,10 @@ alias emptytrash="sudo rm -rfv /Volumes/*/.Trashes; sudo rm -rfv ~/.Trash; sudo 
 alias showdotfiles="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
 alias hidedotfiles="defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder"
 
+# Make new shells get the history lines from all previous - https://github.com/necolas/dotfiles
+# shells instead of the default "last window closed" history
+export PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
+
 # https://github.com/necolas/dotfiles/blob/master/shell/bash_prompt
 prompt_git() {
     local s=""
