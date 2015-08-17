@@ -12,6 +12,11 @@ alias ....='cd ../../..'
 alias .....='cd ../../../..'
 alias ~="cd ~"  # https://github.com/necolas/dotfiles
 
+# Git Aliases
+alias gs='git status'
+alias gl='git pull'
+alias gp='git push'
+
 # IP addresses - https://github.com/necolas/dotfiles
 alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
 alias localip="ipconfig getifaddr en1"
