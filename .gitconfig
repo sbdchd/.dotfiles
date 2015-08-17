@@ -1,10 +1,11 @@
-
 [user]
   email = steve@dignam.xyz
   name = Steve Dignam
 [core]
   editor = vim
   autocrlf = false
+  excludesfile = ~/.gitignore
+  attributesfile = ~/.gitattributes
 [push]
   default = simple
 [color]
