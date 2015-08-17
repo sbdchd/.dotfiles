@@ -1,0 +1,8 @@
+[push]
+    defaul = simple
+[color]
+    ui = auto
+[core]
+    autocrlf = input
+    excludesfile = ~/.gitignore
+    attributesfile = ~/.gitattributes
