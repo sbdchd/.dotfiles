@@ -57,37 +57,29 @@ set showmode
 
 " clear status line
 set statusline=
-
 " full path to file
-set statusline+=%F\ 
-
+" set statusline+=%F\ 
+" file name
+set statusline+=%f\ 
 " modification flag
-set statusline+=%m
-
+set statusline+=%m 
+set statusline+=%{fugitive#statusline()}
 " read-only flag
 set statusline+=%r
-
 " help flag
 set statusline+=%h
-
 " preview flag
 set statusline+=%w%=
-
 " current line, column
 set statusline+=%v:%l\/
-
 " number of lines
 set statusline+=%L\ 
-
 " file type if available otherwise encoding type
 set statusline+=%{&fenc?&fenc:&enc}\ 
-
 " file format dos || unix
 set statusline+=%{&fileformat}\ 
-
 " current syntax
 set statusline+=%Y\ 
-
 " % into the file
 set statusline+=%p%%\ 
 
@@ -188,6 +180,9 @@ silent! set breakindent
 noremap j gj
 noremap k gk
 
+" map esc to exit terminal mode [nvim]
+tnoremap <Esc> <C-\><C-n>
+
 " add $ to end of word being changed/replaced
 set cpoptions+=$
 
@@ -195,11 +190,15 @@ set cpoptions+=$
 silent! color molokai
 
 " use certain characters to show whitespace characters
-set listchars=tab:▸\
-set listchars=nbsp:·
-set listchars=eol:¬
+set listchars=tab:▸\ 
+set listchars+=nbsp:⎵
+set listchars+=eol:¬
+set listchars+=trail:·
 " use list characters
 set list
+
+" set the leader key
+let mapleader = ","
 
 " read file again on change
 set autoread
@@ -213,9 +212,30 @@ Plug 'fatih/vim-go'
 Plug 'tpope/vim-surround'
 Plug 'scrooloose/nerdtree'
 " Plug 'easymotion/vim-easymotion'
-Plug 'mhinz/vim-startify' 
+Plug 'mhinz/vim-startify'
 Plug 'tpope/vim-fugitive'
 Plug 'majutsushi/tagbar'
 Plug 'bling/vim-airline'
 
 call plug#end()
+
+" airline stuff
+let g:airline_left_sep=''
+let g:airline_right_sep=''
+" " set third section to filename
+" let g:airline_section_b="%f"
+" " empty third and fourth sections
+" let g:airline_section_c=""
+" let g:airline_section_x=""
+" " put filetype in fifth section
+" let g:airline_section_y="%Y"
+
+" let g:airline_powerline_fonts = 1
+
+" nerdtree stuff
+" toggle NERDTree with leader d
+map <leader>d :NERDTreeToggle<CR>
+" make NERDtree show hidden files and folders
+let NERDTreeShowHidden=1
+" close vim if NERDTree is the last buffer open
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif

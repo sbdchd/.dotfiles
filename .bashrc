@@ -2,7 +2,7 @@
 
 # Bashrc sbdchd
 
-# Make commands more verbose and safe
+# Make command(s) more verbose and useful
 alias ls='ls -A -G'
 
 # Easier movement
@@ -17,9 +17,12 @@ alias gs='git status'
 alias gl='git pull'
 alias gp='git push'
 
+# General Commands
+alias c="clear"
+
 # IP addresses - https://github.com/necolas/dotfiles
 alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
-alias localip="ipconfig getifaddr en1"
+alias localip="ipconfig getifaddr en1" # OSX
 
 # Copy my public key to the pasteboard - https://github.com/necolas/dotfiles
 alias pubkey="more ~/.ssh/id_rsa.pub | pbcopy | printf '=> Public key copied to pasteboard.\n'"
@@ -146,6 +149,9 @@ local dir="${dir:=$HOME}"
         echo "bash: cl: $dir: Directory not found"
     fi
 }
+
+# Go setup stuff
+export GOPATH=$HOME/Dropbox/steve/projects/go
 
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
