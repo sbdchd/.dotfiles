@@ -15,6 +15,7 @@ cp -n gitconfig  ${HOME}/.gitconfig
 # Create the necessary symbolic links between the `.dotfiles` and `HOME`
 # directory. The `bash_profile` sources other files directly from the
 # `.dotfiles` repository.
+<<<<<<< HEAD
 link "bashrc"         ".bashrc"
 link "bash_profile"   ".bash_profile"
 link "curlrc"         ".curlrc"
@@ -23,5 +24,13 @@ link "gitattributes"  ".gitattributes"
 link "gitignore"      ".gitignore"
 link "tmux.conf"      ".tmux.conf"
 link "vimrc"          ".vimrc"
+=======
+link ".bashrc"         ".bashrc"
+link ".bash_profile"   ".bash_profile"
+link ".curlrc"         ".curlrc"
+link ".inputrc"        ".inputrc"
+link ".gitattributes"  ".gitattributes"
+link ".gitignore"      ".gitignore"
+>>>>>>> parent of 5b2ef26... Renamed dotfiles
 
 echo "Dotfiles update complete!"
