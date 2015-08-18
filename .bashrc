@@ -19,6 +19,7 @@ alias gp='git push'
 alias gd='git diff'
 alias ga='git add'
 alias gc='git commit'
+alias gr='git rm'
 
 # General Commands
 alias c="clear"
