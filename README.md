@@ -15,3 +15,4 @@ Empty folder `plugged` is included for easy install of vim plugins
 
 - [ ] Add script to install/update dotfiles
 - [ ] Add script to system link dotfiles
+- [ ] Update all of .gitconfig except for user.name & user.email
