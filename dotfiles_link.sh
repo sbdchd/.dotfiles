@@ -15,11 +15,11 @@ rsync -avz --quiet ${DOTFILES_DIRECTORY}/git/gitconfig  ${HOME}/.gitconfig
 # Create the necessary symbolic links between the `.dotfiles` and `HOME`
 # directory. The `bash_profile` sources other files directly from the
 # `.dotfiles` repository.
-link ".bashrc"         ".bashrc"
-link ".bash_profile"   ".bash_profile"
-link ".curlrc"         ".curlrc"
-link ".inputrc"        ".inputrc"
-link ".gitattributes"  ".gitattributes"
-link ".gitignore"      ".gitignore"
+link "bashrc"         ".bashrc"
+link "bash_profile"   ".bash_profile"
+link "curlrc"         ".curlrc"
+link "inputrc"        ".inputrc"
+link "gitattributes"  ".gitattributes"
+link "gitignore"      ".gitignore"
 
 echo "Dotfiles update complete!"
