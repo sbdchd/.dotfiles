@@ -180,8 +180,8 @@ silent! set breakindent
 noremap j gj
 noremap k gk
 
-" map esc to exit terminal mode [nvim]
-tnoremap <Esc> <C-\><C-n>
+" map esc to exit terminal mode [neovim]
+silent! tnoremap <Esc> <C-\><C-n>
 
 " add $ to end of word being changed/replaced
 set cpoptions+=$
@@ -239,3 +239,16 @@ map <leader>d :NERDTreeToggle<CR>
 let NERDTreeShowHidden=1
 " close vim if NERDTree is the last buffer open
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+
+" go vim stuff
+" highligh go items
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_structs = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_build_constraints = 1
+" auto run goimports on save
+let g:go_fmt_command = "goimports"
+" make gofmt not show its errors
+let g:go_fmt_fail_silently = 1
+

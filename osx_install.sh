@@ -49,3 +49,7 @@ brew tap caskroom/fonts
 brew cask install font-inconsolata
 brew cask install font-fontawesome
 
+
+# Make delete work for navigating back a page in safari
+defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2BackspaceKeyNavigationEnabled -bool YES
+
