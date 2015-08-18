@@ -13,6 +13,5 @@ Empty folder `plugged` is included for easy install of vim plugins
 
 #To Do
 
-[ ] Add script to install/update dotfiles
-
-[ ] Add script to system link dotfiles
+- [ ] Add script to install/update dotfiles
+- [ ] Add script to system link dotfiles
