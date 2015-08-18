@@ -1,6 +1,3 @@
-[user]
-  email = steve@dignam.xyz
-  name = Steve Dignam
 [core]
   editor = vim
   autocrlf = false
