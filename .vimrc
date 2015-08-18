@@ -119,6 +119,7 @@ set incsearch
 
 " allow clipboard to transfer between system and vim
 set clipboard=unnamed
+set clipboard=unnamedplus
 
 " Add <Tab> completion for commands
 set wildmenu

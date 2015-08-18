@@ -11,6 +11,7 @@ brew install vim
 brew install wget
 brew install curl
 brew install tmux
+brew install reattach-to-user-namespace
 
 brew tap neovim/neovim
 brew install --HEAD neovim
