@@ -10,7 +10,7 @@ link() {
 # Copy `.gitconfig`.
 # Any global git commands in `~/.bash_profile.local` will be written to
 # `.gitconfig`. This prevents them being committed to the repository.
-rsync -avz --quiet ${DOTFILES_DIRECTORY}/gitconfig  ${HOME}/.gitconfig
+rsync -avz --quiet gitconfig  ${HOME}/.gitconfig
 
 # Create the necessary symbolic links between the `.dotfiles` and `HOME`
 # directory. The `bash_profile` sources other files directly from the
@@ -21,5 +21,7 @@ link "curlrc"         ".curlrc"
 link "inputrc"        ".inputrc"
 link "gitattributes"  ".gitattributes"
 link "gitignore"      ".gitignore"
+link "tmux.conf"      ".tmux.conf"
+link "vimrc"          ".vimrc"
 
 echo "Dotfiles update complete!"
