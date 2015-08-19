@@ -199,7 +199,7 @@ set listchars+=trail:·
 set list
 
 " set the leader key
-let mapleader = ","
+let mapleader = ','
 
 " read file again on change
 set autoread
@@ -220,6 +220,9 @@ Plug 'bling/vim-airline'
 
 call plug#end()
 
+" fzf
+set rtp+=~/.fzf
+
 " airline stuff
 let g:airline_left_sep=''
 let g:airline_right_sep=''
@@ -232,6 +235,9 @@ let g:airline_right_sep=''
 " let g:airline_section_y="%Y"
 
 " let g:airline_powerline_fonts = 1
+
+" tagbar stuff
+map <leader>t :TagbarToggle<CR>
 
 " nerdtree stuff
 " toggle NERDTree with leader d

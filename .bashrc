@@ -10,7 +10,7 @@ alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
 alias .....='cd ../../../..'
-alias ~="cd ~"  # https://github.com/necolas/dotfiles
+alias ~='cd ~'  # https://github.com/necolas/dotfiles
 
 # Git Aliases
 alias gs='git status'
@@ -157,5 +157,15 @@ local dir="${dir:=$HOME}"
 # Go setup stuff
 export GOPATH=$HOME/Dropbox/steve/projects/go
 
+# https://wiki.archlinux.org/index.php/Tmux#Autostart_tmux_with_default_tmux_layout
+# make Tmux open on terminal startup
+if [[ -z "$TMUX" ]] ;then
+    ID="`tmux ls | grep -vm1 attached | cut -d: -f1`" # get the id of a deattached session
+    if [[ -z "$ID" ]] ;then # if not available create a new one
+        tmux new-session
+    else
+        tmux attach-session -t "$ID" # if available attach to it
+    fi
+fi
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
