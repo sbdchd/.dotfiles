@@ -15,6 +15,8 @@ alias ~='cd ~'  # https://github.com/necolas/dotfiles
 # Alias vim to nvim if nvim is installed
 if hash nvim 2>/dev/null; then
     alias vim='nvim'
+    alias vi='nvim'
+    alias ni='nvim'
 fi
 
 # Git Aliases
