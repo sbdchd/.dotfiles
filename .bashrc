@@ -2,8 +2,21 @@
 
 # Bashrc sbdchd
 
-# Make command(s) more verbose and useful
-alias ls='ls -A -G'
+# Determine current OS
+if [[ $OSTYPE == darwin* ]]; then
+    OS='mac'
+elif [[ $OSTYPE == "linux-gnu" ]]; then
+    OS='linux'
+else
+    OS='unknown'
+fi
+
+# alias ls according to the curren to os
+if [[ $OS == "mac" ]]; then
+    alias ls='ls -A -G'
+elif [[ $OS == "linux" ]]; then
+    alias ls='ls -A --color=auto'
+fi
 
 # Easier movement
 alias ..='cd ..'
