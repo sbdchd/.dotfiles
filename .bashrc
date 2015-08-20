@@ -11,7 +11,7 @@ else
     OS='unknown'
 fi
 
-# alias ls according to the curren to os
+# alias ls according to the current to os
 if [[ $OS == "mac" ]]; then
     alias ls='ls -A -G'
 elif [[ $OS == "linux" ]]; then
