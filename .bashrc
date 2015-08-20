@@ -21,12 +21,13 @@ fi
 
 # Git Aliases
 alias gs='git status'
-alias gl='git pull'
+alias gpl='git pull'
 alias gp='git push'
 alias gd='git diff'
 alias ga='git add'
 alias gc='git commit'
 alias gr='git rm'
+alias gl='git log'
 
 # General Commands
 alias c="clear"
