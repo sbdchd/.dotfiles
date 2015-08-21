@@ -12,6 +12,9 @@ brew install wget
 brew install curl
 brew install tmux
 brew install reattach-to-user-namespace
+brew install go
+brew install python
+brew install python3
 
 brew tap neovim/neovim
 brew install --HEAD neovim
@@ -41,9 +44,6 @@ brew cask install limechat
 brew cask install the-unarchiver
 brew cask install sqlitebrowser
 brew cask install mobile-mouse-server
-brew cask install go
-brew cask install python
-brew cask install python3
 
 # Install Fonts
 brew tap caskroom/fonts
