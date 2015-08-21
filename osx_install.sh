@@ -50,7 +50,9 @@ brew tap caskroom/fonts
 brew cask install font-inconsolata
 brew cask install font-fontawesome
 
-
+# OSX Defaults
 # Make delete work for navigating back a page in safari
 defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2BackspaceKeyNavigationEnabled -bool YES
+# Decrease the delay when switching between desktops/workspaces
+defaults write com.apple.dock workspaces-edge-delay -float 0.1
 
