@@ -47,23 +47,24 @@ alias c="clear"
 
 # IP addresses - https://github.com/necolas/dotfiles
 alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
-alias localip="ipconfig getifaddr en1" # OSX
+if [[ $OS == "mac" ]]; then
+    alias localip="ipconfig getifaddr en1"
 
+    #  Flush DNS cache - https://github.com/necolas/dotfiles
+    alias flushdns="dscacheutil -flushcache"
+
+    # Empty the Trash on all mounted volumes and the main HDD - https://github.com/necolas/dotfiles
+    # Also, clear Apple’s System Logs to improve shell startup speed
+    alias emptytrash="sudo rm -rfv /Volumes/*/.Trashes; sudo rm -rfv ~/.Trash; sudo rm -rfv /private/var/log/asl/*.asl"
+
+    # Show/hide hidden files in Finder - https://github.com/necolas/dotfiles
+    alias showdotfiles="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
+    alias hidedotfiles="defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder"
+
+fi
 # Copy my public key to the pasteboard - https://github.com/necolas/dotfiles
 alias pubkey="more ~/.ssh/id_rsa.pub | pbcopy | printf '=> Public key copied to pasteboard.\n'"
-
-# Flush DNS cache - https://github.com/necolas/dotfiles
-alias flushdns="dscacheutil -flushcache"
-
-# Empty the Trash on all mounted volumes and the main HDD - https://github.com/necolas/dotfiles
-# Also, clear Apple’s System Logs to improve shell startup speed
-alias emptytrash="sudo rm -rfv /Volumes/*/.Trashes; sudo rm -rfv ~/.Trash; sudo rm -rfv /private/var/log/asl/*.asl"
-
-# Show/hide hidden files in Finder - https://github.com/necolas/dotfiles
-alias showdotfiles="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
-alias hidedotfiles="defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder"
-
-# Make new shells get the history lines from all previous - https://github.com/necolas/dotfiles
+## Make new shells get the history lines from all previous - https://github.com/necolas/dotfiles
 # shells instead of the default "last window closed" history
 export PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
 
