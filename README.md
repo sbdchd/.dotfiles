@@ -1,6 +1,6 @@
 # Dotfiles
 
-A collection of dotfiles.
+A collection of dotfiles, currently for osx.
 
 
 ##Notes
@@ -20,3 +20,4 @@ git config --global user.email
 
 - [ ] Add script to install/update dotfiles
 - [ ] Add script to system link dotfiles
+- [ ] Make dotfiles linux friendly
