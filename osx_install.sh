@@ -16,6 +16,7 @@ brew install reattach-to-user-namespace
 brew install go
 brew install python
 brew install python3
+brew install ssh-copy-id
 
 brew tap neovim/neovim
 brew install --HEAD neovim
@@ -63,4 +64,3 @@ git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2BackspaceKeyNavigationEnabled -bool YES
 # Decrease the delay when switching between desktops/workspaces
 defaults write com.apple.dock workspaces-edge-delay -float 0.1
-
