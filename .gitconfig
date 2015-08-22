@@ -7,3 +7,5 @@
   default = simple
 [color]
   ui = auto
+[merge]
+  tool = vimdiff]

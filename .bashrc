@@ -41,6 +41,7 @@ alias ga='git add'
 alias gc='git commit'
 alias gr='git rm'
 alias gl='git log'
+alias logpretty='git log --graph --decorate --pretty=oneline --abbrev-commit'
 
 # General Commands
 alias c="clear"
