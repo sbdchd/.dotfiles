@@ -1,7 +1,5 @@
 #!/bin/sh
 
-# Bashrc sbdchd
-
 # Determine current OS
 if [[ $OSTYPE == darwin* ]]; then
     OS='mac'

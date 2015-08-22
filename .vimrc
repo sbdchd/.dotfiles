@@ -63,7 +63,8 @@ set statusline=
 set statusline+=%f\ 
 " modification flag
 set statusline+=%m 
-set statusline+=%{fugitive#statusline()}
+" show git status if fugitive is installed but don't throw an error if it isn't
+silent! set statusline+=%{fugitive#statusline()}
 " read-only flag
 set statusline+=%r
 " help flag
