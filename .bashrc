@@ -13,9 +13,9 @@ fi
 
 # alias ls according to the current os
 if [[ $OS == "mac" ]]; then
-    alias ls='ls -A -G'
+    alias ls='ls -A -G -F'
 elif [[ $OS == "linux" ]]; then
-    alias ls='ls -A --color=auto'
+    alias ls='ls -A -F --color=auto'
 fi
 
 # Easier movement
@@ -187,6 +187,43 @@ if [[ -z "$TMUX" ]] ;then
     else
         tmux attach-session -t "$ID" # if available attach to it
     fi
+fi
+
+
+# LS Colors
+export CLICOLOR=1
+
+if [[ $OS == "mac" ]]; then
+    # http://www.freebsd.org/cgi/man.cgi?query=ls&apropos=0&sektion=1&format=html
+    LSCOLORS='ex'   # dir
+    LSCOLORS+='fx'  # symbolic link
+    LSCOLORS+='bx'  # socket
+    LSCOLORS+='bx'  # pipe
+    LSCOLORS+='cx'  # executable
+    LSCOLORS+='bx'  # block special
+    LSCOLORS+='bx'  # character special
+    LSCOLORS+='ab'  # executable with setuid bit set
+    LSCOLORS+='ag'  # executable with setgid bit set
+    LSCOLORS+='ac'  # directory writable to others, with sticky bit
+    LSCOLORS+='ad'  # directory writable to others, without sticky bit
+
+    export LSCOLORS
+fi
+
+if [[ $OS == "linux" ]]; then
+    # http://linux-sxs.org/housekeeping/lscolors.html
+    LS_COLORS='di=34'   # directory
+    LS_COLORS+=':fi=0'  # file
+    LS_COLORS+=':ln=35' # symbolic link
+    LS_COLORS+=':pi=5'  # fifo file
+    LS_COLORS+=':so=5'  # socket file
+    LS_COLORS+=':bd=5'  # block (buffered) special file
+    LS_COLORS+=':cd=5'  # character (unbuffered) special file
+    LS_COLORS+=':or=31' # symbolic link pointing to a non-existent file (orphan)
+    LS_COLORS+=':mi=0'  # non-existent file pointed to by a symbolic link (visible when you type ls -l)
+    LS_COLORS+=':ex=33' # executable permissions set
+
+    export LS_COLORS
 fi
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash

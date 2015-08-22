@@ -20,4 +20,3 @@ git config --global user.email
 
 - [ ] Add script to install/update dotfiles
 - [ ] Add script to system link dotfiles
-- [ ] Add LSCOLORS to .bashrc along with CLICOLORS export
