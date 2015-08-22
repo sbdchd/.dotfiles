@@ -21,3 +21,4 @@ git config --global user.email
 - [ ] Add script to install/update dotfiles
 - [ ] Add script to system link dotfiles
 - [ ] Make dotfiles linux friendly
+- [ ] Make tmux not start on a remote machine if tmux is running locally - possible?

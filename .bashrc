@@ -5,7 +5,7 @@
 # Determine current OS
 if [[ $OSTYPE == darwin* ]]; then
     OS='mac'
-elif [[ $OSTYPE == "linux-gnu" ]]; then
+elif [[ $OSTYPE == linux-gnu* ]]; then
     OS='linux'
 else
     OS='unknown'
@@ -41,7 +41,7 @@ alias ga='git add'
 alias gc='git commit'
 alias gr='git rm'
 alias gl='git log'
-alias logpretty='git log --graph --decorate --pretty=oneline --abbrev-commit'
+alias glpretty='git log --graph --decorate --pretty=oneline --abbrev-commit'
 
 # General Commands
 alias c="clear"

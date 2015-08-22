@@ -8,4 +8,4 @@
 [color]
   ui = auto
 [merge]
-  tool = vimdiff]
+  tool = vimdiff
