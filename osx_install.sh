@@ -10,6 +10,7 @@ brew install git
 brew install vim
 brew install wget
 brew install curl
+brew install htop-osx
 brew install tmux
 brew install reattach-to-user-namespace
 brew install go
@@ -49,6 +50,10 @@ brew cask install mobile-mouse-server
 brew tap caskroom/fonts
 brew cask install font-inconsolata
 brew cask install font-fontawesome
+
+# Install Vim Plug Package Manager
+curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 # Install TMUX Package Manager
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
