@@ -233,6 +233,7 @@ let g:airline_right_sep=''
 let g:airline_section_y='%{&fenc?&fenc:&enc} %{&fileformat}'
 let g:airline_section_z='%8.(%l/%L%)'
 let g:airline_section_warning='%3.p%%'
+let g:airline_theme='hybrid'
 
 " tagbar stuff
 map <leader>t :TagbarToggle<CR>
