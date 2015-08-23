@@ -29,6 +29,8 @@ brew cask install firefox
 brew cask install flux
 brew cask install grandperspective
 brew cask install virtualbox
+brew cask install vagrant
+brew cask install docker
 brew cask install transmission
 brew cask install 1password
 brew cask install dropbox

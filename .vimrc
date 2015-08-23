@@ -1,13 +1,13 @@
-" Vim Config 
+" Vim Config
 
 " show the line number relative to the cursor line 
 set relativenumber
 
 " tells vim what type of background is used
-set background=dark 
+set background=dark
 
 " highlight the screen line of the cursor
-set cursorline 
+set cursorline
 
 " show the size of block one selected in visual mode
 set showcmd
@@ -15,8 +15,11 @@ set showcmd
 " turn on syntax highlighting
 syntax on
 
+" make vim update more rapidly
+set updatetime=750
+
 " min number of screen lines above/below of cursor
-set scrolloff=5 
+set scrolloff=5
 
 " no annoying dings
 set noerrorbells
@@ -38,13 +41,13 @@ if has("gui_running")
 endif
 
 " make backspace work as expected
-set backspace=indent,eol,start 
+set backspace=indent,eol,start
 
 " ensure status line is always present
 set laststatus=2
 
 " cursor breifly jumps to matching bracket upon the insertion
-set showmatch 
+set showmatch
 
 " set time of match cursor switch
 set matchtime=2
@@ -58,7 +61,6 @@ set showmode
 " clear status line
 set statusline=
 " full path to file
-" set statusline+=%F\ 
 " file name
 set statusline+=%f\ 
 " modification flag
@@ -216,18 +218,27 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
 Plug 'fatih/vim-go'
 Plug 'tpope/vim-surround'
 Plug 'scrooloose/nerdtree'
-" Plug 'easymotion/vim-easymotion'
+Plug 'easymotion/vim-easymotion'
 Plug 'mhinz/vim-startify'
 Plug 'tpope/vim-fugitive'
 Plug 'majutsushi/tagbar'
 Plug 'bling/vim-airline'
+Plug 'airblade/vim-gitgutter'
+Plug 'tmux-plugins/vim-tmux'
+Plug 'scrooloose/nerdcommenter'
+Plug 'othree/html5.vim'
+Plug 'mattn/emmet-vim'
+Plug 'mbbill/undotree'
 
 call plug#end()
+
+" nerdcommenter
+filetype plugin on
 
 " fzf
 set rtp+=~/.fzf
 
-" airline stuff
+" airline
 let g:airline_left_sep=''
 let g:airline_right_sep=''
 let g:airline_section_y='%{&fenc?&fenc:&enc} %{&fileformat}'
@@ -235,18 +246,16 @@ let g:airline_section_z='%8.(%l/%L%)'
 let g:airline_section_warning='%3.p%%'
 let g:airline_theme='hybrid'
 
-" tagbar stuff
-map <leader>t :TagbarToggle<CR>
+" undotree
+map <leader>g :UndotreeToggle<cr>
 
-" nerdtree stuff
-" toggle NERDTree with leader d
+" nerdtree
 map <leader>d :NERDTreeToggle<CR>
-" make NERDtree show hidden files and folders
 let NERDTreeShowHidden=1
 " close vim if NERDTree is the last buffer open
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
-" go vim stuff
+" go vim
 " highligh go items
 let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
