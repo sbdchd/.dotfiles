@@ -27,6 +27,7 @@ brew install caskroom/cask/brew-cask
 brew cask install google-chrome
 brew cask install firefox
 brew cask install flux
+brew cask install grandperspective
 brew cask install virtualbox
 brew cask install transmission
 brew cask install 1password

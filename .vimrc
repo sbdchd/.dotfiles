@@ -1,4 +1,4 @@
-" Vimrc sbdchd
+" Vim Config 
 
 " show the line number relative to the cursor line 
 set relativenumber
@@ -41,7 +41,7 @@ endif
 set backspace=indent,eol,start 
 
 " ensure status line is always present
-set laststatus=2 
+set laststatus=2
 
 " cursor breifly jumps to matching bracket upon the insertion
 set showmatch 
@@ -188,8 +188,11 @@ silent! tnoremap <Esc> <C-\><C-n>
 " add $ to end of word being changed/replaced
 set cpoptions+=$
 
-" set color scheme to molokai
-silent! color molokai
+" Enable 256 color
+set t_Co=256
+
+" set color scheme
+silent! color hybrid
 
 " use certain characters to show whitespace characters
 set listchars=tab:▸\ 
@@ -227,15 +230,9 @@ set rtp+=~/.fzf
 " airline stuff
 let g:airline_left_sep=''
 let g:airline_right_sep=''
-" " set third section to filename
-" let g:airline_section_b="%f"
-" " empty third and fourth sections
-" let g:airline_section_c=""
-" let g:airline_section_x=""
-" " put filetype in fifth section
-" let g:airline_section_y="%Y"
-
-" let g:airline_powerline_fonts = 1
+let g:airline_section_y='%{&fenc?&fenc:&enc} %{&fileformat}'
+let g:airline_section_z='%8.(%l/%L%)'
+let g:airline_section_warning='%3.p%%'
 
 " tagbar stuff
 map <leader>t :TagbarToggle<CR>
