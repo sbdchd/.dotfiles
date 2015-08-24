@@ -16,6 +16,8 @@ elif [[ $OS == "linux" ]]; then
     alias ls='ls -A -F --color=auto'
 fi
 
+alias ll='ls -l'
+
 # Easier movement
 alias ..='cd ..'
 alias ...='cd ../..'
@@ -221,9 +223,12 @@ if [[ $OS == "linux" ]]; then
     LS_COLORS+=':cd=5'  # character (unbuffered) special file
     LS_COLORS+=':or=31' # symbolic link pointing to a non-existent file (orphan)
     LS_COLORS+=':mi=0'  # non-existent file pointed to by a symbolic link (visible when you type ls -l)
-    LS_COLORS+=':ex=33' # executable permissions set
+    LS_COLORS+=':ex=32' # executable permissions set
 
     export LS_COLORS
 fi
+
+# make * select normal and dot files
+shopt -s dotglob
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
