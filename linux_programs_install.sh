@@ -10,12 +10,12 @@ apt-get install -y vim
 apt-get install -y unp
 apt-get install -y htop
 
-# Install tmux 2.0
-sudo apt-get update
-sudo apt-get install -y python-software-properties software-properties-common
-sudo add-apt-repository -y ppa:pi-rho/dev
-sudo apt-get update
-sudo apt-get install -y tmux=2.0-1~ppa1~t
+# Install tmux 2.0 (1.9+ is required for plugins)
+apt-get update
+apt-get install -y python-software-properties software-properties-common
+add-apt-repository -y ppa:pi-rho/dev
+apt-get update
+apt-get install -y tmux=2.0-1~ppa1~t
 
 apt-get install -y virtualbox
 apt-get install -y vagrant
