@@ -9,6 +9,7 @@ apt-get install -y git
 apt-get install -y vim
 apt-get install -y unp
 apt-get install -y htop
+apt-get install -y wakeonlan
 
 # Install tmux 2.0 (1.9+ is required for plugins)
 apt-get update

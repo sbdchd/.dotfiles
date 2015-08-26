@@ -11,11 +11,14 @@ brew install vim
 brew install wget
 brew install curl
 brew install htop-osx
+brew install wakeonlan
 brew install tmux
 brew install reattach-to-user-namespace
 brew install go
 brew install python
 brew install python3
+brew install ruby
+brew install rbenv
 brew install ssh-copy-id
 
 brew tap neovim/neovim

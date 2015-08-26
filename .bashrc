@@ -16,6 +16,12 @@ elif [[ $OS == "linux" ]]; then
     alias ls='ls -A -F --color=auto'
 fi
 
+# Prompt user before taking action
+alias rm='rm -iv'
+alias cp='cp -iv'
+alias mv='mv -iv'
+
+
 alias ll='ls -l'
 
 # Easier movement
@@ -24,6 +30,10 @@ alias ...='cd ../..'
 alias ....='cd ../../..'
 alias .....='cd ../../../..'
 alias ~='cd ~'  # https://github.com/necolas/dotfiles
+
+# http://unix.stackexchange.com/a/43005
+# Use vi/vim style commands to edit & select  cli commands
+set -o vi
 
 # Alias vim to nvim if nvim is installed
 if hash nvim 2>/dev/null; then
@@ -179,6 +189,7 @@ local dir="${dir:=$HOME}"
 
 # Go setup stuff
 export GOPATH=$HOME/Dropbox/steve/projects/go
+export PATH=$PATH:$GOPATH/bin
 
 # https://wiki.archlinux.org/index.php/Tmux#Autostart_tmux_with_default_tmux_layout
 # make Tmux open on terminal startup
