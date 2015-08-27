@@ -229,6 +229,7 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'othree/html5.vim'
 Plug 'mattn/emmet-vim'
 Plug 'mbbill/undotree'
+Plug 'majutsushi/tagbar'
 
 call plug#end()
 
@@ -245,6 +246,9 @@ let g:airline_section_y='%{&fenc?&fenc:&enc} %{&fileformat}'
 let g:airline_section_z='%8.(%l/%L%)'
 let g:airline_section_warning='%3.p%%'
 let g:airline_theme='hybrid'
+
+" tagbar
+map <leader>t :TagbarToggle<CR>
 
 " undotree
 map <leader>g :UndotreeToggle<cr>

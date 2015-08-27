@@ -20,6 +20,8 @@ brew install python3
 brew install ruby
 brew install rbenv
 brew install ssh-copy-id
+brew install screenfetch
+
 
 brew tap neovim/neovim
 brew install --HEAD neovim
