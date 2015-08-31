@@ -34,6 +34,9 @@ add-apt-repository -y ppa:transmissionbt/ppa
 apt-get update
 apt-get install -y transmission-cli transmission-common transmission-daemon
 
+apt-get install nodejs
+apt-get install npm
+
 # install vim plug
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim

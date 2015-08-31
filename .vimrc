@@ -217,6 +217,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
 Plug 'fatih/vim-go'
 Plug 'tpope/vim-surround'
+Plug 'tpope/vim-repeat'
 Plug 'scrooloose/nerdtree'
 Plug 'easymotion/vim-easymotion'
 Plug 'mhinz/vim-startify'
@@ -230,6 +231,9 @@ Plug 'othree/html5.vim'
 Plug 'mattn/emmet-vim'
 Plug 'mbbill/undotree'
 Plug 'majutsushi/tagbar'
+Plug 'tpope/vim-markdown'
+Plug 'ap/vim-css-color'
+Plug 'hail2u/vim-css3-syntax'
 
 call plug#end()
 

@@ -21,3 +21,4 @@ git config --global user.email
 - [ ] Add script to install/update dotfiles
 - [ ] Add script to system link dotfiles
 - [ ] Adjust tmux activation in .bashrc so that only with a full terminal session is tmux enabled. This would prevent tmux attempting to activate when sending just a command over ssh
+- [ ] Add option for basic program install & full program install

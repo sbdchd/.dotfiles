@@ -49,7 +49,7 @@ alias gp='git push'
 alias gd='git diff'
 alias ga='git add'
 alias gc='git commit'
-alias gr='git rm'
+alias grm='git rm'
 alias gl='git log'
 alias glpretty='git log --graph --decorate --pretty=oneline --abbrev-commit'
 
@@ -113,21 +113,21 @@ prompt_git() {
                 s="$s$";
             fi
             # https://gist.github.com/woods/31967
-           # Set arrow icon based on status against remote.
-              remote_pattern="# Your branch is (.*) of"
-              if [[ $(git status 2> /dev/null) =~ ${remote_pattern} ]]; then
+            # Set arrow icon based on status against remote.
+            remote_pattern="# Your branch is (.*) of"
+            if [[ $(git status 2> /dev/null) =~ ${remote_pattern} ]]; then
                 if [[ ${BASH_REMATCH[1]} == "ahead" ]]; then
-                  remote=">" # Ahead
+                    remote=">" # Ahead
                 else
-                  remote="<" # Behind
+                    remote="<" # Behind
                 fi
-              else
+            else
                 remote="" # Equal
-              fi
-              diverge_pattern="# Your branch and (.*) have diverged"
-              if [[ $(git status 2> /dev/null) =~ ${diverge_pattern} ]]; then
+            fi
+            diverge_pattern="# Your branch and (.*) have diverged"
+            if [[ $(git status 2> /dev/null) =~ ${diverge_pattern} ]]; then
                 remote="<>" # Diverged
-              fi
+            fi
 
         fi
 
@@ -135,8 +135,8 @@ prompt_git() {
         # if HEAD isn't a symbolic ref, get the short SHA
         # otherwise, just give up
         branchName="$(git symbolic-ref --quiet --short HEAD 2> /dev/null || \
-                      git rev-parse --short HEAD 2> /dev/null || \
-                      printf "(unknown)")"
+            git rev-parse --short HEAD 2> /dev/null || \
+            printf "(unknown)")"
 
         [ -n "$s" ] && s=" [$s]"
 
@@ -146,19 +146,103 @@ prompt_git() {
     fi
 }
 
+#http://stackoverflow.com/questions/10406926/how-to-change-default-virtualenvwrapper-prompt
+virtualenv_info(){
+    # Get Virtual Env
+    if [[ -n "$VIRTUAL_ENV" ]]; then
+        # Strip out the path and just leave the env name
+        venv="${VIRTUAL_ENV##*/}"
+    fi
+    [[ -n "$venv" ]] && echo "$venv"
+}
+
+# disable the default virtualenv prompt
+export VIRTUAL_ENV_DISABLE_PROMPT=1
+
+Color_Off='\e[0m'       # Text Reset
+
+# Regular Colors
+Black='\e[0;30m'        # Black
+Red='\e[0;31m'          # Red
+Green='\e[0;32m'        # Green
+Yellow='\e[0;33m'       # Yellow
+Blue='\e[0;34m'         # Blue
+Purple='\e[0;35m'       # Purple
+Cyan='\e[0;36m'         # Cyan
+White='\e[0;37m'        # White
+
+# Bold
+BBlack='\e[1;30m'       # Black
+BRed='\e[1;31m'         # Red
+BGreen='\e[1;32m'       # Green
+BYellow='\e[1;33m'      # Yellow
+BBlue='\e[1;34m'        # Blue
+BPurple='\e[1;35m'      # Purple
+BCyan='\e[1;36m'        # Cyan
+BWhite='\e[1;37m'       # White
+
+# Underline
+UBlack='\e[4;30m'       # Black
+URed='\e[4;31m'         # Red
+UGreen='\e[4;32m'       # Green
+UYellow='\e[4;33m'      # Yellow
+UBlue='\e[4;34m'        # Blue
+UPurple='\e[4;35m'      # Purple
+UCyan='\e[4;36m'        # Cyan
+UWhite='\e[4;37m'       # White
+
+# Background
+On_Black='\e[40m'       # Black
+On_Red='\e[41m'         # Red
+On_Green='\e[42m'       # Green
+On_Yellow='\e[43m'      # Yellow
+On_Blue='\e[44m'        # Blue
+On_Purple='\e[45m'      # Purple
+On_Cyan='\e[46m'        # Cyan
+On_White='\e[47m'       # White
+
+# High Intensity
+IBlack='\e[0;90m'       # Black
+IRed='\e[0;91m'         # Red
+IGreen='\e[0;92m'       # Green
+IYellow='\e[0;93m'      # Yellow
+IBlue='\e[0;94m'        # Blue
+IPurple='\e[0;95m'      # Purple
+ICyan='\e[0;96m'        # Cyan
+IWhite='\e[0;97m'       # White
+
+# Bold High Intensity
+BIBlack='\e[1;90m'      # Black
+BIRed='\e[1;91m'        # Red
+BIGreen='\e[1;92m'      # Green
+BIYellow='\e[1;93m'     # Yellow
+BIBlue='\e[1;94m'       # Blue
+BIPurple='\e[1;95m'     # Purple
+BICyan='\e[1;96m'       # Cyan
+BIWhite='\e[1;97m'      # White
+
+# High Intensity backgrounds
+On_IBlack='\e[0;100m'   # Black
+On_IRed='\e[0;101m'     # Red
+On_IGreen='\e[0;102m'   # Green
+On_IYellow='\e[0;103m'  # Yellow
+On_IBlue='\e[0;104m'    # Blue
+On_IPurple='\e[0;105m'  # Purple
+On_ICyan='\e[0;106m'    # Cyan
+On_IWhite='\e[0;107m'   # White
+
 set_prompts() {
     # set the terminal title to the current working directory
     PS1="\[\033]0;\w\007\]"
-
-    PS1+="\n" # newline
-    PS1+="\u" # username
-    PS1+="@"
-    PS1+="\h" # host
-    PS1+=": "
-    PS1+="\w" # working directory
-    PS1+="\$(prompt_git \" on \")" # git repository details
     PS1+="\n"
-    PS1+="\$ " # $ or # depending on user status
+    PS1+="\[$Yellow\]\u"                    # username
+    PS1+="\[$Color_Off\]@"
+    PS1+="\[$Purple\]\h"                    # host
+    PS1+="\[$Blue\] \w"                     # working directory
+    PS1+="\[$Green\]\$(prompt_git \" \")"   # git repository details
+    PS1+=" \[$Cyan\]\$(virtualenv_info)"    # virtual environment status
+    PS1+="\n"
+    PS1+="\[$Color_Off\]\$ "                # $ or # depending on user status
 
     export PS1
 }
@@ -169,7 +253,7 @@ unset set_prompts
 # Functions
 
 # Make directory and enter it
-md () { mkdir -p "$@" && cd "$@"; }
+md() { mkdir -p "$@" && cd "$@"; }
 
 # http://serverfault.com/a/28649
 # move up directories more easily
@@ -178,8 +262,8 @@ up() { cd $(eval printf '../'%.0s {1..$1}); }
 # https://wiki.archlinux.org/index.php/Bash/Functions#cd_and_ls_in_one
 # cd and ls combined
 cl() {
-local dir="$1"
-local dir="${dir:=$HOME}"
+    local dir="$1"
+    local dir="${dir:=$HOME}"
     if [[ -d "$dir" ]]; then
         cd "$dir" >/dev/null; ls
     else
@@ -187,6 +271,20 @@ local dir="${dir:=$HOME}"
     fi
 }
 
+#http://stackoverflow.com/a/19458217/3720597
+if [[ $OS == "mac" ]]; then
+    function clip() {
+    if [[ -p /dev/stdin ]] ; then
+        # stdin is a pipe
+        # stdin -> clipboard
+        pbcopy
+    else
+        # stdin is not a pipe
+        # clipboard -> stdout
+        pbpaste
+    fi
+}
+fi
 # Go setup stuff
 export GOPATH=$HOME/Dropbox/steve/projects/go
 export PATH=$PATH:$GOPATH/bin
