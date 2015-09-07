@@ -20,7 +20,10 @@ brew install python3
 brew install ruby
 brew install rbenv
 brew install node
+brew install sqlite
 brew install postgresql
+brew install mysql
+brew install mongodb
 brew install ssh-copy-id
 brew install screenfetch
 
@@ -38,6 +41,7 @@ brew cask install grandperspective
 brew cask install virtualbox
 brew cask install vagrant
 brew cask install docker
+brew cask install postgres
 brew cask install transmission
 brew cask install 1password
 brew cask install dropbox
@@ -47,7 +51,8 @@ brew cask install vlc
 brew cask install alfred
 brew cask install keepingyouawake
 brew cask install spectacle
-# brew cask install microsoft-office # 2011 Version
+brew cask install gmail-checker
+brew cask install microsoft-office-365
 brew cask install xquartz
 brew cask install inkscape
 brew cask install gimp

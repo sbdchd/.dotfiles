@@ -30,6 +30,17 @@ DOKKU_TAG=v0.3.25 bash bootstrap.sh
 apt-get install -y openssh-server
 apt-get install -y fail2ban
 
+apt-get install -y sqlite
+apt-get install -y postgres
+apt-get install -y mysql
+
+# install mongodb
+apt-key adv --keyserver keyserver.ubuntu.com --recv 7F0CEB10
+echo "deb http://repo.mongodb.org/apt/debian wheezy/mongodb-org/3.0 main" | tee /etc/apt/sources.list.d/mongodb-org-3.0.list
+apt-get update
+apt-get install -y mongodb-org
+
+# install transmission torrent client & daemon
 add-apt-repository -y ppa:transmissionbt/ppa
 apt-get update
 apt-get install -y transmission-cli transmission-common transmission-daemon

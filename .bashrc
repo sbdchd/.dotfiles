@@ -21,7 +21,6 @@ alias rm='rm -iv'
 alias cp='cp -iv'
 alias mv='mv -iv'
 
-
 alias ll='ls -l'
 
 # Easier movement
@@ -53,11 +52,26 @@ alias grm='git rm'
 alias gl='git log'
 alias glpretty='git log --graph --decorate --pretty=oneline --abbrev-commit'
 
+# check if python virtualenv is installed before adding alias
+if hash virtualenv 2>/dev/null; then
+    alias activate='. venv/bin/activate'
+fi
+
+# alias python http server if python is installed
+if hash python3 2>/dev/null; then
+    alias httpserver='python3 -m http.server'
+elif hash python2 2>/dev/null; then
+    alias httpserver='python2 -m SimpleHTTPServer'
+fi
+
 # General Commands
 alias c="clear"
 
 # IP addresses - https://github.com/necolas/dotfiles
-alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
+if hash dig 2>/dev/null; then
+    alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
+fi
+
 if [[ $OS == "mac" ]]; then
     alias localip="ipconfig getifaddr en1"
 
@@ -71,13 +85,19 @@ if [[ $OS == "mac" ]]; then
     # Show/hide hidden files in Finder - https://github.com/necolas/dotfiles
     alias showdotfiles="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
     alias hidedotfiles="defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder"
-
 fi
+
 # Copy my public key to the pasteboard - https://github.com/necolas/dotfiles
-alias pubkey="more ~/.ssh/id_rsa.pub | pbcopy | printf '=> Public key copied to pasteboard.\n'"
+if [[ $OS == mac ]]; then
+    alias pubkey="more ~/.ssh/id_rsa.pub | pbcopy | printf '=> Public key copied to pasteboard.\n'"
+fi
+
 ## Make new shells get the history lines from all previous - https://github.com/necolas/dotfiles
 # shells instead of the default "last window closed" history
 export PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
+
+# make postgresql cli tools work
+export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/9.4/bin
 
 # https://github.com/necolas/dotfiles/blob/master/shell/bash_prompt
 prompt_git() {
