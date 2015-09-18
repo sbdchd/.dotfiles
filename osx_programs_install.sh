@@ -27,6 +27,10 @@ brew install mongodb
 brew install ssh-copy-id
 brew install screenfetch
 
+brew update
+brew tap jlhonora/lsusb
+brew install lsusb
+
 
 brew tap neovim/neovim
 brew install --HEAD neovim
@@ -46,6 +50,7 @@ brew cask install transmission
 brew cask install 1password
 brew cask install dropbox
 brew cask install iterm2
+brew cask install remote-desktop-connection # compatibility issues with later os versions - may need to edit formula manually
 brew cask install atom
 brew cask install vlc
 brew cask install alfred

@@ -19,7 +19,6 @@ cp -n .gitconfig  ${HOME}/.gitconfig
 # `.dotfiles` repository.
 
 link ".tmux.conf"      ".tmux.conf"
-link ".tmux/"          ".tmux"
 link ".vimrc"          ".vimrc"
 link ".vim/"           ".vim/"
 link ".bashrc"         ".bashrc"

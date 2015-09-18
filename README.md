@@ -3,11 +3,47 @@
 A collection of dotfiles, currently for osx.
 
 
-##Notes
+## Install
+```bash
+git clone https://github.com/sbdchd/.dotfiles
+cd .dotfiles
+. dotfiles_link.sh
+```
 
-User interaction is initially required with osx_install.sh
+### Update
+```bash
+git pull
+```
 
-`sudo ./osx_install.sh`
+## Install Programs
+
+OSX
+
+```bash
+. osx_programs_install.sh 
+```
+
+Linux
+
+```bash
+sudo bash linux_programs_install.sh
+```
+
+## Update Programs
+
+OSX
+
+```bash
+. osx_programs_update.sh
+```
+
+Linux
+
+```bash
+sudo bash linux_programs_update.sh
+```
+
+## Notes
 
 Git username and email must be set
 
@@ -16,9 +52,8 @@ git config --global user.name
 git config --global user.email
 ```
 
-#To Do
+# To Do
 
-- [ ] Add script to install/update dotfiles
-- [ ] Add script to system link dotfiles
-- [ ] Adjust tmux activation in .bashrc so that only with a full terminal session is tmux enabled. This would prevent tmux attempting to activate when sending just a command over ssh
+- [ ] Add a unified script to install & update dotfiles
+- [x] Add script to system link dotfiles
 - [ ] Add option for basic program install & full program install

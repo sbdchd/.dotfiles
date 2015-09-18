@@ -96,6 +96,11 @@ fi
 # shells instead of the default "last window closed" history
 export PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
 
+# Number of lines of commands loaded & stored during a bash session
+HISTSIZE=1000
+# Number of lines of commands stored in .bash_history file persistently
+HISTFILESIZE=10000
+
 # make postgresql cli tools work
 export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/9.4/bin
 
