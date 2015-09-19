@@ -299,7 +299,7 @@ cl() {
 #http://stackoverflow.com/a/19458217/3720597
 if [[ $OS == "mac" ]]; then
     function clip() {
-    if [[ -p /dev/stdin ]] ; then
+    if [[ -p /dev/stdin ]]; then
         # stdin is a pipe
         # stdin -> clipboard
         pbcopy
@@ -316,9 +316,9 @@ export PATH=$PATH:$GOPATH/bin
 
 # https://wiki.archlinux.org/index.php/Tmux#Autostart_tmux_with_default_tmux_layout
 # make Tmux open on terminal startup
-if [[ -z "$TMUX" ]] ;then
+if [[ -z "$TMUX" ]]; then
     ID="`tmux ls | grep -vm1 attached | cut -d: -f1`" # get the id of a deattached session
-    if [[ -z "$ID" ]] ;then # if not available create a new one
+    if [[ -z "$ID" ]]; then # if not available create a new one
         tmux new-session
     else
         tmux attach-session -t "$ID" # if available attach to it

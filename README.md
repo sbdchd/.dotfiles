@@ -29,6 +29,8 @@ Linux
 sudo bash linux_programs_install.sh
 ```
 
+*Note:* For a limited install with linux call `linux_programs_install.sh` with the `-small`flag
+
 ## Update Programs
 
 OSX
