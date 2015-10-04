@@ -71,4 +71,8 @@ if [[ $install == "all" ]]; then
     apt-get update
     apt-get install -y mongodb-org
 
+    apt-get install sl
+    apt-get install cmatrix
+    apt-get install cowsay
+    apt-get install fortune
 fi

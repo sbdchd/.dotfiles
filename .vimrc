@@ -56,7 +56,7 @@ set matchtime=2
 set nocompatible 
 
 " show current mode below status line
-set showmode
+set noshowmode
 
 " clear status line
 set statusline=

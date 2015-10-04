@@ -27,6 +27,11 @@ brew install mongodb
 brew install ssh-copy-id
 brew install screenfetch
 
+brew install sl
+brew install cmatrix
+brew install cowsay
+brew install fortune
+
 brew update
 brew tap jlhonora/lsusb
 brew install lsusb
