@@ -7,7 +7,7 @@ A collection of dotfiles, currently for osx.
 ```bash
 git clone https://github.com/sbdchd/.dotfiles
 cd .dotfiles
-. dotfiles_link.sh
+. dotfiles-link.sh
 ```
 
 ### Update
@@ -20,29 +20,29 @@ git pull
 OSX
 
 ```bash
-. osx_programs_install.sh 
+. osx-install.sh 
 ```
 
 Linux
 
 ```bash
-sudo bash linux_programs_install.sh
+sudo bash linux-install.sh
 ```
 
-*Note:* For a limited install with linux call `linux_programs_install.sh` with the `-small`flag
+*Note:* For a limited install with linux call `linux-install.sh` with the `-small`flag
 
 ## Update Programs
 
 OSX
 
 ```bash
-. osx_programs_update.sh
+. osx-update.sh
 ```
 
 Linux
 
 ```bash
-sudo bash linux_programs_update.sh
+sudo bash linux-update.sh
 ```
 
 ## Notes

@@ -96,6 +96,9 @@ fi
 # shells instead of the default "last window closed" history
 export PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
 
+# set default editor
+export EDITOR=vim
+
 # Number of lines of commands loaded & stored during a bash session
 HISTSIZE=1000
 # Number of lines of commands stored in .bash_history file persistently
@@ -296,6 +299,47 @@ cl() {
     fi
 }
 
+
+if hash youtube-dl 2>/dev/null; then
+    # https://github.com/exogen/dotfiles/
+    play() {
+        # Skip DASH manifest for speed purposes. This might actually disable
+        # being able to specify things like 'bestaudio' as the requested format,
+        # but try anyway.
+        # Get the best audio that isn't WebM, because afplay doesn't support it.
+        # Use "$*" so that quoting the requested song isn't necessary.
+        youtube-dl --default-search=ytsearch: \
+            --youtube-skip-dash-manifest \
+            --output="${TMPDIR:-/tmp/}%(title)s-%(id)s.%(ext)s" \
+            --restrict-filenames \
+            --format="bestaudio[ext!=webm]" \
+            --exec=afplay "$*"
+    }
+
+    mp3() {
+        # Get the best audio, convert it to MP3, and save it to the current
+        # directory.
+        youtube-dl --default-search=ytsearch: \
+            --restrict-filenames \
+            --format=bestaudio \
+            --extract-audio \
+            --audio-format=mp3 \
+            --audio-quality=1 "$*"
+    }
+fi
+
+# https://wiki.archlinux.org/index.php/Man_page#Colored_man_pages
+man() {
+    env LESS_TERMCAP_mb=$'\E[01;31m' \
+    LESS_TERMCAP_md=$'\E[01;38;5;74m' \
+    LESS_TERMCAP_me=$'\E[0m' \
+    LESS_TERMCAP_se=$'\E[0m' \
+    LESS_TERMCAP_so=$'\E[38;5;246m' \
+    LESS_TERMCAP_ue=$'\E[0m' \
+    LESS_TERMCAP_us=$'\E[04;38;5;146m' \
+    man "$@"
+}
+
 #http://stackoverflow.com/a/19458217/3720597
 if [[ $OS == "mac" ]]; then
     function clip() {
@@ -310,6 +354,7 @@ if [[ $OS == "mac" ]]; then
     fi
 }
 fi
+
 # Go setup stuff
 export GOPATH=$HOME/Dropbox/steve/projects/go
 export PATH=$PATH:$GOPATH/bin

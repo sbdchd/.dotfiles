@@ -27,10 +27,15 @@ brew install mongodb
 brew install ssh-copy-id
 brew install screenfetch
 
+brew install ffmpeg
+brew install youtube-dl
+
 brew install sl
 brew install cmatrix
 brew install cowsay
 brew install fortune
+brew install brew-gem
+brew install lolcat
 
 brew update
 brew tap jlhonora/lsusb
@@ -58,7 +63,6 @@ brew cask install iterm2
 brew cask install remote-desktop-connection # compatibility issues with later os versions - may need to edit formula manually
 brew cask install atom
 brew cask install vlc
-brew cask install alfred
 brew cask install keepingyouawake
 brew cask install spectacle
 brew cask install gmail-checker
