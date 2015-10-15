@@ -51,6 +51,7 @@ alias gc='git commit'
 alias grm='git rm'
 alias gl='git log'
 alias glpretty='git log --graph --decorate --pretty=oneline --abbrev-commit'
+alias gaa='git add .'
 
 # check if python virtualenv is installed before adding alias
 if hash virtualenv 2>/dev/null; then

@@ -34,8 +34,9 @@ brew install sl
 brew install cmatrix
 brew install cowsay
 brew install fortune
+
 brew install brew-gem
-brew install lolcat
+brew-gem install lolcat
 
 brew update
 brew tap jlhonora/lsusb
