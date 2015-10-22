@@ -34,8 +34,9 @@ DOKKU_TAG=v0.3.25 bash bootstrap.sh
 apt-get install -y openssh-server
 apt-get install -y fail2ban
 
-apt-get install nodejs
-apt-get install npm
+apt-get install -y nodejs
+apt-get install -y npm
+bash js-install.sh
 
 # install vim plug
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
@@ -47,7 +48,10 @@ chown -R $USER ~.vim/
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
 apt-get install -y golang
+
 apt-get install -y python python3 python-dev python-pip python3-dev python3-pip
+apt-get install -y pypy 
+bash py-install.sh
 
 add-apt-repository -y ppa:neovim-ppa/unstable
 apt-get update

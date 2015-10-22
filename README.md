@@ -53,9 +53,3 @@ Git username and email must be set
 git config --global user.name
 git config --global user.email
 ```
-
-# To Do
-
-- [ ] Add a unified script to install & update dotfiles
-- [x] Add script to system link dotfiles
-- [ ] Add option for basic program install & full program install

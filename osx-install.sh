@@ -15,11 +15,19 @@ brew install wakeonlan
 brew install tmux
 brew install reattach-to-user-namespace
 brew install go
+
 brew install python
 brew install python3
+brew install pypy
+brew install pypy3
+bash py-install.sh
+
 brew install ruby
 brew install rbenv
+
 brew install node
+bash js-install.sh
+
 brew install sqlite
 brew install postgresql
 brew install mysql
@@ -41,7 +49,6 @@ brew-gem install lolcat
 brew update
 brew tap jlhonora/lsusb
 brew install lsusb
-
 
 brew tap neovim/neovim
 brew install --HEAD neovim

@@ -32,11 +32,11 @@ set t_vb=
 if has("gui_running")
     autocmd GUIEnter * set vb t_vb=
     if has("gui_gtk2")
-      set guifont=Inconsolata:h12
+        set guifont=Inconsolata:h12
     elseif has("gui_macvim")
-      set guifont=Menlo:h10
+        set guifont=Menlo:h10
     elseif has("gui_win32")
-     set guifont=Consolas:h11
+        set guifont=Consolas:h11
     endif
 endif
 
@@ -234,6 +234,8 @@ Plug 'majutsushi/tagbar'
 Plug 'tpope/vim-markdown'
 Plug 'ap/vim-css-color'
 Plug 'hail2u/vim-css3-syntax'
+Plug 'pangloss/vim-javascript'
+Plug 'Chiel92/vim-autoformat'
 
 call plug#end()
 
@@ -262,6 +264,12 @@ map <leader>d :NERDTreeToggle<CR>
 let NERDTreeShowHidden=1
 " close vim if NERDTree is the last buffer open
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+
+" vim-javascript
+let javascript_enable_domhtmlcss = 1
+
+" vim-autoformat
+au BufWrite * :Autoformat
 
 " go vim
 " highligh go items
