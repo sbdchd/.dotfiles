@@ -121,8 +121,8 @@ set hlsearch
 set incsearch
 
 " allow clipboard to transfer between system and vim
-set clipboard=unnamed
-set clipboard=unnamedplus
+"set clipboard=unnamed
+"set clipboard=unnamedplus
 
 " Add <Tab> completion for commands
 set wildmenu
@@ -236,6 +236,11 @@ Plug 'ap/vim-css-color'
 Plug 'hail2u/vim-css3-syntax'
 Plug 'pangloss/vim-javascript'
 Plug 'Chiel92/vim-autoformat'
+Plug 'vim-utils/vim-troll-stopper'
+Plug 'nvie/vim-flake8'
+Plug 'walm/jshint.vim'
+Plug 'chrisbra/Recover.vim'
+Plug 'Xuyuanp/nerdtree-git-plugin'
 
 call plug#end()
 
@@ -261,25 +266,49 @@ map <leader>g :UndotreeToggle<cr>
 
 " nerdtree
 map <leader>d :NERDTreeToggle<CR>
-let NERDTreeShowHidden=1
+let g:NERDTreeShowHidden=1
 " close vim if NERDTree is the last buffer open
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
+"nerdtree git plugin
+let g:NERDTreeIndicatorMapCustom = {
+            \ "Modified"  : "!",
+            \ "Staged"    : "+",
+            \ "Untracked" : "?",
+            \ "Renamed"   : "➜",
+            \ "Unmerged"  : "═",
+            \ "Deleted"   : "✖",
+            \ "Dirty"     : "✗",
+            \ "Clean"     : "✔︎",
+            \ "Unknown"   : "?"
+            \ }
+
 " vim-javascript
-let javascript_enable_domhtmlcss = 1
+let g:javascript_enable_domhtmlcss=1
 
 " vim-autoformat
-au BufWrite * :Autoformat
+" http://stackoverflow.com/a/10410590/3720597
+let g:autoformat_blacklist = ['markdown']
+au BufWrite * if index(autoformat_blacklist, &ft) < 0 | :Autoformat
 
 " go vim
-" highligh go items
 let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
 let g:go_highlight_structs = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
-" auto run goimports on save
 let g:go_fmt_command = "goimports"
-" make gofmt not show its errors
 let g:go_fmt_fail_silently = 1
+
+" linters
+au FileType python      noremap <C-l> :call Flake8()<CR>
+au FileType javascript  noremap <C-l> :JSHint<CR>
+au FileType go          noremap <C-l> :GoMetaLinter<CR>
+
+"Automatically close vim if only the quickfix window is open
+"http://stackoverflow.com/a/7477056/3720597
+aug QFClose
+    au!
+    au WinEnter * if winnr('$') == 1 && getbufvar(winbufnr(winnr()), "&buftype") == "quickfix"|q|endif
+aug END
 

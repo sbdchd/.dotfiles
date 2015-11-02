@@ -17,7 +17,6 @@ apt-get install -y htop
 apt-get install -y wakeonlan
 
 # Install tmux 2.0 (1.9+ is required for plugins)
-apt-get update
 apt-get install -y python-software-properties software-properties-common
 add-apt-repository -y ppa:pi-rho/dev
 apt-get update
@@ -33,6 +32,9 @@ DOKKU_TAG=v0.3.25 bash bootstrap.sh
 
 apt-get install -y openssh-server
 apt-get install -y fail2ban
+
+apt-get install -y ruby
+bash rb-install.sh
 
 apt-get install -y nodejs
 apt-get install -y npm
