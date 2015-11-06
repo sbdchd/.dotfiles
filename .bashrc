@@ -30,6 +30,10 @@ alias ....='cd ../../..'
 alias .....='cd ../../../..'
 alias ~='cd ~'  # https://github.com/necolas/dotfiles
 
+
+# Default places
+alias p='cd ~/Dropbox/steve/projects'
+
 # http://unix.stackexchange.com/a/43005
 # Use vi/vim style commands to edit & select  cli commands
 set -o vi
@@ -42,20 +46,33 @@ if hash nvim 2>/dev/null; then
 fi
 
 # Git Aliases
-alias gs='git status'
-alias gpl='git pull'
-alias gp='git push'
-alias gd='git diff'
-alias ga='git add'
-alias gc='git commit'
-alias grm='git rm'
-alias gl='git log'
-alias glpretty='git log --graph --decorate --pretty=oneline --abbrev-commit'
-alias gaa='git add .'
+if hash git 2>/dev/null; then
+    alias g='git'
+    alias gs='git status'
+    alias gpl='git pull'
+    alias gp='git push'
+    alias gd='git diff'
+    alias ga='git add'
+    alias gc='git commit'
+    alias grm='git rm'
+    alias gl='git log'
+    alias glpretty='git log --graph --decorate --pretty=oneline --abbrev-commit'
+    alias gaa='git add .'
+    alias gco='git checkout'
+fi
 
 # check if python virtualenv is installed before adding alias
 if hash virtualenv 2>/dev/null; then
     alias activate='. venv/bin/activate'
+fi
+
+# docker machine aliases
+if hash docker-machine 2>/dev/null; then
+    alias dm='docker-machine'
+fi
+
+if hash docker 2>/dev/null; then
+    alias d='docker'
 fi
 
 # alias python http server if python is installed
@@ -270,6 +287,7 @@ set_prompts() {
     PS1+="\[$Blue\] \w"                     # working directory
     PS1+="\[$Green\]\$(prompt_git \" \")"   # git repository details
     PS1+=" \[$Cyan\]\$(virtualenv_info)"    # virtual environment status
+    PS1+="\[$Cyan\]\${DOCKER_MACHINE_NAME}"
     PS1+="\n"
     PS1+="\[$Color_Off\]\$ "                # $ or # depending on user status
 
@@ -332,13 +350,13 @@ fi
 # https://wiki.archlinux.org/index.php/Man_page#Colored_man_pages
 man() {
     env LESS_TERMCAP_mb=$'\E[01;31m' \
-    LESS_TERMCAP_md=$'\E[01;38;5;74m' \
-    LESS_TERMCAP_me=$'\E[0m' \
-    LESS_TERMCAP_se=$'\E[0m' \
-    LESS_TERMCAP_so=$'\E[38;5;246m' \
-    LESS_TERMCAP_ue=$'\E[0m' \
-    LESS_TERMCAP_us=$'\E[04;38;5;146m' \
-    man "$@"
+        LESS_TERMCAP_md=$'\E[01;38;5;74m' \
+        LESS_TERMCAP_me=$'\E[0m' \
+        LESS_TERMCAP_se=$'\E[0m' \
+        LESS_TERMCAP_so=$'\E[38;5;246m' \
+        LESS_TERMCAP_ue=$'\E[0m' \
+        LESS_TERMCAP_us=$'\E[04;38;5;146m' \
+        man "$@"
 }
 
 #http://stackoverflow.com/a/19458217/3720597

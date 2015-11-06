@@ -241,6 +241,7 @@ Plug 'nvie/vim-flake8'
 Plug 'walm/jshint.vim'
 Plug 'chrisbra/Recover.vim'
 Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'Glench/Vim-Jinja2-Syntax'
 
 call plug#end()
 

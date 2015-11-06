@@ -25,5 +25,7 @@ link ".bashrc"         ".bashrc"
 link ".bash_profile"   ".bash_profile"
 link ".inputrc"        ".inputrc"
 link ".gitignore"      ".gitignore"
+link ".vimrc"          ".nvimrc"
+link ".vim"            ".nvim"
 
 echo "Dotfiles update complete!"

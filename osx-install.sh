@@ -100,4 +100,4 @@ curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
 # Install TMUX Package Manager
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
-bash osx-install.sh
+bash osx-defaults.sh
