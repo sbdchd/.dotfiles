@@ -94,10 +94,9 @@ brew cask install font-inconsolata
 brew cask install font-fontawesome
 
 # Install Vim Plug Package Manager
-curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
-    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+bash vimplug-install.sh
 
 # Install TMUX Package Manager
-git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+bash tpm-install.sh
 
 bash osx-defaults.sh
