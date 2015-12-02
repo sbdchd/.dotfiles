@@ -6,15 +6,17 @@ xcode-select --install
 # Install Homebrew
 ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
-brew install git
-brew install vim
-brew install wget
 brew install curl
-brew install htop-osx
-brew install wakeonlan
-brew install tmux
-brew install reattach-to-user-namespace
+brew install git
 brew install go
+brew install htop-osx
+brew install optipng
+brew install reattach-to-user-namespace
+brew install tmux
+brew install tree
+brew install vim
+brew install wakeonlan
+brew install wget
 
 brew install python
 brew install python3
@@ -29,69 +31,66 @@ bash rb-install.sh
 brew install node
 bash js-install.sh
 
-brew install sqlite
-brew install postgresql
-brew install mysql
-brew install mongodb
-brew install ssh-copy-id
-brew install screenfetch
-
-brew install ffmpeg
-brew install youtube-dl
-
-brew install sl
 brew install cmatrix
 brew install cowsay
+brew install ffmpeg
 brew install fortune
+brew install mongodb
+brew install mysql
+brew install neovim/neovim/neovim
+brew install nmap
+brew install postgresql
+brew install screenfetch
+brew install sl
+brew install sqlite
+brew install ssh-copy-id
+brew install youtube-dl
 
 brew install brew-gem
 brew-gem install lolcat
 
-brew update
 brew tap jlhonora/lsusb
 brew install lsusb
 
-brew tap neovim/neovim
-brew install --HEAD neovim
 
 # Install Homebrew-Cask
 brew install caskroom/cask/brew-cask
 
-brew cask install google-chrome
+brew cask install 1password
+brew cask install adobe-illustrator-cc
+brew cask install adobe-photoshop-cc
+brew cask install arduino
+
+brew cask install atom
+bash atom-install.sh
+
+brew cask install audacity
+brew cask install dockertoolbox
+brew cask install dropbox
 brew cask install firefox
 brew cask install flux
-brew cask install grandperspective
-brew cask install virtualbox
-brew cask install vagrant
-brew cask install dockertoolbox
-brew cask install postgres
-brew cask install transmission
-brew cask install 1password
-brew cask install dropbox
-brew cask install iterm2
-brew cask install remote-desktop-connection # compatibility issues with later os versions - may need to edit formula manually
-brew cask install atom
-brew cask install intellij-idea-ce
-brew cask install vlc
-brew cask install keepingyouawake
-brew cask install spectacle
-brew cask install gmail-checker
-brew cask install microsoft-office-365
-brew cask install xquartz
-brew cask install inkscape
 brew cask install gimp
-brew cask install audacity
+brew cask install gmail-notifier
+brew cask install google-chrome
+brew cask install grandperspective
 brew cask install handbrake
+brew cask install intellij-idea-ce
+brew cask install steam
+brew cask install iterm2
+brew cask install keepingyouawake
 brew cask install limechat
-brew cask install the-unarchiver
-brew cask install pgadmin3
-brew cask install sqlitebrowser
+brew cask install microsoft-office
 brew cask install mobile-mouse-server
-
-# Install Fonts
-brew tap caskroom/fonts
-brew cask install font-inconsolata
-brew cask install font-fontawesome
+brew cask install pgadmin3
+brew cask install postgres
+brew cask install spectacle
+brew cask install sqlitebrowser
+brew cask install the-unarchiver
+brew cask install transmission
+brew cask install vagrant
+brew cask install virtualbox
+brew cask install vlc
+brew cask install wireshark
 
 # Install Vim Plug Package Manager
 bash vimplug-install.sh

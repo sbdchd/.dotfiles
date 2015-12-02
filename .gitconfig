@@ -9,3 +9,6 @@
   ui = auto
 [merge]
   tool = vimdiff
+[user]
+  name = Steve Dignam
+  email = steve@dignam.xyz

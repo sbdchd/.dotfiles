@@ -7,7 +7,7 @@ A collection of dotfiles, currently for osx.
 ```bash
 git clone https://github.com/sbdchd/.dotfiles
 cd .dotfiles
-. dotfiles-link.sh
+bash dotfiles-link.sh
 ```
 
 ### Update
@@ -20,7 +20,7 @@ git pull
 OSX
 
 ```bash
-. osx-install.sh 
+bash osx-install.sh 
 ```
 
 Linux
@@ -36,7 +36,7 @@ sudo bash linux-install.sh
 OSX
 
 ```bash
-. osx-update.sh
+bash osx-update.sh
 ```
 
 Linux

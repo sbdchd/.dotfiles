@@ -153,6 +153,10 @@ set ttyfast
 " quicker method for returning to normal mode
 inoremap jj <ESC>
 
+" more efficent for typing commands
+nnoremap ; :
+vnoremap ; :
+
 " detect markdown correctly
 autocmd BufRead,BufNew *.md set filetype=markdown
 
@@ -214,34 +218,36 @@ set autoread
 " https://github.com/junegunn/vim-plug
 call plug#begin('~/.vim/plugged')
 
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
-Plug 'fatih/vim-go'
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-repeat'
-Plug 'scrooloose/nerdtree'
-Plug 'easymotion/vim-easymotion'
-Plug 'mhinz/vim-startify'
-Plug 'tpope/vim-fugitive'
-Plug 'majutsushi/tagbar'
-Plug 'bling/vim-airline'
-Plug 'airblade/vim-gitgutter'
-Plug 'tmux-plugins/vim-tmux'
-Plug 'scrooloose/nerdcommenter'
-Plug 'othree/html5.vim'
-Plug 'mattn/emmet-vim'
-Plug 'mbbill/undotree'
-Plug 'majutsushi/tagbar'
-Plug 'tpope/vim-markdown'
-Plug 'ap/vim-css-color'
-Plug 'hail2u/vim-css3-syntax'
-Plug 'pangloss/vim-javascript'
 Plug 'Chiel92/vim-autoformat'
-Plug 'vim-utils/vim-troll-stopper'
-Plug 'nvie/vim-flake8'
-Plug 'walm/jshint.vim'
+Plug 'Glench/Vim-Jinja2-Syntax', {'for': ['html', 'jinja']}
+Plug 'Xuyuanp/nerdtree-git-plugin', {'on': 'NERDTreeToggle'}
+Plug 'airblade/vim-gitgutter'
+Plug 'ap/vim-css-color'
+Plug 'benekastah/neomake'
+Plug 'bling/vim-airline'
 Plug 'chrisbra/Recover.vim'
-Plug 'Xuyuanp/nerdtree-git-plugin'
-Plug 'Glench/Vim-Jinja2-Syntax'
+Plug 'easymotion/vim-easymotion'
+Plug 'fatih/vim-go', {'for': 'go'}
+Plug 'hail2u/vim-css3-syntax', {'for': ['html', 'css', 'javascript', 'jinja']}
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
+Plug 'junegunn/vim-easy-align'
+Plug 'junegunn/vim-peekaboo'
+Plug 'majutsushi/tagbar'
+Plug 'mattn/emmet-vim'
+Plug 'mbbill/undotree', {'on' : 'UndotreeToggle'}
+Plug 'mhinz/vim-startify'
+Plug 'milkypostman/vim-togglelist'
+Plug 'othree/html5.vim'
+Plug 'pangloss/vim-javascript', {'for': 'javascript'}
+Plug 'scrooloose/nerdcommenter'
+Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}
+Plug 'tmux-plugins/vim-tmux'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-markdown', {'for': 'markdown'}
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-surround'
+Plug 'vim-utils/vim-troll-stopper'
+Plug 'christoomey/vim-sort-motion'
 
 call plug#end()
 
@@ -259,17 +265,27 @@ let g:airline_section_z='%8.(%l/%L%)'
 let g:airline_section_warning='%3.p%%'
 let g:airline_theme='hybrid'
 
+" make diffs default to vertical
+set diffopt+=vertical
+
 " tagbar
-map <leader>t :TagbarToggle<CR>
+noremap <leader>t :TagbarToggle<CR>
 
 " undotree
-map <leader>g :UndotreeToggle<cr>
+noremap <leader>g :UndotreeToggle<cr>
 
 " nerdtree
-map <leader>d :NERDTreeToggle<CR>
+noremap <leader>d :NERDTreeToggle<CR>
 let g:NERDTreeShowHidden=1
 " close vim if NERDTree is the last buffer open
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+
+" vim-easy-align
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga <Plug>(EasyAlign)
+
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
 
 "nerdtree git plugin
 let g:NERDTreeIndicatorMapCustom = {
@@ -288,9 +304,35 @@ let g:NERDTreeIndicatorMapCustom = {
 let g:javascript_enable_domhtmlcss=1
 
 " vim-autoformat
-" http://stackoverflow.com/a/10410590/3720597
-let g:autoformat_blacklist = ['markdown']
-au BufWrite * if index(autoformat_blacklist, &ft) < 0 | :Autoformat
+noremap <leader>f :Autoformat<CR>
+
+" neomake
+autocmd! BufWritePost * Neomake
+
+let g:neomake_error_sign = {
+            \ 'text': '❯❯',
+            \ 'texthl': 'ErrorMsg',
+            \ }
+
+let g:neomake_warning_sign = {
+            \ 'text': '~❯',
+            \ 'texthl': 'WarningMsg',
+            \ }
+let g:neomake_info = {
+            \ 'text': '!>',
+            \ 'texthl': 'WarningMsg',
+            \ }
+
+let g:neomake_go_gometalinter_maker = {
+            \ 'args': ['-t', '%:p:h'],
+            \ 'append_file': 0,
+            \ 'errorformat':
+            \ '%E%f:%l:%c:error: %m,' .
+            \ '%E%f:%l::error: %m,' .
+            \ '%W%f:%l:%c:warning: %m,' .
+            \ '%W%f:%l::warning: %m'
+            \ }
+let g:neomake_go_enabled_makers = ['golint','go','gometalinter']
 
 " go vim
 let g:go_highlight_functions = 1
@@ -300,11 +342,7 @@ let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
 let g:go_fmt_command = "goimports"
 let g:go_fmt_fail_silently = 1
-
-" linters
-au FileType python      noremap <C-l> :call Flake8()<CR>
-au FileType javascript  noremap <C-l> :JSHint<CR>
-au FileType go          noremap <C-l> :GoMetaLinter<CR>
+let g:go_fmt_autosave = 0
 
 "Automatically close vim if only the quickfix window is open
 "http://stackoverflow.com/a/7477056/3720597

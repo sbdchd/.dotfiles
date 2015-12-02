@@ -54,18 +54,18 @@
 " Initialisation:"{{{
 " ----------------------------------------------------------------------------
 if !has("gui_running") && &t_Co < 256
-  finish
+    finish
 endif
 
 if !exists("g:hybrid_use_Xresources")
-  let g:hybrid_use_Xresources = 0
+    let g:hybrid_use_Xresources = 0
 endif
 
 set background=dark
 hi clear
 
 if exists("syntax_on")
-  syntax reset
+    syntax reset
 endif
 
 let colors_name = "hybrid"
@@ -74,67 +74,67 @@ let colors_name = "hybrid"
 " GUI And Cterm Palettes:"{{{
 " ----------------------------------------------------------------------------
 if has("gui_running")
-  let s:vmode      = "gui"
-  let s:background = "#1d1f21"
-  let s:foreground = "#c5c8c6"
-  let s:selection  = "#373b41"
-  let s:line       = "#282a2e"
-  let s:comment    = "#707880"
-  let s:red        = "#cc6666"
-  let s:orange     = "#de935f"
-  let s:yellow     = "#f0c674"
-  let s:green      = "#b5bd68"
-  let s:aqua       = "#8abeb7"
-  let s:blue       = "#81a2be"
-  let s:purple     = "#b294bb"
-  let s:window     = "#303030"
-  let s:darkcolumn = "#1c1c1c"
-  let s:addbg      = "#5F875F"
-  let s:addfg      = "#d7ffaf"
-  let s:changebg   = "#5F5F87"
-  let s:changefg   = "#d7d7ff"
-  let s:darkblue   = "#00005f"
-  let s:darkcyan   = "#005f5f"
-  let s:darkred    = "#5f0000"
-  let s:darkpurple = "#5f005f"
+    let s:vmode      = "gui"
+    let s:background = "#1d1f21"
+    let s:foreground = "#c5c8c6"
+    let s:selection  = "#373b41"
+    let s:line       = "#282a2e"
+    let s:comment    = "#707880"
+    let s:red        = "#cc6666"
+    let s:orange     = "#de935f"
+    let s:yellow     = "#f0c674"
+    let s:green      = "#b5bd68"
+    let s:aqua       = "#8abeb7"
+    let s:blue       = "#81a2be"
+    let s:purple     = "#b294bb"
+    let s:window     = "#303030"
+    let s:darkcolumn = "#1c1c1c"
+    let s:addbg      = "#5F875F"
+    let s:addfg      = "#d7ffaf"
+    let s:changebg   = "#5F5F87"
+    let s:changefg   = "#d7d7ff"
+    let s:darkblue   = "#00005f"
+    let s:darkcyan   = "#005f5f"
+    let s:darkred    = "#5f0000"
+    let s:darkpurple = "#5f005f"
 else
-  let s:vmode      = "cterm"
-  let s:background = "234"
-  let s:window     = "236"
-  let s:darkcolumn = "234"
-  let s:addbg      = "65"
-  let s:addfg      = "193"
-  let s:changebg   = "60"
-  let s:changefg   = "189"
-  let s:darkblue   = "17"
-  let s:darkcyan   = "24"
-  let s:darkred    = "52"
-  let s:darkpurple = "53"
-  if g:hybrid_use_Xresources == 1
-    let s:foreground = "15"   " White
-    let s:selection  = "8"    " DarkGrey
-    let s:line       = "0"    " Black
-    let s:comment    = "7"    " LightGrey
-    let s:red        = "9"    " LightRed
-    let s:orange     = "3"    " DarkYellow
-    let s:yellow     = "11"   " LightYellow
-    let s:green      = "10"   " LightGreen
-    let s:aqua       = "14"   " LightCyan
-    let s:blue       = "12"   " LightBlue
-    let s:purple     = "13"   " LightMagenta
-  else
-    let s:foreground = "250"
-    let s:selection  = "237"
-    let s:line       = "235"
-    let s:comment    = "243"
-    let s:red        = "167"
-    let s:orange     = "173"
-    let s:yellow     = "221"
-    let s:green      = "143"
-    let s:aqua       = "109"
-    let s:blue       = "110"
-    let s:purple     = "139"
-  endif
+    let s:vmode      = "cterm"
+    let s:background = "234"
+    let s:window     = "236"
+    let s:darkcolumn = "234"
+    let s:addbg      = "65"
+    let s:addfg      = "193"
+    let s:changebg   = "60"
+    let s:changefg   = "189"
+    let s:darkblue   = "17"
+    let s:darkcyan   = "24"
+    let s:darkred    = "52"
+    let s:darkpurple = "53"
+    if g:hybrid_use_Xresources == 1
+        let s:foreground = "15"   " White
+        let s:selection  = "8"    " DarkGrey
+        let s:line       = "0"    " Black
+        let s:comment    = "7"    " LightGrey
+        let s:red        = "9"    " LightRed
+        let s:orange     = "3"    " DarkYellow
+        let s:yellow     = "11"   " LightYellow
+        let s:green      = "10"   " LightGreen
+        let s:aqua       = "14"   " LightCyan
+        let s:blue       = "12"   " LightBlue
+        let s:purple     = "13"   " LightMagenta
+    else
+        let s:foreground = "250"
+        let s:selection  = "237"
+        let s:line       = "235"
+        let s:comment    = "243"
+        let s:red        = "167"
+        let s:orange     = "173"
+        let s:yellow     = "221"
+        let s:green      = "143"
+        let s:aqua       = "109"
+        let s:blue       = "110"
+        let s:purple     = "139"
+    endif
 endif
 
 "}}}
@@ -214,51 +214,51 @@ exe "let s:fmt_revr      = ' ".s:vmode."=NONE".s:r.      " term=NONE".s:r    ."'
 exe "let s:fmt_revb      = ' ".s:vmode."=NONE".s:r.s:b.  " term=NONE".s:r.s:b."'"
 
 if has("gui_running")
-  exe "let s:sp_none       = ' guisp=".s:none      ."'"
-  exe "let s:sp_foreground = ' guisp=".s:foreground."'"
-  exe "let s:sp_background = ' guisp=".s:background."'"
-  exe "let s:sp_selection  = ' guisp=".s:selection ."'"
-  exe "let s:sp_line       = ' guisp=".s:line      ."'"
-  exe "let s:sp_comment    = ' guisp=".s:comment   ."'"
-  exe "let s:sp_red        = ' guisp=".s:red       ."'"
-  exe "let s:sp_orange     = ' guisp=".s:orange    ."'"
-  exe "let s:sp_yellow     = ' guisp=".s:yellow    ."'"
-  exe "let s:sp_green      = ' guisp=".s:green     ."'"
-  exe "let s:sp_aqua       = ' guisp=".s:aqua      ."'"
-  exe "let s:sp_blue       = ' guisp=".s:blue      ."'"
-  exe "let s:sp_purple     = ' guisp=".s:purple    ."'"
-  exe "let s:sp_window     = ' guisp=".s:window    ."'"
-  exe "let s:sp_addbg      = ' guisp=".s:addbg     ."'"
-  exe "let s:sp_addfg      = ' guisp=".s:addfg     ."'"
-  exe "let s:sp_changebg   = ' guisp=".s:changebg  ."'"
-  exe "let s:sp_changefg   = ' guisp=".s:changefg  ."'"
-  exe "let s:sp_darkblue   = ' guisp=".s:darkblue  ."'"
-  exe "let s:sp_darkcyan   = ' guisp=".s:darkcyan  ."'"
-  exe "let s:sp_darkred    = ' guisp=".s:darkred   ."'"
-  exe "let s:sp_darkpurple = ' guisp=".s:darkpurple."'"
+    exe "let s:sp_none       = ' guisp=".s:none      ."'"
+    exe "let s:sp_foreground = ' guisp=".s:foreground."'"
+    exe "let s:sp_background = ' guisp=".s:background."'"
+    exe "let s:sp_selection  = ' guisp=".s:selection ."'"
+    exe "let s:sp_line       = ' guisp=".s:line      ."'"
+    exe "let s:sp_comment    = ' guisp=".s:comment   ."'"
+    exe "let s:sp_red        = ' guisp=".s:red       ."'"
+    exe "let s:sp_orange     = ' guisp=".s:orange    ."'"
+    exe "let s:sp_yellow     = ' guisp=".s:yellow    ."'"
+    exe "let s:sp_green      = ' guisp=".s:green     ."'"
+    exe "let s:sp_aqua       = ' guisp=".s:aqua      ."'"
+    exe "let s:sp_blue       = ' guisp=".s:blue      ."'"
+    exe "let s:sp_purple     = ' guisp=".s:purple    ."'"
+    exe "let s:sp_window     = ' guisp=".s:window    ."'"
+    exe "let s:sp_addbg      = ' guisp=".s:addbg     ."'"
+    exe "let s:sp_addfg      = ' guisp=".s:addfg     ."'"
+    exe "let s:sp_changebg   = ' guisp=".s:changebg  ."'"
+    exe "let s:sp_changefg   = ' guisp=".s:changefg  ."'"
+    exe "let s:sp_darkblue   = ' guisp=".s:darkblue  ."'"
+    exe "let s:sp_darkcyan   = ' guisp=".s:darkcyan  ."'"
+    exe "let s:sp_darkred    = ' guisp=".s:darkred   ."'"
+    exe "let s:sp_darkpurple = ' guisp=".s:darkpurple."'"
 else
-  let s:sp_none       = ""
-  let s:sp_foreground = ""
-  let s:sp_background = ""
-  let s:sp_selection  = ""
-  let s:sp_line       = ""
-  let s:sp_comment    = ""
-  let s:sp_red        = ""
-  let s:sp_orange     = ""
-  let s:sp_yellow     = ""
-  let s:sp_green      = ""
-  let s:sp_aqua       = ""
-  let s:sp_blue       = ""
-  let s:sp_purple     = ""
-  let s:sp_window     = ""
-  let s:sp_addbg      = ""
-  let s:sp_addfg      = ""
-  let s:sp_changebg   = ""
-  let s:sp_changefg   = ""
-  let s:sp_darkblue   = ""
-  let s:sp_darkcyan   = ""
-  let s:sp_darkred    = ""
-  let s:sp_darkpurple = ""
+    let s:sp_none       = ""
+    let s:sp_foreground = ""
+    let s:sp_background = ""
+    let s:sp_selection  = ""
+    let s:sp_line       = ""
+    let s:sp_comment    = ""
+    let s:sp_red        = ""
+    let s:sp_orange     = ""
+    let s:sp_yellow     = ""
+    let s:sp_green      = ""
+    let s:sp_aqua       = ""
+    let s:sp_blue       = ""
+    let s:sp_purple     = ""
+    let s:sp_window     = ""
+    let s:sp_addbg      = ""
+    let s:sp_addfg      = ""
+    let s:sp_changebg   = ""
+    let s:sp_changefg   = ""
+    let s:sp_darkblue   = ""
+    let s:sp_darkcyan   = ""
+    let s:sp_darkred    = ""
+    let s:sp_darkpurple = ""
 endif
 
 "}}}
@@ -312,9 +312,9 @@ hi LongLineWarning  guifg=NONE        guibg=#371F1C     gui=underline ctermfg=NO
 
 " Use Xresources for background colour
 if has('gui_running') || g:hybrid_use_Xresources != 1
-  exe "hi! Normal"        .s:fg_foreground  .s:bg_background  .s:fmt_none
+    exe "hi! Normal"        .s:fg_foreground  .s:bg_background  .s:fmt_none
 else
-  exe "hi! Normal"        .s:fg_foreground  .s:bg_none        .s:fmt_none
+    exe "hi! Normal"        .s:fg_foreground  .s:bg_none        .s:fmt_none
 endif
 
 "}}}
@@ -389,6 +389,9 @@ exe "hi! qfLineNr"        .s:fg_yellow      .s:bg_none        .s:fmt_none
 hi! link diffRemoved Constant
 "   diffChanged
 hi! link diffAdded Special
+"hi! link diffChange
+highlight DiffChange cterm=none ctermfg=bg ctermbg=Yellow gui=none guifg=bg guibg=Yellow
+
 "   diffLine
 "   diffSubname
 "   diffComment

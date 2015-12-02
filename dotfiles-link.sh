@@ -2,6 +2,7 @@
 
 # Parts taken from https://github.com/necolas/dotfiles
 
+# NOTE: the .dotfiles dir location
 DOTFILES_DIRECTORY="${HOME}/.dotfiles"
 
 link() {
@@ -25,7 +26,11 @@ link ".bashrc"         ".bashrc"
 link ".bash_profile"   ".bash_profile"
 link ".inputrc"        ".inputrc"
 link ".gitignore"      ".gitignore"
-link ".vimrc"          ".nvimrc"
-link ".vim"            ".nvim"
+link ".eslintrc"       ".eslintrc"
+
+# neovim
+mkdir -p ${XDG_CONFIG_HOME:=$HOME/.config}
+ln -s ~/.vim $XDG_CONFIG_HOME/nvim
+ln -s ~/.vimrc $XDG_CONFIG_HOME/nvim/init.vim
 
 echo "Dotfiles update complete!"

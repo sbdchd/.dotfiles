@@ -23,6 +23,8 @@ alias mv='mv -iv'
 
 alias ll='ls -l'
 
+alias e='exit'
+
 # Easier movement
 alias ..='cd ..'
 alias ...='cd ../..'
@@ -30,9 +32,15 @@ alias ....='cd ../../..'
 alias .....='cd ../../../..'
 alias ~='cd ~'  # https://github.com/necolas/dotfiles
 
+# Go setup stuff
+export GOPATH=$HOME/Dropbox/steve/projects/go
+export PATH=$PATH:$GOPATH/bin
 
 # Default places
 alias p='cd ~/Dropbox/steve/projects'
+alias desk='cd ~/Desktop'
+alias dropbox='cd ~/Dropbox'
+alias golang='cd $GOPATH/src/github.com/sbdchd'
 
 # http://unix.stackexchange.com/a/43005
 # Use vi/vim style commands to edit & select  cli commands
@@ -57,8 +65,20 @@ if hash git 2>/dev/null; then
     alias grm='git rm'
     alias gl='git log'
     alias glpretty='git log --graph --decorate --pretty=oneline --abbrev-commit'
+    alias gca='git commit -a'
     alias gaa='git add .'
     alias gco='git checkout'
+    alias gcb='git checkout -b'
+    alias gb='git branch'
+    alias grb='git rebase'
+fi
+
+if hash python2 2>/dev/null; then
+    alias py2='python2'
+fi
+
+if hash python3 2>/dev/null; then
+    alias py3='python3'
 fi
 
 # check if python virtualenv is installed before adding alias
@@ -69,6 +89,9 @@ fi
 # docker machine aliases
 if hash docker-machine 2>/dev/null; then
     alias dm='docker-machine'
+    alias dmc='eval "$(docker-machine env default)"'
+    alias dms='docker-machine start default'
+    alias dme='docker-machine stop default'
 fi
 
 if hash docker 2>/dev/null; then
@@ -287,7 +310,7 @@ set_prompts() {
     PS1+="\[$Blue\] \w"                     # working directory
     PS1+="\[$Green\]\$(prompt_git \" \")"   # git repository details
     PS1+=" \[$Cyan\]\$(virtualenv_info)"    # virtual environment status
-    PS1+="\[$Cyan\]\${DOCKER_MACHINE_NAME}"
+    PS1+="\[$Cyan\]\${DOCKER_MACHINE_NAME}" # display docker machine name
     PS1+="\n"
     PS1+="\[$Color_Off\]\$ "                # $ or # depending on user status
 
@@ -345,6 +368,14 @@ if hash youtube-dl 2>/dev/null; then
             --audio-format=mp3 \
             --audio-quality=1 "$*"
     }
+
+    mp4() {
+        # Get the best audio, convert it to MP3, and save it to the current
+        # directory.
+        youtube-dl --default-search=ytsearch: \
+            --restrict-filenames \
+            --format=best "$*"
+    }
 fi
 
 # https://wiki.archlinux.org/index.php/Man_page#Colored_man_pages
@@ -374,9 +405,11 @@ if [[ $OS == "mac" ]]; then
 }
 fi
 
-# Go setup stuff
-export GOPATH=$HOME/Dropbox/steve/projects/go
-export PATH=$PATH:$GOPATH/bin
+# tmux alias
+
+if hash tmux 2>/dev/null; then
+    alias ta="tmux attach"
+fi
 
 # https://wiki.archlinux.org/index.php/Tmux#Autostart_tmux_with_default_tmux_layout
 # make Tmux open on terminal startup
