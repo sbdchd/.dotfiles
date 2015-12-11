@@ -3,6 +3,9 @@
 " show the line number relative to the cursor line 
 set relativenumber
 
+" show actual line number instead of the relative 0
+set number
+
 " tells vim what type of background is used
 set background=dark
 
@@ -226,10 +229,12 @@ Plug 'ap/vim-css-color'
 Plug 'benekastah/neomake'
 Plug 'bling/vim-airline'
 Plug 'chrisbra/Recover.vim'
+Plug 'christoomey/vim-sort-motion'
 Plug 'easymotion/vim-easymotion'
 Plug 'fatih/vim-go', {'for': 'go'}
 Plug 'hail2u/vim-css3-syntax', {'for': ['html', 'css', 'javascript', 'jinja']}
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
+Plug 'junegunn/fzf.vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'junegunn/vim-peekaboo'
 Plug 'majutsushi/tagbar'
@@ -247,7 +252,7 @@ Plug 'tpope/vim-markdown', {'for': 'markdown'}
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'vim-utils/vim-troll-stopper'
-Plug 'christoomey/vim-sort-motion'
+Plug 'wellle/targets.vim'
 
 call plug#end()
 
@@ -272,7 +277,7 @@ set diffopt+=vertical
 noremap <leader>t :TagbarToggle<CR>
 
 " undotree
-noremap <leader>g :UndotreeToggle<cr>
+noremap <leader>g :UndotreeToggle<CR>
 
 " nerdtree
 noremap <leader>d :NERDTreeToggle<CR>
@@ -303,8 +308,29 @@ let g:NERDTreeIndicatorMapCustom = {
 " vim-javascript
 let g:javascript_enable_domhtmlcss=1
 
-" vim-autoformat
-noremap <leader>f :Autoformat<CR>
+
+" vim autoformat
+let g:format = 1
+
+function ToggleFormatter()
+    if g:format == 1
+        let g:format = 0
+        echo "Disabled Formatter"
+    else
+        let g:format = 1
+        echo "Enabled Formatter"
+    endif
+endfunction
+
+function Formatter()
+    if g:format == 1
+        Autoformat()
+    endif
+endfunction
+
+noremap <leader>f :call ToggleFormatter()<CR>
+
+au BufWrite * :call Formatter()
 
 " neomake
 autocmd! BufWritePost * Neomake
@@ -333,6 +359,17 @@ let g:neomake_go_gometalinter_maker = {
             \ '%W%f:%l::warning: %m'
             \ }
 let g:neomake_go_enabled_makers = ['golint','go','gometalinter']
+
+
+" added this so the extra '--shell=bash' argument gets included
+let g:neomake_sh_shellcheck_maker = {
+            \ 'args': ['-fgcc', '--shell=bash'],
+            \ 'errorformat':
+            \ '%f:%l:%c: %trror: %m,' .
+            \ '%f:%l:%c: %tarning: %m,' .
+            \ '%f:%l:%c: %tote: %m'
+            \ }
+let g:neomake_sh_enabled_makers = ['shellcheck']
 
 " go vim
 let g:go_highlight_functions = 1

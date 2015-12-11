@@ -32,15 +32,49 @@ alias ....='cd ../../..'
 alias .....='cd ../../../..'
 alias ~='cd ~'  # https://github.com/necolas/dotfiles
 
+if hash pmset 2>/dev/null; then
+    alias sleep='pmset sleepnow'
+fi
+
+if hash osascript 2>/dev/null; then
+    # slightly odd names to prevent collisions and accidental triggering
+    alias shutdownc="osascript -e 'tell app \"System Events\" to shut down'"
+    alias restartc="osascript -e 'tell app \"System Events\" to restart'"
+fi
+
+if hash curl 2>/dev/null; then
+    alias header='curl -I'
+fi
+
+if hash ccat 2>/dev/null; then
+    # better for cat abuse
+    alias cat='ccat'
+fi
+
+if hash wget 2>/dev/null; then
+    alias wget='wget -c'
+fi
+
+if hash grep 2>/dev/null; then
+    alias grep='grep --color=always'
+fi
+
+if [[ $OS == mac ]]; then
+    alias airport="/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport"
+fi
+
 # Go setup stuff
 export GOPATH=$HOME/Dropbox/steve/projects/go
 export PATH=$PATH:$GOPATH/bin
 
 # Default places
-alias p='cd ~/Dropbox/steve/projects'
-alias desk='cd ~/Desktop'
+alias projects='cd ~/Dropbox/steve/projects'
+alias desktop='cd ~/Desktop'
+alias downloads='cd ~/Downloads'
 alias dropbox='cd ~/Dropbox'
 alias golang='cd $GOPATH/src/github.com/sbdchd'
+alias apps='cd ~/Applications'
+alias trash='cd ~/.Trash'
 
 # http://unix.stackexchange.com/a/43005
 # Use vi/vim style commands to edit & select  cli commands
@@ -144,6 +178,7 @@ export EDITOR=vim
 HISTSIZE=1000
 # Number of lines of commands stored in .bash_history file persistently
 HISTFILESIZE=10000
+HISTCONTROL=ignoreboth
 
 # make postgresql cli tools work
 export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/9.4/bin
@@ -154,7 +189,7 @@ prompt_git() {
     local branchName=""
 
     # check if the current directory is in a git repository
-    if [ $(git rev-parse --is-inside-work-tree &>/dev/null; printf "%s" $?) == 0 ]; then
+    if [ "$(git rev-parse --is-inside-work-tree &>/dev/null; printf "%s" $?)" == 0 ]; then
 
         # check if the current directory is in .git before running git checks
         if [ "$(git rev-parse --is-inside-git-dir 2> /dev/null)" == "false" ]; then
@@ -163,12 +198,12 @@ prompt_git() {
             git update-index --really-refresh  -q &>/dev/null
 
             # check for uncommitted changes in the index
-            if ! $(git diff --quiet --ignore-submodules --cached); then
+            if ! git diff --quiet --ignore-submodules --cached; then
                 s="$s+";
             fi
 
             # check for unstaged changes
-            if ! $(git diff-files --quiet --ignore-submodules --); then
+            if ! git diff-files --quiet --ignore-submodules; then
                 s="$s!";
             fi
 
@@ -178,7 +213,7 @@ prompt_git() {
             fi
 
             # check for stashed files
-            if $(git rev-parse --verify refs/stash &>/dev/null); then
+            if git rev-parse --verify refs/stash &>/dev/null; then
                 s="$s$";
             fi
             # https://gist.github.com/woods/31967
@@ -231,74 +266,74 @@ export VIRTUAL_ENV_DISABLE_PROMPT=1
 Color_Off='\e[0m'       # Text Reset
 
 # Regular Colors
-Black='\e[0;30m'        # Black
-Red='\e[0;31m'          # Red
+#Black='\e[0;30m'        # Black
+#Red='\e[0;31m'          # Red
 Green='\e[0;32m'        # Green
 Yellow='\e[0;33m'       # Yellow
 Blue='\e[0;34m'         # Blue
 Purple='\e[0;35m'       # Purple
 Cyan='\e[0;36m'         # Cyan
-White='\e[0;37m'        # White
+#White='\e[0;37m'        # White
 
 # Bold
-BBlack='\e[1;30m'       # Black
-BRed='\e[1;31m'         # Red
-BGreen='\e[1;32m'       # Green
-BYellow='\e[1;33m'      # Yellow
-BBlue='\e[1;34m'        # Blue
-BPurple='\e[1;35m'      # Purple
-BCyan='\e[1;36m'        # Cyan
-BWhite='\e[1;37m'       # White
+#BBlack='\e[1;30m'       # Black
+#BRed='\e[1;31m'         # Red
+#BGreen='\e[1;32m'       # Green
+#BYellow='\e[1;33m'      # Yellow
+#BBlue='\e[1;34m'        # Blue
+#BPurple='\e[1;35m'      # Purple
+#BCyan='\e[1;36m'        # Cyan
+#BWhite='\e[1;37m'       # White
 
 # Underline
-UBlack='\e[4;30m'       # Black
-URed='\e[4;31m'         # Red
-UGreen='\e[4;32m'       # Green
-UYellow='\e[4;33m'      # Yellow
-UBlue='\e[4;34m'        # Blue
-UPurple='\e[4;35m'      # Purple
-UCyan='\e[4;36m'        # Cyan
-UWhite='\e[4;37m'       # White
+#UBlack='\e[4;30m'       # Black
+#URed='\e[4;31m'         # Red
+#UGreen='\e[4;32m'       # Green
+#UYellow='\e[4;33m'      # Yellow
+#UBlue='\e[4;34m'        # Blue
+#UPurple='\e[4;35m'      # Purple
+#UCyan='\e[4;36m'        # Cyan
+#UWhite='\e[4;37m'       # White
 
 # Background
-On_Black='\e[40m'       # Black
-On_Red='\e[41m'         # Red
-On_Green='\e[42m'       # Green
-On_Yellow='\e[43m'      # Yellow
-On_Blue='\e[44m'        # Blue
-On_Purple='\e[45m'      # Purple
-On_Cyan='\e[46m'        # Cyan
-On_White='\e[47m'       # White
+#On_Black='\e[40m'       # Black
+#On_Red='\e[41m'         # Red
+#On_Green='\e[42m'       # Green
+#On_Yellow='\e[43m'      # Yellow
+#On_Blue='\e[44m'        # Blue
+#On_Purple='\e[45m'      # Purple
+#On_Cyan='\e[46m'        # Cyan
+#On_White='\e[47m'       # White
 
 # High Intensity
-IBlack='\e[0;90m'       # Black
-IRed='\e[0;91m'         # Red
-IGreen='\e[0;92m'       # Green
-IYellow='\e[0;93m'      # Yellow
-IBlue='\e[0;94m'        # Blue
-IPurple='\e[0;95m'      # Purple
-ICyan='\e[0;96m'        # Cyan
-IWhite='\e[0;97m'       # White
+#IBlack='\e[0;90m'       # Black
+#IRed='\e[0;91m'         # Red
+#IGreen='\e[0;92m'       # Green
+#IYellow='\e[0;93m'      # Yellow
+#IBlue='\e[0;94m'        # Blue
+#IPurple='\e[0;95m'      # Purple
+#ICyan='\e[0;96m'        # Cyan
+#IWhite='\e[0;97m'       # White
 
 # Bold High Intensity
-BIBlack='\e[1;90m'      # Black
-BIRed='\e[1;91m'        # Red
-BIGreen='\e[1;92m'      # Green
-BIYellow='\e[1;93m'     # Yellow
-BIBlue='\e[1;94m'       # Blue
-BIPurple='\e[1;95m'     # Purple
-BICyan='\e[1;96m'       # Cyan
-BIWhite='\e[1;97m'      # White
+#BIBlack='\e[1;90m'      # Black
+#BIRed='\e[1;91m'        # Red
+#BIGreen='\e[1;92m'      # Green
+#BIYellow='\e[1;93m'     # Yellow
+#BIBlue='\e[1;94m'       # Blue
+#BIPurple='\e[1;95m'     # Purple
+#BICyan='\e[1;96m'       # Cyan
+#BIWhite='\e[1;97m'      # White
 
 # High Intensity backgrounds
-On_IBlack='\e[0;100m'   # Black
-On_IRed='\e[0;101m'     # Red
-On_IGreen='\e[0;102m'   # Green
-On_IYellow='\e[0;103m'  # Yellow
-On_IBlue='\e[0;104m'    # Blue
-On_IPurple='\e[0;105m'  # Purple
-On_ICyan='\e[0;106m'    # Cyan
-On_IWhite='\e[0;107m'   # White
+#On_IBlack='\e[0;100m'   # Black
+#On_IRed='\e[0;101m'     # Red
+#On_IGreen='\e[0;102m'   # Green
+#On_IYellow='\e[0;103m'  # Yellow
+#On_IBlue='\e[0;104m'    # Blue
+#On_IPurple='\e[0;105m'  # Purple
+#On_ICyan='\e[0;106m'    # Cyan
+#On_IWhite='\e[0;107m'   # White
 
 set_prompts() {
     # set the terminal title to the current working directory
@@ -322,12 +357,26 @@ unset set_prompts
 
 # Functions
 
+# search recessively
+# 2nd optional argument for directory. Defaults to $PWD.
+findtext() {
+    if (( $# < 2 )); then
+        local arg2=$PWD
+    else
+        local arg2="$2"
+    fi
+    grep -riI --color "$1" "$arg2" 2>/dev/null
+}
 # Make directory and enter it
-md() { mkdir -p "$@" && cd "$@"; }
+md() {
+    mkdir -p "$@" && cd "$@"
+}
 
 # http://serverfault.com/a/28649
 # move up directories more easily
-up() { cd $(eval printf '../'%.0s {1..$1}); }
+up() {
+    cd "$(eval printf '../'%.s $(seq 1 $1))"
+}
 
 # https://wiki.archlinux.org/index.php/Bash/Functions#cd_and_ls_in_one
 # cd and ls combined
@@ -341,6 +390,11 @@ cl() {
     fi
 }
 
+if hash awk 2>/dev/null && hash colum 2>/dev/null; then 
+    len(){
+        ls -lnh "$1" | awk '{print $5, $9}' | column -t
+    }
+fi
 
 if hash youtube-dl 2>/dev/null; then
     # https://github.com/exogen/dotfiles/
@@ -405,8 +459,11 @@ if [[ $OS == "mac" ]]; then
 }
 fi
 
-# tmux alias
+if hash screenfetch 2>/dev/null; then
+    alias screenfetch='screenfetch -d "+disk"'
+fi
 
+# tmux alias
 if hash tmux 2>/dev/null; then
     alias ta="tmux attach"
 fi
@@ -414,7 +471,7 @@ fi
 # https://wiki.archlinux.org/index.php/Tmux#Autostart_tmux_with_default_tmux_layout
 # make Tmux open on terminal startup
 if [[ -z "$TMUX" ]]; then
-    ID="`tmux ls | grep -vm1 attached | cut -d: -f1`" # get the id of a deattached session
+    ID="$(tmux ls | grep -vm1 attached | cut -d: -f1)" # get the id of a deattached session
     if [[ -z "$ID" ]]; then # if not available create a new one
         tmux new-session
     else
@@ -462,4 +519,5 @@ fi
 # make * select normal and dot files
 shopt -s dotglob
 
+# for fzf previous command history search `<CTRL> R`
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash

@@ -6,17 +6,28 @@ xcode-select --install
 # Install Homebrew
 ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
-brew install curl
+# General Programs
+brew install bash
 brew install git
-brew install go
-brew install htop-osx
+brew install neovim/neovim/neovim
 brew install optipng
 brew install reattach-to-user-namespace
+brew install ssh-copy-id
 brew install tmux
-brew install tree
 brew install vim
-brew install wakeonlan
-brew install wget
+
+brew install youtube-dl
+# ffmpeg is needed for some youtube-dl features
+brew install ffmpeg
+
+# DBs
+brew install mongodb
+brew install mysql
+brew install sqlite
+brew install postgresql
+
+# Languages
+brew install go
 
 brew install python
 brew install python3
@@ -31,39 +42,41 @@ bash rb-install.sh
 brew install node
 bash js-install.sh
 
-brew install cmatrix
-brew install cowsay
-brew install ffmpeg
-brew install fortune
-brew install mongodb
-brew install mysql
-brew install neovim/neovim/neovim
-brew install nmap
-brew install postgresql
+# Utilities
+brew install ccat
+brew install highlight
+brew install wakeonlan
+brew install tree
+brew install wget
+brew install htop-osx
+brew install jlhonora/lsusb/lsusb
+brew install curl
+brew install shellcheck
+
+# Other Utilities
 brew install screenfetch
 brew install sl
-brew install sqlite
-brew install ssh-copy-id
-brew install youtube-dl
-
+brew install cmatrix
+brew install cowsay
+brew install fortune
 brew install brew-gem
 brew-gem install lolcat
 
-brew tap jlhonora/lsusb
-brew install lsusb
-
+# Netsec
+brew install nmap
+brew install john-jumbo
+brew install aircrack-ng
 
 # Install Homebrew-Cask
 brew install caskroom/cask/brew-cask
+
+brew cask install atom
+bash atom-install.sh
 
 brew cask install 1password
 brew cask install adobe-illustrator-cc
 brew cask install adobe-photoshop-cc
 brew cask install arduino
-
-brew cask install atom
-bash atom-install.sh
-
 brew cask install audacity
 brew cask install dockertoolbox
 brew cask install dropbox
@@ -74,23 +87,30 @@ brew cask install gmail-notifier
 brew cask install google-chrome
 brew cask install grandperspective
 brew cask install handbrake
+brew cask install hashcat
 brew cask install intellij-idea-ce
-brew cask install steam
 brew cask install iterm2
 brew cask install keepingyouawake
 brew cask install limechat
 brew cask install microsoft-office
 brew cask install mobile-mouse-server
+brew cask install origin
 brew cask install pgadmin3
 brew cask install postgres
 brew cask install spectacle
 brew cask install sqlitebrowser
+brew cask install steam
 brew cask install the-unarchiver
 brew cask install transmission
 brew cask install vagrant
 brew cask install virtualbox
 brew cask install vlc
 brew cask install wireshark
+
+brew tap sbdchd/sleep-restart-shutdown
+brew cask install sleep
+brew cask install restart
+brew cask install shutdown
 
 # Install Vim Plug Package Manager
 bash vimplug-install.sh
