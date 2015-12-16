@@ -46,5 +46,8 @@ defaults write com.apple.finder DisableAllAnimations -bool true
 # Finder: show hidden files by default
 defaults write com.apple.finder AppleShowAllFiles -bool true
 
+# Disable Dashboard
+defaults write com.apple.dashboard mcx-disabled -boolean YES
+
 # Finder: use list view in all windows by default
 # Four-letter codes for the other view modes: `icnv`, `clmv`, `Flwv`

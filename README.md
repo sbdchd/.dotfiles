@@ -5,8 +5,8 @@ A collection of dotfiles, currently for osx.
 
 ## Install
 ```bash
-git clone https://github.com/sbdchd/.dotfiles
-cd .dotfiles
+git clone https://github.com/sbdchd/.dotfiles && \
+cd .dotfiles && \
 bash dotfiles-link.sh
 ```
 
@@ -47,7 +47,7 @@ sudo bash linux-update.sh
 
 ## Notes
 
-Git username and email must be set
+The default git username and email should be changed
 
 ```bash
 git config --global user.name

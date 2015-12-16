@@ -308,9 +308,11 @@ let g:NERDTreeIndicatorMapCustom = {
 " vim-javascript
 let g:javascript_enable_domhtmlcss=1
 
-
 " vim autoformat
 let g:format = 1
+
+let g:formatdef_goimports = '"goimports"'
+let g:formatters_go = ['goimports']
 
 function ToggleFormatter()
     if g:format == 1
@@ -324,7 +326,7 @@ endfunction
 
 function Formatter()
     if g:format == 1
-        Autoformat()
+        Autoformat
     endif
 endfunction
 

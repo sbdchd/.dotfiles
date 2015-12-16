@@ -44,14 +44,15 @@ bash js-install.sh
 
 # Utilities
 brew install ccat
+brew install curl
 brew install highlight
-brew install wakeonlan
-brew install tree
-brew install wget
 brew install htop-osx
 brew install jlhonora/lsusb/lsusb
-brew install curl
 brew install shellcheck
+brew install tree
+brew install unp
+brew install wakeonlan
+brew install wget
 
 # Other Utilities
 brew install screenfetch
