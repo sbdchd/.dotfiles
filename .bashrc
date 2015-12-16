@@ -410,9 +410,7 @@ macchanger() {
     local help+="-r, --random              Set random MAC address, macchanger -r en0\n"
     local help+="-s, --show                Show the MAC address,   macchanger -s en0"
 
-    (( $# < 1 )) && echo -e "$help"
-
-    while (($# > 0)); do
+    if (($# > 0)); then
         case "$1" in
             -m|--mac)
                 if (($# > 2)); then
@@ -421,7 +419,6 @@ macchanger() {
                 else
                     echo "macchanger: no device or mac address specified"
                 fi
-                break
                 ;;
             -r|--random)
                 if (($# > 1)); then
@@ -437,7 +434,6 @@ macchanger() {
                 else
                     echo "macchanger: no device specified"
                 fi
-                break
                 ;;
             -s|--show)
                 if (($# > 1)); then
@@ -445,13 +441,14 @@ macchanger() {
                 else
                     echo "macchanger: no device specified"
                 fi
-                break
                 ;;
             *)
                 echo -e "$help"
                 ;;
         esac
-    done
+    else
+        echo -e "$help"
+    fi
 
     if [ -n "$DEVICE" ] && [ -n "$NEWMAC" ]; then
         sudo ifconfig "$DEVICE" ether "$NEWMAC" && \

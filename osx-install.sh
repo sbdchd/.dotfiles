@@ -23,8 +23,8 @@ brew install ffmpeg
 # DBs
 brew install mongodb
 brew install mysql
-brew install sqlite
 brew install postgresql
+brew install sqlite
 
 # Languages
 brew install go
@@ -55,18 +55,19 @@ brew install wakeonlan
 brew install wget
 
 # Other Utilities
-brew install screenfetch
-brew install sl
+brew install brew-gem
 brew install cmatrix
 brew install cowsay
 brew install fortune
-brew install brew-gem
+brew install screenfetch
+brew install sl
 brew-gem install lolcat
 
 # Netsec
-brew install nmap
-brew install john-jumbo
 brew install aircrack-ng
+brew install john-jumbo
+brew install netcat6
+brew install nmap
 
 # Install Homebrew-Cask
 brew install caskroom/cask/brew-cask
