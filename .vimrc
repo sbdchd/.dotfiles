@@ -153,9 +153,6 @@ set nostartofline
 " increase redraw smoothness
 set ttyfast
 
-" quicker method for returning to normal mode
-inoremap jj <ESC>
-
 " more efficent for typing commands
 nnoremap ; :
 vnoremap ; :
@@ -200,9 +197,6 @@ set cpoptions+=$
 " Enable 256 color
 set t_Co=256
 
-" set color scheme
-silent! color hybrid
-
 " use certain characters to show whitespace characters
 set listchars=tab:▸\ 
 set listchars+=nbsp:⎵
@@ -212,7 +206,7 @@ set listchars+=trail:·
 set list
 
 " set the leader key
-let mapleader = ','
+let mapleader = ' '
 
 " read file again on change
 set autoread
@@ -227,7 +221,7 @@ Plug 'Xuyuanp/nerdtree-git-plugin', {'on': 'NERDTreeToggle'}
 Plug 'airblade/vim-gitgutter'
 Plug 'ap/vim-css-color'
 Plug 'benekastah/neomake'
-Plug 'bling/vim-airline'
+Plug 'bling/vim-airline' | Plug 'sbdchd/airline-steve'
 Plug 'chrisbra/Recover.vim'
 Plug 'christoomey/vim-sort-motion'
 Plug 'easymotion/vim-easymotion'
@@ -252,6 +246,7 @@ Plug 'tpope/vim-markdown', {'for': 'markdown'}
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'vim-utils/vim-troll-stopper'
+Plug 'w0ng/vim-hybrid'
 Plug 'wellle/targets.vim'
 
 call plug#end()
@@ -268,7 +263,13 @@ let g:airline_right_sep=''
 let g:airline_section_y='%{&fenc?&fenc:&enc} %{&fileformat}'
 let g:airline_section_z='%8.(%l/%L%)'
 let g:airline_section_warning='%3.p%%'
-let g:airline_theme='hybrid'
+let g:airline_theme='steve'
+let g:airline#extensions#tabline#enabled = 0
+let g:airline#extensions#tabline#left_sep = ''
+let g:airline#extensions#tabline#left_alt_sep = ''
+
+" set color scheme
+silent! color hybrid
 
 " make diffs default to vertical
 set diffopt+=vertical
@@ -313,6 +314,10 @@ let g:format = 1
 
 let g:formatdef_goimports = '"goimports"'
 let g:formatters_go = ['goimports']
+
+let g:formatdef_rubocop = '"rubocop --auto-correct"'
+let g:formatters_ruby = ['rubocop']
+au filetype ruby set shiftwidth=2
 
 function ToggleFormatter()
     if g:format == 1

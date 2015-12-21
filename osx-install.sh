@@ -48,6 +48,7 @@ brew install curl
 brew install highlight
 brew install htop-osx
 brew install jlhonora/lsusb/lsusb
+brew install sbdchd/macchanger/macchanger
 brew install shellcheck
 brew install tree
 brew install unp

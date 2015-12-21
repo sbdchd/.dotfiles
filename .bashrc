@@ -32,6 +32,9 @@ alias ....='cd ../../..'
 alias .....='cd ../../../..'
 alias ~='cd ~'  # https://github.com/necolas/dotfiles
 
+# misspellings
+alias mdkir='mkdir'
+
 if hash pmset 2>/dev/null; then
     alias sleep='pmset sleepnow'
 fi
@@ -401,61 +404,6 @@ if hash awk 2>/dev/null && hash column 2>/dev/null; then
     }
 fi
 
-# base off this https://github.com/acrogenesis/macchanger but in bash bc
-macchanger() {
-    local help="usage: macchanger [options] [device]\n"
-    local help+=" \n"
-    local help+="options:\n"
-    local help+="-m, --mac MAC             Set the MAC address,    macchanger -m XX:XX:XX:XX:XX:XX en0\n"
-    local help+="-r, --random              Set random MAC address, macchanger -r en0\n"
-    local help+="-s, --show                Show the MAC address,   macchanger -s en0"
-
-    if (($# > 0)); then
-        case "$1" in
-            -m|--mac)
-                if (($# > 2)); then
-                    local DEVICE=$2
-                    local NEWMAC=$3
-                else
-                    echo "macchanger: no device or mac address specified"
-                fi
-                ;;
-            -r|--random)
-                if (($# > 1)); then
-                    local DEVICE=$2
-                    if hash openssl 2>/dev/null; then
-                        local NEWMAC="$(openssl rand -hex 6 | sed 's/\(..\)/\1:/g; s/.$//')"
-                    else
-                        local NEWMAC="$(printf '%02X:%02X:%02X:%02X:%02X:%02X\n' \
-                            $((RANDOM%256)) $((RANDOM%256)) \
-                            $((RANDOM%256)) $((RANDOM%256)) \
-                            $((RANDOM%256)) $((RANDOM%256)))"
-                    fi
-                else
-                    echo "macchanger: no device specified"
-                fi
-                ;;
-            -s|--show)
-                if (($# > 1)); then
-                    ifconfig "$2" | grep --color=never ether | cut -c 8- | head -1
-                else
-                    echo "macchanger: no device specified"
-                fi
-                ;;
-            *)
-                echo -e "$help"
-                ;;
-        esac
-    else
-        echo -e "$help"
-    fi
-
-    if [ -n "$DEVICE" ] && [ -n "$NEWMAC" ]; then
-        sudo ifconfig "$DEVICE" ether "$NEWMAC" && \
-            echo "$DEVICE => $NEWMAC"
-    fi
-}
-
 if hash youtube-dl 2>/dev/null; then
     # https://github.com/exogen/dotfiles/
     play() {
@@ -578,6 +526,8 @@ fi
 
 # make * select normal and dot files
 shopt -s dotglob
+
+export PATH="/usr/local/sbin:$PATH"
 
 # for fzf previous command history search `<CTRL> R`
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash

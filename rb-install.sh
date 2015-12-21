@@ -1,4 +1,5 @@
 #! /bin/sh
-gem install ruby-beautify
-gem install jekyll
 
+gem install jekyll
+gem install rubocop
+gem install travis
