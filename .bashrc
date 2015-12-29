@@ -151,8 +151,6 @@ if hash dig 2>/dev/null; then
 fi
 
 if [[ $OS == "mac" ]]; then
-    alias localip="ipconfig getifaddr en1"
-
     #  Flush DNS cache - https://github.com/necolas/dotfiles
     alias flushdns="dscacheutil -flushcache"
 
@@ -175,7 +173,11 @@ fi
 export PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
 
 # set default editor
-export EDITOR=vim
+if hash nvim 2>/dev/null; then
+    export EDITOR=nvim
+else
+    export EDITOR=vim
+fi
 
 # Number of lines of commands loaded & stored during a bash session
 HISTSIZE=1000
@@ -452,6 +454,16 @@ man() {
         man "$@"
 }
 
+#http://stackoverflow.com/a/13322667
+localip() {
+    while IFS=$': \t' read -ra line; do
+        [ -z "${line%inet}" ] && \
+            ip=${line[${#line[1]}>4?1:2]} && \
+            [ "${ip#127.0.0.1}" ]
+    done< <(LANG=C /sbin/ifconfig)
+    echo "$ip"
+}
+
 #http://stackoverflow.com/a/19458217/3720597
 if [[ $OS == "mac" ]]; then
     function clip() {
@@ -528,6 +540,15 @@ fi
 shopt -s dotglob
 
 export PATH="/usr/local/sbin:$PATH"
+
+#FZF
+export FZF_DEFAULT_COMMAND='ag --hidden -U --ignore .git -g ""'
+export FZF_DEFAULT_OPTS='--color hl:221,hl+:221
+--color pointer:143,info:143,prompt:109,spinner:143,pointer:143,marker:143'
+
+## Complete
+complete -F _fzf_file_completion -o default -o bashdefault ni
+complete -F _fzf_file_completion -o default -o bashdefault bash
 
 # for fzf previous command history search `<CTRL> R`
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash

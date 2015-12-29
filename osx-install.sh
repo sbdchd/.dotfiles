@@ -28,6 +28,7 @@ brew install sqlite
 
 # Languages
 brew install go
+bash go-install.sh
 
 brew install python
 brew install python3
@@ -43,6 +44,7 @@ brew install node
 bash js-install.sh
 
 # Utilities
+brew install ag
 brew install ccat
 brew install curl
 brew install highlight

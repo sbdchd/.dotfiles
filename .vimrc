@@ -1,4 +1,5 @@
-" Vim Config
+" set the leader key
+let mapleader = ' '
 
 " show the line number relative to the cursor line 
 set relativenumber
@@ -113,7 +114,7 @@ set expandtab
 set confirm 
 
 " allows buffer to stay loaded
-set hidden 
+set hidden
 
 set smartindent
 
@@ -122,10 +123,6 @@ set hlsearch
 
 " shows matches as you type search command
 set incsearch
-
-" allow clipboard to transfer between system and vim
-"set clipboard=unnamed
-"set clipboard=unnamedplus
 
 " Add <Tab> completion for commands
 set wildmenu
@@ -150,6 +147,12 @@ set filetype=unix,dos
 " make cursor stays in general column when moving
 set nostartofline
 
+" disabled the more option
+set nomore
+
+" jump to first open window that contains the specified buffer
+set switchbuf=useopen
+
 " increase redraw smoothness
 set ttyfast
 
@@ -158,7 +161,7 @@ nnoremap ; :
 vnoremap ; :
 
 " detect markdown correctly
-autocmd BufRead,BufNew *.md set filetype=markdown
+autocmd BufRead *.md set filetype=markdown
 
 " Disable Menu for Gvim
 set go-=T
@@ -188,6 +191,12 @@ silent! set breakindent
 noremap j gj
 noremap k gk
 
+" better buffer nav
+nnoremap <leader>b :ls<CR>:b<Space>
+
+nnoremap <leader>j :bnext<CR>
+nnoremap <leader>k :bprevious<CR>
+
 " map esc to exit terminal mode [neovim]
 silent! tnoremap <Esc> <C-\><C-n>
 
@@ -204,9 +213,6 @@ set listchars+=eol:¬
 set listchars+=trail:·
 " use list characters
 set list
-
-" set the leader key
-let mapleader = ' '
 
 " read file again on change
 set autoread
@@ -257,6 +263,8 @@ filetype plugin on
 " fzf
 set rtp+=~/.fzf
 
+nnoremap <leader>f :FZF<CR>
+
 " airline
 let g:airline_left_sep=''
 let g:airline_right_sep=''
@@ -264,7 +272,7 @@ let g:airline_section_y='%{&fenc?&fenc:&enc} %{&fileformat}'
 let g:airline_section_z='%8.(%l/%L%)'
 let g:airline_section_warning='%3.p%%'
 let g:airline_theme='steve'
-let g:airline#extensions#tabline#enabled = 0
+let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#left_sep = ''
 let g:airline#extensions#tabline#left_alt_sep = ''
 
@@ -278,7 +286,7 @@ set diffopt+=vertical
 noremap <leader>t :TagbarToggle<CR>
 
 " undotree
-noremap <leader>g :UndotreeToggle<CR>
+noremap <leader>u :UndotreeToggle<CR>
 
 " nerdtree
 noremap <leader>d :NERDTreeToggle<CR>
@@ -319,7 +327,7 @@ let g:formatdef_rubocop = '"rubocop --auto-correct"'
 let g:formatters_ruby = ['rubocop']
 au filetype ruby set shiftwidth=2
 
-function ToggleFormatter()
+function s:ToggleFormatter()
     if g:format == 1
         let g:format = 0
         echo "Disabled Formatter"
@@ -329,15 +337,14 @@ function ToggleFormatter()
     endif
 endfunction
 
-function Formatter()
+function s:Formatter()
     if g:format == 1
         Autoformat
     endif
 endfunction
 
-noremap <leader>f :call ToggleFormatter()<CR>
-
-au BufWrite * :call Formatter()
+command ToggleFormatter :call s:ToggleFormatter()
+au BufWrite * :call s:Formatter()
 
 " neomake
 autocmd! BufWritePost * Neomake
@@ -366,7 +373,6 @@ let g:neomake_go_gometalinter_maker = {
             \ '%W%f:%l::warning: %m'
             \ }
 let g:neomake_go_enabled_makers = ['golint','go','gometalinter']
-
 
 " added this so the extra '--shell=bash' argument gets included
 let g:neomake_sh_shellcheck_maker = {
