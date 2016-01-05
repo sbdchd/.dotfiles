@@ -8,9 +8,12 @@ apm install block-travel
 apm install color-picker
 apm install ex-mode
 apm install file-icons
+apm install git-control
+apm install git-log
 apm install go-plus
 apm install highlight-line
 apm install linter
+apm install local-history
 apm install markdown-writer
 apm install merge-conflicts
 apm install minimap
@@ -24,7 +27,6 @@ apm install vim-mode-visual-block
 apm install vim-surround
 
 # syntax
-apm install monokai-plus
 apm install peacock-syntax
 apm install slime
 

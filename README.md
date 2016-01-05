@@ -2,8 +2,8 @@
 
 A collection of dotfiles, currently for osx.
 
-
 ## Install
+
 ```bash
 git clone https://github.com/sbdchd/.dotfiles && \
 cd .dotfiles && \
@@ -11,6 +11,7 @@ bash dotfiles-link.sh
 ```
 
 ### Update
+
 ```bash
 git pull
 ```
@@ -20,7 +21,7 @@ git pull
 OSX
 
 ```bash
-bash osx-install.sh 
+bash osx-install.sh
 ```
 
 Linux
@@ -28,8 +29,6 @@ Linux
 ```bash
 sudo bash linux-install.sh
 ```
-
-*Note:* For a limited install with linux call `linux-install.sh` with the `-small`flag
 
 ## Update Programs
 

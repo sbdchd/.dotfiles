@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Determine current OS
 if [[ $OSTYPE == darwin* ]]; then
@@ -92,7 +92,6 @@ fi
 
 # Git Aliases
 if hash git 2>/dev/null; then
-    alias g='git'
     alias gs='git status'
     alias gpl='git pull'
     alias gp='git push'
@@ -103,19 +102,9 @@ if hash git 2>/dev/null; then
     alias gl='git log'
     alias glpretty='git log --graph --decorate --pretty=oneline --abbrev-commit'
     alias gca='git commit -a'
-    alias gaa='git add .'
     alias gco='git checkout'
-    alias gcb='git checkout -b'
     alias gb='git branch'
     alias grb='git rebase'
-fi
-
-if hash python2 2>/dev/null; then
-    alias py2='python2'
-fi
-
-if hash python3 2>/dev/null; then
-    alias py3='python3'
 fi
 
 # check if python virtualenv is installed before adding alias
@@ -129,10 +118,6 @@ if hash docker-machine 2>/dev/null; then
     alias dmc='eval "$(docker-machine env default)"'
     alias dms='docker-machine start default'
     alias dme='docker-machine stop default'
-fi
-
-if hash docker 2>/dev/null; then
-    alias d='docker'
 fi
 
 # alias python http server if python is installed
@@ -483,11 +468,6 @@ if hash screenfetch 2>/dev/null; then
     alias screenfetch='screenfetch -d "+disk"'
 fi
 
-# tmux alias
-if hash tmux 2>/dev/null; then
-    alias ta="tmux attach"
-fi
-
 # https://wiki.archlinux.org/index.php/Tmux#Autostart_tmux_with_default_tmux_layout
 # make Tmux open on terminal startup
 if [[ -z "$TMUX" ]]; then
@@ -539,12 +519,25 @@ fi
 # make * select normal and dot files
 shopt -s dotglob
 
+# more extensive pattern matching
+shopt -s extglob
+
+# fix minor errors when typing names of dirs
+shopt -s cdspell
+
+# append history instead of overwriting history file
+shopt -s histappend
+
 export PATH="/usr/local/sbin:$PATH"
 
 #FZF
 export FZF_DEFAULT_COMMAND='ag --hidden -U --ignore .git -g ""'
 export FZF_DEFAULT_OPTS='--color hl:221,hl+:221
 --color pointer:143,info:143,prompt:109,spinner:143,pointer:143,marker:143'
+
+if [ -f "$(brew --prefix)"/etc/bash_completion ]; then
+    . "$(brew --prefix)"/etc/bash_completion
+fi
 
 ## Complete
 complete -F _fzf_file_completion -o default -o bashdefault ni

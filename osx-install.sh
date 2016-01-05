@@ -9,6 +9,8 @@ ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/
 # General Programs
 brew install bash
 brew install git
+brew install homebrew/dupes/openssh
+brew install mosh
 brew install neovim/neovim/neovim
 brew install optipng
 brew install reattach-to-user-namespace
@@ -46,7 +48,9 @@ bash js-install.sh
 # Utilities
 brew install ag
 brew install ccat
+brew install ctags
 brew install curl
+brew install git-extras
 brew install highlight
 brew install htop-osx
 brew install jlhonora/lsusb/lsusb
@@ -56,6 +60,17 @@ brew install tree
 brew install unp
 brew install wakeonlan
 brew install wget
+
+# Completions
+brew install bash-completion
+brew tap homebrew/completions
+brew install apm-bash-completion
+brew install brew-cask-completion
+brew install docker-completion
+brew install docker-machine-completion
+brew install pip-completion
+brew tap sbdchd/homebrew-completions
+brew install go-completion
 
 # Other Utilities
 brew install brew-gem
@@ -90,6 +105,7 @@ brew cask install flux
 brew cask install gimp
 brew cask install gmail-notifier
 brew cask install google-chrome
+brew cask install google-hangouts
 brew cask install grandperspective
 brew cask install handbrake
 brew cask install hashcat

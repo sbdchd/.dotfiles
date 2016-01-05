@@ -29,12 +29,12 @@ set scrolloff=5
 set noerrorbells
 set visualbell
 " make visual bell do nothing
-set t_vb= 
+set t_vb=
 " ensure that the visual bell does nothing in gui mode
 " also select correct font 
 " TODO: check if this works correctly
 if has("gui_running")
-    autocmd GUIEnter * set vb t_vb=
+    autocmd! GUIEnter * set vb t_vb=
     if has("gui_gtk2")
         set guifont=Inconsolata:h12
     elseif has("gui_macvim")
@@ -99,11 +99,11 @@ set smartcase
 set wildignorecase
 
 " mouse will only work with certain terminals
-set mouse=a 
-" number of spaces = <tab>
-set tabstop=4 
+set mouse=a
+" number of spaces=<tab>
+set tabstop=4
 " number of spaces for indent/autoindent
-set shiftwidth=4 
+set shiftwidth=4
 " let backspace delete 4 space tab
 set softtabstop=4
 
@@ -161,7 +161,7 @@ nnoremap ; :
 vnoremap ; :
 
 " detect markdown correctly
-autocmd BufRead *.md set filetype=markdown
+autocmd! BufRead *.md set filetype=markdown
 
 " Disable Menu for Gvim
 set go-=T
@@ -233,6 +233,8 @@ Plug 'christoomey/vim-sort-motion'
 Plug 'easymotion/vim-easymotion'
 Plug 'fatih/vim-go', {'for': 'go'}
 Plug 'hail2u/vim-css3-syntax', {'for': ['html', 'css', 'javascript', 'jinja']}
+Plug 'henrik/vim-indexed-search'
+Plug 'jacquesbh/vim-showmarks', {'on': 'DoShowMarks'}
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/vim-easy-align'
@@ -266,12 +268,12 @@ set rtp+=~/.fzf
 nnoremap <leader>f :FZF<CR>
 
 " airline
-let g:airline_left_sep=''
-let g:airline_right_sep=''
-let g:airline_section_y='%{&fenc?&fenc:&enc} %{&fileformat}'
-let g:airline_section_z='%8.(%l/%L%)'
-let g:airline_section_warning='%3.p%%'
-let g:airline_theme='steve'
+let g:airline_left_sep = ''
+let g:airline_right_sep = ''
+let g:airline_section_y = '%{&fenc?&fenc:&enc} %{&fileformat}'
+let g:airline_section_z = '%8.(%l/%L%)'
+let g:airline_section_warning = '%3.p%%'
+let g:airline_theme = 'steve'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#left_sep = ''
 let g:airline#extensions#tabline#left_alt_sep = ''
@@ -282,6 +284,21 @@ silent! color hybrid
 " make diffs default to vertical
 set diffopt+=vertical
 
+" showmarks
+noremap <leader>m :call ToggleShowMarks()<CR>
+let g:toggle_show_marks = 1
+function ToggleShowMarks()
+    if g:toggle_show_marks
+        :DoShowMarks!
+        let g:toggle_show_marks = 0
+        echo "Enabled ShowMarks"
+    else
+        :NoShowMarks!
+        let g:toggle_show_marks = 1
+        echo "Disabled ShowMarks"
+    endif
+endfunction
+
 " tagbar
 noremap <leader>t :TagbarToggle<CR>
 
@@ -290,9 +307,9 @@ noremap <leader>u :UndotreeToggle<CR>
 
 " nerdtree
 noremap <leader>d :NERDTreeToggle<CR>
-let g:NERDTreeShowHidden=1
+let g:NERDTreeShowHidden = 1
 " close vim if NERDTree is the last buffer open
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+autocmd! bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
 " vim-easy-align
 " Start interactive EasyAlign in visual mode (e.g. vipga)
@@ -315,20 +332,21 @@ let g:NERDTreeIndicatorMapCustom = {
             \ }
 
 " vim-javascript
-let g:javascript_enable_domhtmlcss=1
+let g:javascript_enable_domhtmlcss = 1
 
 " vim autoformat
 let g:format = 1
+let g:autoformat_autoindent = 1
 
 let g:formatdef_goimports = '"goimports"'
 let g:formatters_go = ['goimports']
 
 let g:formatdef_rubocop = '"rubocop --auto-correct"'
 let g:formatters_ruby = ['rubocop']
-au filetype ruby set shiftwidth=2
+autocmd! filetype ruby set shiftwidth=2
 
 function s:ToggleFormatter()
-    if g:format == 1
+    if g:format
         let g:format = 0
         echo "Disabled Formatter"
     else
@@ -337,14 +355,26 @@ function s:ToggleFormatter()
     endif
 endfunction
 
+command ToggleFormatter :call s:ToggleFormatter()
+
+function s:CheckAutoformatBlacklist()
+    for i in ['markdown']
+        if i == &ft
+            " disable vim's indent as fallback for autoformat
+            let g:autoformat_autoindent = 0
+            break
+        endif
+    endfor
+endfunction
+
 function s:Formatter()
-    if g:format == 1
+    if g:format
+        call s:CheckAutoformatBlacklist()
         Autoformat
     endif
 endfunction
 
-command ToggleFormatter :call s:ToggleFormatter()
-au BufWrite * :call s:Formatter()
+autocmd! BufWrite * :call s:Formatter()
 
 " neomake
 autocmd! BufWritePost * Neomake
@@ -374,17 +404,13 @@ let g:neomake_go_gometalinter_maker = {
             \ }
 let g:neomake_go_enabled_makers = ['golint','go','gometalinter']
 
-" added this so the extra '--shell=bash' argument gets included
-let g:neomake_sh_shellcheck_maker = {
-            \ 'args': ['-fgcc', '--shell=bash'],
+let g:neomake_markdown_mdl_maker = {
             \ 'errorformat':
-            \ '%f:%l:%c: %trror: %m,' .
-            \ '%f:%l:%c: %tarning: %m,' .
-            \ '%f:%l:%c: %tote: %m'
+            \ '%f:%l: %m'
             \ }
-let g:neomake_sh_enabled_makers = ['shellcheck']
+let g:neomake_markdown_enabled_makers = ['mdl']
 
-" go vim
+" vim-go
 let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
 let g:go_highlight_structs = 1
@@ -398,6 +424,6 @@ let g:go_fmt_autosave = 0
 "http://stackoverflow.com/a/7477056/3720597
 aug QFClose
     au!
-    au WinEnter * if winnr('$') == 1 && getbufvar(winbufnr(winnr()), "&buftype") == "quickfix"|q|endif
+    au! WinEnter * if winnr('$') == 1 && getbufvar(winbufnr(winnr()), "&buftype") == "quickfix" | q | endif
 aug END
 
