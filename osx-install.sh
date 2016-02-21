@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 # Install Xcode Command Line Tools
 xcode-select --install
@@ -7,6 +7,7 @@ xcode-select --install
 ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
 # General Programs
+brew install autossh
 brew install bash
 brew install git
 brew install homebrew/dupes/openssh
@@ -15,6 +16,7 @@ brew install neovim/neovim/neovim
 brew install optipng
 brew install reattach-to-user-namespace
 brew install ssh-copy-id
+brew install sshuttle
 brew install tmux
 brew install vim
 
@@ -62,24 +64,25 @@ brew install wakeonlan
 brew install wget
 
 # Completions
-brew install bash-completion
+brew install homebrew/versions/bash-completion2
 brew tap homebrew/completions
 brew install apm-bash-completion
 brew install brew-cask-completion
 brew install docker-completion
 brew install docker-machine-completion
 brew install pip-completion
-brew tap sbdchd/homebrew-completions
+brew tap sbdchd/completions
 brew install go-completion
+brew install mosh-completion
+# mosh-completion conflicts with mosh's own bash completion
+brew link --overwrite mosh-completion
 
 # Other Utilities
-brew install brew-gem
 brew install cmatrix
 brew install cowsay
 brew install fortune
 brew install screenfetch
 brew install sl
-brew-gem install lolcat
 
 # Netsec
 brew install aircrack-ng
@@ -87,9 +90,7 @@ brew install john-jumbo
 brew install netcat6
 brew install nmap
 
-# Install Homebrew-Cask
-brew install caskroom/cask/brew-cask
-
+# Homebrew-Cask
 brew cask install atom
 bash atom-install.sh
 
@@ -98,8 +99,10 @@ brew cask install adobe-illustrator-cc
 brew cask install adobe-photoshop-cc
 brew cask install arduino
 brew cask install audacity
+brew cask install basictex
 brew cask install dockertoolbox
 brew cask install dropbox
+brew cask install eclipse-java
 brew cask install firefox
 brew cask install flux
 brew cask install gimp
@@ -109,15 +112,18 @@ brew cask install google-hangouts
 brew cask install grandperspective
 brew cask install handbrake
 brew cask install hashcat
-brew cask install intellij-idea-ce
 brew cask install iterm2
+brew cask install java
 brew cask install keepingyouawake
 brew cask install limechat
+brew cask install mactex
+brew cask install malwarebytes-anti-malware
 brew cask install microsoft-office
 brew cask install mobile-mouse-server
 brew cask install origin
 brew cask install pgadmin3
 brew cask install postgres
+brew cask install seashore
 brew cask install spectacle
 brew cask install sqlitebrowser
 brew cask install steam
@@ -128,10 +134,19 @@ brew cask install virtualbox
 brew cask install vlc
 brew cask install wireshark
 
+brew cask install caskroom/versions/intellij-idea-ce
+
 brew tap sbdchd/sleep-restart-shutdown
 brew cask install sleep
 brew cask install restart
 brew cask install shutdown
+
+brew tap sbdchd/neovim
+brew cask install neovim-automator-app
+
+brew tap caskroom/fonts
+brew cask install font-latin-modern
+brew cask install font-inconsolata
 
 # Install Vim Plug Package Manager
 bash vimplug-install.sh

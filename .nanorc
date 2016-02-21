@@ -1,0 +1,21 @@
+set autoindent
+
+set backup
+
+set const
+
+set cut
+
+set historylog
+
+unset noconvert
+
+unset nofollow
+
+unset nohelp
+
+unset nowrap
+
+set tabsize 4
+
+unset tempfile

@@ -1,0 +1,17 @@
+--style=attach
+
+--indent=spaces=4
+
+--pad-oper
+
+--unpad-paren
+
+--add-brackets
+
+--convert-tabs
+
+--suffix=none
+
+--quiet
+
+--lineend=linux

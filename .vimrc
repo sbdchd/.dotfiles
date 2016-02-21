@@ -1,67 +1,56 @@
-" set the leader key
-let mapleader = ' '
+" set default encoding
+set encoding=utf-8
+" vint commands this
+scriptencoding utf-8
 
-" show the line number relative to the cursor line 
+
+if !has('nvim')
+    " necessary to make things work correctly
+    set nocompatible
+    " increase redraw smoothness
+    set ttyfast
+endif
+
+
+" Cursor Line
+" show the line number relative to the cursor line
 set relativenumber
-
 " show actual line number instead of the relative 0
 set number
-
-" tells vim what type of background is used
-set background=dark
-
 " highlight the screen line of the cursor
 set cursorline
-
-" show the size of block one selected in visual mode
-set showcmd
-
-" turn on syntax highlighting
-syntax on
-
-" make vim update more rapidly
-set updatetime=750
-
 " min number of screen lines above/below of cursor
 set scrolloff=5
+" cursor breifly jumps to matching bracket upon the insertion
+set showmatch
+" set time of match cursor switch
+set matchtime=2
+" add highlight guide at column number
+set colorcolumn=81
+" make cursor stays in general column when moving
+set nostartofline
 
+
+" Syntax
+" tells vim what type of background is used
+set background=dark
+" turn on syntax highlighting
+syntax on
+" Enable 256 color
+set t_Co=256
+set showcmd
 " no annoying dings
 set noerrorbells
 set visualbell
 " make visual bell do nothing
 set t_vb=
-" ensure that the visual bell does nothing in gui mode
-" also select correct font 
-" TODO: check if this works correctly
-if has("gui_running")
-    autocmd! GUIEnter * set vb t_vb=
-    if has("gui_gtk2")
-        set guifont=Inconsolata:h12
-    elseif has("gui_macvim")
-        set guifont=Menlo:h10
-    elseif has("gui_win32")
-        set guifont=Consolas:h11
-    endif
-endif
 
-" make backspace work as expected
-set backspace=indent,eol,start
 
+" Status Line
 " ensure status line is always present
 set laststatus=2
-
-" cursor breifly jumps to matching bracket upon the insertion
-set showmatch
-
-" set time of match cursor switch
-set matchtime=2
-
-" necessary to make things work correctly
-set nocompatible 
-
 " show current mode below status line
 set noshowmode
-
 " clear status line
 set statusline=
 " full path to file
@@ -90,122 +79,109 @@ set statusline+=%Y\
 " % into the file
 set statusline+=%p%%\ 
 
-" needed for smartcase
-set ignorecase 
-" enable smart case sensitive search
-set smartcase 
 
+" Search
+" needed for smartcase
+set ignorecase
+" enable smart case sensitive search
+set smartcase
 " ignore case when completing file names and directories
 set wildignorecase
+" use C as a command to clear search entry and their highlighting
+command! C let @/=""
+" highlight search matches
+set hlsearch
+" shows matches as you type search command
+set incsearch
 
-" mouse will only work with certain terminals
-set mouse=a
+
+" Tabs & Spaces
 " number of spaces=<tab>
 set tabstop=4
 " number of spaces for indent/autoindent
 set shiftwidth=4
 " let backspace delete 4 space tab
 set softtabstop=4
-
 " convert tab to spaces
-set expandtab 
+set expandtab
+set smartindent
+" make backspace work as expected
+set backspace=indent,eol,start
 
+
+" Buffers
 " asks to save files before exiting with :q or :e
-set confirm 
-
+set confirm
 " allows buffer to stay loaded
 set hidden
+" jump to first open window that contains the specified buffer
+set switchbuf=useopen
 
-set smartindent
 
-" highlight search matches
-set hlsearch
-
-" shows matches as you type search command
-set incsearch
-
+" Command Line
 " Add <Tab> completion for commands
 set wildmenu
 " list all matches and complete till the longest common string
 set wildmode=list:longest
-
-" use C as a command to clear search entry and their highlighting
-command! C let @/=""
-
-" increase history to 1000 items
+" increase cmdline-history to 1000 items
 set history=1000
 
-" increase tab page max
-set tabpagemax=50
 
-" set default encoding
-set encoding=utf-8
-
-" make vim create unix endings by default but also be able to process dos
-set filetype=unix,dos
-
-" make cursor stays in general column when moving
-set nostartofline
-
-" disabled the more option
-set nomore
-
-" jump to first open window that contains the specified buffer
-set switchbuf=useopen
-
-" increase redraw smoothness
-set ttyfast
-
+" Mappings
+" set the leader key
+let g:mapleader = ' '
 " more efficent for typing commands
 nnoremap ; :
 vnoremap ; :
 
-" detect markdown correctly
-autocmd! BufRead *.md set filetype=markdown
 
-" Disable Menu for Gvim
-set go-=T
-
-" add highlight guide at column number
-set colorcolumn=81
-
+" Undo and Swap
 " use an undo file
 set undofile
 " undo file directory
 set undodir=~/.vim/undo
 " number of undo levels
 set undolevels=5000
-
+" make vim update more rapidly
+set updatetime=750
 " make vim use a different folder for swp files
-set dir-=.
-set dir+=/tmp
+set directory-=.
+set directory+=~/tmp
 
+
+" Wrapping
 " ensure wrapping is enabled
 set wrap
 " show break with chars
 set showbreak=..
-" make wrapped lines indent visually Note: Requires special version of vim
-silent! set breakindent
+" make wrapped lines indent visually
+if has('linebreak')
+    set breakindent
+endif
 
+
+" Movement
 " move up visual line instead of file line
 noremap j gj
 noremap k gk
-
 " better buffer nav
 nnoremap <leader>b :ls<CR>:b<Space>
-
 nnoremap <leader>j :bnext<CR>
 nnoremap <leader>k :bprevious<CR>
+" map esc to exit terminal mode
+if has('nvim')
+    tnoremap <Esc> <C-\><C-n>
+endif
+" mouse will only work with certain terminals
+set mouse=a
 
-" map esc to exit terminal mode [neovim]
-silent! tnoremap <Esc> <C-\><C-n>
 
-" add $ to end of word being changed/replaced
-set cpoptions+=$
+" Spelling
+syntax spell toplevel
+nnoremap <leader>s :set spell! spelllang=en<CR>
 
-" Enable 256 color
-set t_Co=256
 
+" List Chars
 " use certain characters to show whitespace characters
 set listchars=tab:▸\ 
 set listchars+=nbsp:⎵
@@ -214,8 +190,41 @@ set listchars+=trail:·
 " use list characters
 set list
 
+
+" Miscellaneous
 " read file again on change
 set autoread
+" add $ to end of word being changed/replaced
+set cpoptions+=$
+" make vim create unix endings by default but also be able to process dos
+set filetype=unix,dos
+" disabled the more option
+set nomore
+" make diffs default to vertical
+set diffopt+=vertical
+
+" Commands
+"http://stackoverflow.com/q/356126
+function! TrimWhiteSpace()
+    let l:search = @/
+    let l:view = winsaveview()
+    " vint: -ProhibitCommandRelyOnUser -ProhibitCommandWithUnintendedSideEffect
+    %s/\s\+$//e
+    " vint: +ProhibitCommandRelyOnUser +ProhibitCommandWithUnintendedSideEffect
+    let @/=l:search
+    call winrestview(l:view)
+endfunction
+command! TrimWhiteSpace :call TrimWhiteSpace()
+"Automatically close vim if only the quickfix window is open
+"http://stackoverflow.com/a/7477056/3720597
+augroup QuickFixClose
+    au!
+    au WinEnter * if winnr('$') == 1 && getbufvar(winbufnr(winnr()), "&buftype") == "quickfix" | q | endif
+augroup END
+"make eslintrc show up as a json file
+autocmd! BufNewFile,BufRead .eslintrc set filetype=json
+" change spacing from the default 4 to the desired 2
+autocmd! filetype jade,pug,gitconfig,ruby,scss,css set shiftwidth=2
 
 " vim-plug setup
 " https://github.com/junegunn/vim-plug
@@ -223,48 +232,60 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'Chiel92/vim-autoformat'
 Plug 'Glench/Vim-Jinja2-Syntax', {'for': ['html', 'jinja']}
-Plug 'Xuyuanp/nerdtree-git-plugin', {'on': 'NERDTreeToggle'}
+Plug 'Shougo/deoplete.nvim'
+Plug 'Tyilo/applescript.vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'ap/vim-css-color'
 Plug 'benekastah/neomake'
 Plug 'bling/vim-airline' | Plug 'sbdchd/airline-steve'
 Plug 'chrisbra/Recover.vim'
 Plug 'christoomey/vim-sort-motion'
+Plug 'digitaltoad/vim-pug'
 Plug 'easymotion/vim-easymotion'
 Plug 'fatih/vim-go', {'for': 'go'}
-Plug 'hail2u/vim-css3-syntax', {'for': ['html', 'css', 'javascript', 'jinja']}
+Plug 'hail2u/vim-css3-syntax'
 Plug 'henrik/vim-indexed-search'
-Plug 'jacquesbh/vim-showmarks', {'on': 'DoShowMarks'}
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
-Plug 'junegunn/fzf.vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'junegunn/vim-peekaboo'
+Plug 'kshenoy/vim-signature'
+Plug 'lervag/vimtex'
 Plug 'majutsushi/tagbar'
 Plug 'mattn/emmet-vim'
 Plug 'mbbill/undotree', {'on' : 'UndotreeToggle'}
 Plug 'mhinz/vim-startify'
 Plug 'milkypostman/vim-togglelist'
 Plug 'othree/html5.vim'
-Plug 'pangloss/vim-javascript', {'for': 'javascript'}
+Plug 'pangloss/vim-javascript'
+Plug 'rhysd/clever-f.vim'
+Plug 'sbdchd/vim-run'
+Plug 'sbdchd/vim-shebang'
 Plug 'scrooloose/nerdcommenter'
-Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}
+Plug 'sentientmachine/erics_vim_syntax_and_color_highlighting', {'for': 'java'}
 Plug 'tmux-plugins/vim-tmux'
+Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-markdown', {'for': 'markdown'}
+Plug 'tpope/vim-markdown'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
+Plug 'tpope/vim-vinegar'
 Plug 'vim-utils/vim-troll-stopper'
 Plug 'w0ng/vim-hybrid'
 Plug 'wellle/targets.vim'
 
 call plug#end()
 
+
+" Plugin Config
+" deoplete mappings
+inoremap <C-j> <Down>
+inoremap <C-k> <Up>
+command! DeopleteDisable let g:deoplete#disable_auto_complete=1
+
 " nerdcommenter
 filetype plugin on
 
 " fzf
-set rtp+=~/.fzf
-
 nnoremap <leader>f :FZF<CR>
 
 " airline
@@ -279,25 +300,10 @@ let g:airline#extensions#tabline#left_sep = ''
 let g:airline#extensions#tabline#left_alt_sep = ''
 
 " set color scheme
-silent! color hybrid
+silent! colorscheme hybrid
 
-" make diffs default to vertical
-set diffopt+=vertical
-
-" showmarks
-noremap <leader>m :call ToggleShowMarks()<CR>
-let g:toggle_show_marks = 1
-function ToggleShowMarks()
-    if g:toggle_show_marks
-        :DoShowMarks!
-        let g:toggle_show_marks = 0
-        echo "Enabled ShowMarks"
-    else
-        :NoShowMarks!
-        let g:toggle_show_marks = 1
-        echo "Disabled ShowMarks"
-    endif
-endfunction
+" signature
+noremap <leader>m :SignatureToggle<CR>
 
 " tagbar
 noremap <leader>t :TagbarToggle<CR>
@@ -305,61 +311,48 @@ noremap <leader>t :TagbarToggle<CR>
 " undotree
 noremap <leader>u :UndotreeToggle<CR>
 
-" nerdtree
-noremap <leader>d :NERDTreeToggle<CR>
-let g:NERDTreeShowHidden = 1
-" close vim if NERDTree is the last buffer open
-autocmd! bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+" gitgutter
+noremap <leader>g :GitGutterToggle<CR>
 
 " vim-easy-align
 " Start interactive EasyAlign in visual mode (e.g. vipga)
 xmap ga <Plug>(EasyAlign)
-
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
-
-"nerdtree git plugin
-let g:NERDTreeIndicatorMapCustom = {
-            \ "Modified"  : "!",
-            \ "Staged"    : "+",
-            \ "Untracked" : "?",
-            \ "Renamed"   : "➜",
-            \ "Unmerged"  : "═",
-            \ "Deleted"   : "✖",
-            \ "Dirty"     : "✗",
-            \ "Clean"     : "✔︎",
-            \ "Unknown"   : "?"
-            \ }
 
 " vim-javascript
 let g:javascript_enable_domhtmlcss = 1
 
 " vim autoformat
+set verbose=0
+let g:autoformat_verbosemode = 0
 let g:format = 1
 let g:autoformat_autoindent = 1
+
+let g:formatdef_astyle_java = '"astyle"'
+let g:formatters_java = ['astyle_java']
+
+" filetypes (ft) for which vim's auto indent should not be used by autoformat
+let s:autoformat_ft_blacklist = ['markdown']
 
 let g:formatdef_goimports = '"goimports"'
 let g:formatters_go = ['goimports']
 
-let g:formatdef_rubocop = '"rubocop --auto-correct"'
-let g:formatters_ruby = ['rubocop']
-autocmd! filetype ruby set shiftwidth=2
-
-function s:ToggleFormatter()
+function s:FormatterToggle()
     if g:format
         let g:format = 0
-        echo "Disabled Formatter"
+        echo 'Disabled Formatter'
     else
         let g:format = 1
-        echo "Enabled Formatter"
+        echo 'Enabled Formatter'
     endif
 endfunction
 
-command ToggleFormatter :call s:ToggleFormatter()
+command! FormatterToggle :call s:FormatterToggle()
 
 function s:CheckAutoformatBlacklist()
-    for i in ['markdown']
-        if i == &ft
+    for l:i in s:autoformat_ft_blacklist
+        if l:i == &filetype
             " disable vim's indent as fallback for autoformat
             let g:autoformat_autoindent = 0
             break
@@ -374,10 +367,16 @@ function s:Formatter()
     endif
 endfunction
 
-autocmd! BufWrite * :call s:Formatter()
+augroup Format
+    autocmd!
+    autocmd BufWrite * call s:Formatter()
+augroup END
 
 " neomake
-autocmd! BufWritePost * Neomake
+augroup Neomake
+    autocmd!
+    autocmd BufWritePost * Neomake
+augroup END
 
 let g:neomake_error_sign = {
             \ 'text': '❯❯',
@@ -389,12 +388,12 @@ let g:neomake_warning_sign = {
             \ 'texthl': 'WarningMsg',
             \ }
 let g:neomake_info = {
-            \ 'text': '!>',
+            \ 'text': '!❯',
             \ 'texthl': 'WarningMsg',
             \ }
 
 let g:neomake_go_gometalinter_maker = {
-            \ 'args': ['-t', '%:p:h'],
+            \ 'args': ['-E', 'gofmt', '-E', 'goimports', '-t', '%:p:h'],
             \ 'append_file': 0,
             \ 'errorformat':
             \ '%E%f:%l:%c:error: %m,' .
@@ -402,28 +401,20 @@ let g:neomake_go_gometalinter_maker = {
             \ '%W%f:%l:%c:warning: %m,' .
             \ '%W%f:%l::warning: %m'
             \ }
-let g:neomake_go_enabled_makers = ['golint','go','gometalinter']
 
-let g:neomake_markdown_mdl_maker = {
-            \ 'errorformat':
-            \ '%f:%l: %m'
-            \ }
-let g:neomake_markdown_enabled_makers = ['mdl']
+let g:neomake_go_enabled_makers = [
+            \ 'golint',
+            \ 'go',
+            \ 'gometalinter'
+            \ ]
 
 " vim-go
 let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
 let g:go_highlight_structs = 1
+let g:go_highlight_structs = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
-let g:go_fmt_command = "goimports"
+let g:go_fmt_command = 'goimports'
 let g:go_fmt_fail_silently = 1
 let g:go_fmt_autosave = 0
-
-"Automatically close vim if only the quickfix window is open
-"http://stackoverflow.com/a/7477056/3720597
-aug QFClose
-    au!
-    au! WinEnter * if winnr('$') == 1 && getbufvar(winbufnr(winnr()), "&buftype") == "quickfix" | q | endif
-aug END
-

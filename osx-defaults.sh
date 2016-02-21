@@ -1,8 +1,10 @@
-#! /bin/sh
-# OSX Defaults
+#!/usr/bin/env sh
 
 # Make delete work for navigating back a page in safari
 defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2BackspaceKeyNavigationEnabled -bool YES
+
+# Enable key repeat system wide
+defaults write -g ApplePressAndHoldEnabled -bool false
 
 # Decrease the delay when switching between desktops/workspaces
 defaults write com.apple.dock workspaces-edge-delay -float 0.1

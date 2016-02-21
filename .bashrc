@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Determine current OS
 if [[ $OSTYPE == darwin* ]]; then
@@ -24,6 +24,7 @@ alias mv='mv -iv'
 alias ll='ls -l'
 
 alias e='exit'
+alias q='exit'
 
 # Easier movement
 alias ..='cd ..'
@@ -67,17 +68,19 @@ if [[ $OS == mac ]]; then
 fi
 
 # Go setup stuff
-export GOPATH=$HOME/Dropbox/steve/projects/go
+export GOPATH=$HOME/Dropbox/$USER/projects/go
 export PATH=$PATH:$GOPATH/bin
 
 # Default places
-alias projects='cd ~/Dropbox/steve/projects'
+alias projects='cd ~/Dropbox/$USER/projects'
 alias desktop='cd ~/Desktop'
 alias downloads='cd ~/Downloads'
 alias dropbox='cd ~/Dropbox'
 alias golang='cd $GOPATH/src/github.com/sbdchd'
 alias apps='cd ~/Applications'
 alias trash='cd ~/.Trash'
+alias homebrew='cd /usr/local/Library/Formula'
+alias caskroom='cd /usr/local/Library/Taps/caskroom'
 
 # http://unix.stackexchange.com/a/43005
 # Use vi/vim style commands to edit & select  cli commands
@@ -92,24 +95,52 @@ fi
 
 # Git Aliases
 if hash git 2>/dev/null; then
-    alias gs='git status'
-    alias gpl='git pull'
-    alias gp='git push'
-    alias gd='git diff'
     alias ga='git add'
+    alias gb='git branch'
     alias gc='git commit'
-    alias grm='git rm'
+    alias gca='git commit -a'
+    alias gcl='git clone'
+    alias gco='git checkout'
+    alias gd='git diff'
     alias gl='git log'
     alias glpretty='git log --graph --decorate --pretty=oneline --abbrev-commit'
-    alias gca='git commit -a'
-    alias gco='git checkout'
-    alias gb='git branch'
+    alias gp='git push'
+    alias gpl='git pull'
+    alias gr='git remote'
     alias grb='git rebase'
+    alias grm='git rm'
+    alias gs='git status'
+    alias gst='git stash'
+    alias gu='git undo'
 fi
 
-# check if python virtualenv is installed before adding alias
+# Bash Completion
+if [ -f /usr/local/etc/bash_completion.d/git-completion.bash ]; then
+    . /usr/local/etc/bash_completion.d/git-completion.bash
+    # Git Aliases
+    __git_complete ga  _git_add
+    __git_complete gb  _git_branch
+    __git_complete gc  _git_commit
+    __git_complete gco _git_checkout
+    __git_complete gd  _git_diff
+    __git_complete gl  _git_log
+    __git_complete gp  _git_push
+    __git_complete gpl _git_pull
+    __git_complete gr  _git_remote
+    __git_complete grb _git_rebase
+    __git_complete grm _git_rm
+    __git_complete gst _git_stash
+    __git_complete gu  _git_undo
+fi
+
 if hash virtualenv 2>/dev/null; then
-    alias activate='. venv/bin/activate'
+    function venv() {
+    local env="$1"
+    if [ -f "$env/bin/activate" ]; then
+        . "$env"/bin/activate
+    fi
+}
+
 fi
 
 # docker machine aliases
@@ -535,8 +566,8 @@ export FZF_DEFAULT_COMMAND='ag --hidden -U --ignore .git -g ""'
 export FZF_DEFAULT_OPTS='--color hl:221,hl+:221
 --color pointer:143,info:143,prompt:109,spinner:143,pointer:143,marker:143'
 
-if [ -f "$(brew --prefix)"/etc/bash_completion ]; then
-    . "$(brew --prefix)"/etc/bash_completion
+if [ -f "$(brew --prefix)"/share/bash-completion/bash_completion ]; then
+    . "$(brew --prefix)"/share/bash-completion/bash_completion
 fi
 
 ## Complete

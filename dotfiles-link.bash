@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 # Parts taken from https://github.com/necolas/dotfiles
 
@@ -16,19 +16,23 @@ link() {
 cp -n .gitconfig  "$HOME"/.gitconfig
 
 # Link .dotfiles to $HOME
-link ".tmux.conf"      ".tmux.conf"
-link ".vimrc"          ".vimrc"
-link ".vim/"           ".vim/"
-link ".bashrc"         ".bashrc"
-link ".bash_profile"   ".bash_profile"
-link ".inputrc"        ".inputrc"
-link ".gitignore"      ".gitignore"
-link ".eslintrc"       ".eslintrc"
+link ".tmux.conf"    ".tmux.conf"
+link ".vimrc"        ".vimrc"
+link ".vimrc"        ".ideavimrc"
+link ".vim/"         ".vim/"
+link ".bashrc"       ".bashrc"
+link ".bash_profile" ".bash_profile"
+link ".inputrc"      ".inputrc"
+link ".gitignore"    ".gitignore"
+link ".eslintrc"     ".eslintrc"
+link ".astylerc"     ".astylerc"
+link ".nanorc"       ".nanorc"
+link ".vintrc.yaml"  ".vintrc.yaml"
 
 # neovim
 XDG_CONFIG_HOME="$HOME"/.config
-mkdir -p "$XDG_CONFIG_HOME"
-link ".vimrc"          "$XDG_CONFIG_HOME/nvim"
-link ".vim/"           "$XDG_CONFIG_HOME/nvim/init.vim"
+mkdir -p      "$XDG_CONFIG_HOME"
+link ".vim/"  "$XDG_CONFIG_HOME/nvim"
+link ".vimrc" "$XDG_CONFIG_HOME/nvim/init.vim"
 
 echo "dotfiles link complete!"

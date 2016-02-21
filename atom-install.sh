@@ -1,4 +1,4 @@
-#! /bin/sh
+#!/usr/bin/env sh
 
 # packages
 apm install atom-bootstrap3
@@ -13,6 +13,7 @@ apm install git-log
 apm install go-plus
 apm install highlight-line
 apm install linter
+apm install linter-shellcheck
 apm install local-history
 apm install markdown-writer
 apm install merge-conflicts
