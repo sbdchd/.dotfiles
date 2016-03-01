@@ -28,6 +28,7 @@ link ".eslintrc"     ".eslintrc"
 link ".astylerc"     ".astylerc"
 link ".nanorc"       ".nanorc"
 link ".vintrc.yaml"  ".vintrc.yaml"
+link ".jsbeautifyrc" ".jsbeautify.rc"
 
 # neovim
 XDG_CONFIG_HOME="$HOME"/.config

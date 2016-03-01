@@ -31,7 +31,7 @@ alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
 alias .....='cd ../../../..'
-alias ~='cd ~'  # https://github.com/necolas/dotfiles
+alias ~='cd ~'
 
 # misspellings
 alias mdkir='mkdir'
@@ -88,6 +88,7 @@ set -o vi
 
 # Alias vim to nvim if nvim is installed
 if hash nvim 2>/dev/null; then
+    alias vimvim='nvim'
     alias vim='nvim'
     alias vi='nvim'
     alias ni='nvim'
@@ -108,6 +109,7 @@ if hash git 2>/dev/null; then
     alias gpl='git pull'
     alias gr='git remote'
     alias grb='git rebase'
+    alias gre='git reset'
     alias grm='git rm'
     alias gs='git status'
     alias gst='git stash'
@@ -128,6 +130,7 @@ if [ -f /usr/local/etc/bash_completion.d/git-completion.bash ]; then
     __git_complete gpl _git_pull
     __git_complete gr  _git_remote
     __git_complete grb _git_rebase
+    __git_complete gre _git_reset
     __git_complete grm _git_rm
     __git_complete gst _git_stash
     __git_complete gu  _git_undo
@@ -167,25 +170,19 @@ if hash dig 2>/dev/null; then
 fi
 
 if [[ $OS == "mac" ]]; then
-    #  Flush DNS cache - https://github.com/necolas/dotfiles
+    #https://github.com/necolas/dotfiles
     alias flushdns="dscacheutil -flushcache"
-
-    # Empty the Trash on all mounted volumes and the main HDD - https://github.com/necolas/dotfiles
+    # Empty the Trash on all mounted volumes and the main HDD
     # Also, clear Apple’s System Logs to improve shell startup speed
     alias emptytrash="sudo rm -rfv /Volumes/*/.Trashes; sudo rm -rfv ~/.Trash; sudo rm -rfv /private/var/log/asl/*.asl"
-
-    # Show/hide hidden files in Finder - https://github.com/necolas/dotfiles
-    alias showdotfiles="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
-    alias hidedotfiles="defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder"
 fi
 
-# Copy my public key to the pasteboard - https://github.com/necolas/dotfiles
+# Copy my public key to the pasteboard
 if [[ $OS == mac ]]; then
     alias pubkey="more ~/.ssh/id_rsa.pub | pbcopy | printf '=> Public key copied to pasteboard.\n'"
 fi
 
-## Make new shells get the history lines from all previous - https://github.com/necolas/dotfiles
-# shells instead of the default "last window closed" history
+# make shells use history from other shells
 export PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
 
 # set default editor
@@ -196,7 +193,7 @@ else
 fi
 
 # Number of lines of commands loaded & stored during a bash session
-HISTSIZE=1000
+HISTSIZE=10000
 # Number of lines of commands stored in .bash_history file persistently
 HISTFILESIZE=10000
 HISTCONTROL=ignoreboth
@@ -284,77 +281,13 @@ virtualenv_info(){
 # disable the default virtualenv prompt
 export VIRTUAL_ENV_DISABLE_PROMPT=1
 
+# Ansi escape color codes
 Color_Off='\e[0m'       # Text Reset
-
-# Regular Colors
-#Black='\e[0;30m'        # Black
-#Red='\e[0;31m'          # Red
 Green='\e[0;32m'        # Green
 Yellow='\e[0;33m'       # Yellow
 Blue='\e[0;34m'         # Blue
 Purple='\e[0;35m'       # Purple
 Cyan='\e[0;36m'         # Cyan
-#White='\e[0;37m'        # White
-
-# Bold
-#BBlack='\e[1;30m'       # Black
-#BRed='\e[1;31m'         # Red
-#BGreen='\e[1;32m'       # Green
-#BYellow='\e[1;33m'      # Yellow
-#BBlue='\e[1;34m'        # Blue
-#BPurple='\e[1;35m'      # Purple
-#BCyan='\e[1;36m'        # Cyan
-#BWhite='\e[1;37m'       # White
-
-# Underline
-#UBlack='\e[4;30m'       # Black
-#URed='\e[4;31m'         # Red
-#UGreen='\e[4;32m'       # Green
-#UYellow='\e[4;33m'      # Yellow
-#UBlue='\e[4;34m'        # Blue
-#UPurple='\e[4;35m'      # Purple
-#UCyan='\e[4;36m'        # Cyan
-#UWhite='\e[4;37m'       # White
-
-# Background
-#On_Black='\e[40m'       # Black
-#On_Red='\e[41m'         # Red
-#On_Green='\e[42m'       # Green
-#On_Yellow='\e[43m'      # Yellow
-#On_Blue='\e[44m'        # Blue
-#On_Purple='\e[45m'      # Purple
-#On_Cyan='\e[46m'        # Cyan
-#On_White='\e[47m'       # White
-
-# High Intensity
-#IBlack='\e[0;90m'       # Black
-#IRed='\e[0;91m'         # Red
-#IGreen='\e[0;92m'       # Green
-#IYellow='\e[0;93m'      # Yellow
-#IBlue='\e[0;94m'        # Blue
-#IPurple='\e[0;95m'      # Purple
-#ICyan='\e[0;96m'        # Cyan
-#IWhite='\e[0;97m'       # White
-
-# Bold High Intensity
-#BIBlack='\e[1;90m'      # Black
-#BIRed='\e[1;91m'        # Red
-#BIGreen='\e[1;92m'      # Green
-#BIYellow='\e[1;93m'     # Yellow
-#BIBlue='\e[1;94m'       # Blue
-#BIPurple='\e[1;95m'     # Purple
-#BICyan='\e[1;96m'       # Cyan
-#BIWhite='\e[1;97m'      # White
-
-# High Intensity backgrounds
-#On_IBlack='\e[0;100m'   # Black
-#On_IRed='\e[0;101m'     # Red
-#On_IGreen='\e[0;102m'   # Green
-#On_IYellow='\e[0;103m'  # Yellow
-#On_IBlue='\e[0;104m'    # Blue
-#On_IPurple='\e[0;105m'  # Purple
-#On_ICyan='\e[0;106m'    # Cyan
-#On_IWhite='\e[0;107m'   # White
 
 set_prompts() {
     # set the terminal title to the current working directory
@@ -369,7 +302,6 @@ set_prompts() {
     PS1+="\[$Cyan\]\${DOCKER_MACHINE_NAME}" # display docker machine name
     PS1+="\n"
     PS1+="\[$Color_Off\]\$ "                # $ or # depending on user status
-
     export PS1
 }
 
@@ -378,9 +310,8 @@ unset set_prompts
 
 # Functions
 
-# search recessively
-# 2nd optional argument for directory. Defaults to $PWD.
 findtext() {
+    # 2nd optional argument for directory. Defaults to $PWD.
     if (( $# < 2 )); then
         local arg2=$PWD
     else
@@ -388,6 +319,7 @@ findtext() {
     fi
     grep -riI --color "$1" "$arg2" 2>/dev/null
 }
+
 # Make directory and enter it
 md() {
     mkdir -p "$@" && cd "$@"
@@ -513,7 +445,6 @@ fi
 
 # LS Colors
 export CLICOLOR=1
-
 if [[ $OS == "mac" ]]; then
     # http://www.freebsd.org/cgi/man.cgi?query=ls&apropos=0&sektion=1&format=html
     LSCOLORS='ex'   # dir
@@ -527,7 +458,6 @@ if [[ $OS == "mac" ]]; then
     LSCOLORS+='ag'  # executable with setgid bit set
     LSCOLORS+='ac'  # directory writable to others, with sticky bit
     LSCOLORS+='ad'  # directory writable to others, without sticky bit
-
     export LSCOLORS
 fi
 
@@ -543,7 +473,6 @@ if [[ $OS == "linux" ]]; then
     LS_COLORS+=':or=31' # symbolic link pointing to a non-existent file (orphan)
     LS_COLORS+=':mi=0'  # non-existent file pointed to by a symbolic link (visible when you type ls -l)
     LS_COLORS+=':ex=32' # executable permissions set
-
     export LS_COLORS
 fi
 

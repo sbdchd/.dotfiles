@@ -21,7 +21,7 @@ set number
 set cursorline
 " min number of screen lines above/below of cursor
 set scrolloff=5
-" cursor breifly jumps to matching bracket upon the insertion
+" cursor briefly jumps to matching bracket upon the insertion
 set showmatch
 " set time of match cursor switch
 set matchtime=2
@@ -130,7 +130,7 @@ set history=1000
 " Mappings
 " set the leader key
 let g:mapleader = ' '
-" more efficent for typing commands
+" more efficient for typing commands
 nnoremap ; :
 vnoremap ; :
 
@@ -149,7 +149,7 @@ set directory-=.
 set directory+=~/tmp
 
 
-" Wrapping
+" Wrapping & Folding
 " ensure wrapping is enabled
 set wrap
 " show break with chars
@@ -158,6 +158,8 @@ set showbreak=..
 if has('linebreak')
     set breakindent
 endif
+" disable folding
+set nofoldenable
 
 
 " Movement
@@ -172,6 +174,9 @@ nnoremap <leader>k :bprevious<CR>
 if has('nvim')
     tnoremap <Esc> <C-\><C-n>
 endif
+" disable netrw help banner
+let g:netrw_banner = 0
+nnoremap <leader>d :Explore<CR>
 " mouse will only work with certain terminals
 set mouse=a
 
@@ -221,10 +226,11 @@ augroup QuickFixClose
     au!
     au WinEnter * if winnr('$') == 1 && getbufvar(winbufnr(winnr()), "&buftype") == "quickfix" | q | endif
 augroup END
-"make eslintrc show up as a json file
-autocmd! BufNewFile,BufRead .eslintrc set filetype=json
+"set file types for certain files
+autocmd! BufNewFile,BufRead .eslintrc,.jsbeautifyrc set filetype=json
+autocmd! BufNewFile,BufRead .astylerc set filetype=config
 " change spacing from the default 4 to the desired 2
-autocmd! filetype jade,pug,gitconfig,ruby,scss,css set shiftwidth=2
+autocmd! filetype jade,pug,gitconfig,ruby,scss,css,markdown setlocal shiftwidth=2
 
 " vim-plug setup
 " https://github.com/junegunn/vim-plug
@@ -251,12 +257,12 @@ Plug 'junegunn/vim-peekaboo'
 Plug 'kshenoy/vim-signature'
 Plug 'lervag/vimtex'
 Plug 'majutsushi/tagbar'
-Plug 'mattn/emmet-vim'
 Plug 'mbbill/undotree', {'on' : 'UndotreeToggle'}
 Plug 'mhinz/vim-startify'
 Plug 'milkypostman/vim-togglelist'
 Plug 'othree/html5.vim'
 Plug 'pangloss/vim-javascript'
+Plug 'plasticboy/vim-markdown'
 Plug 'rhysd/clever-f.vim'
 Plug 'sbdchd/vim-run'
 Plug 'sbdchd/vim-shebang'
@@ -265,10 +271,8 @@ Plug 'sentientmachine/erics_vim_syntax_and_color_highlighting', {'for': 'java'}
 Plug 'tmux-plugins/vim-tmux'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-markdown'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
-Plug 'tpope/vim-vinegar'
 Plug 'vim-utils/vim-troll-stopper'
 Plug 'w0ng/vim-hybrid'
 Plug 'wellle/targets.vim'
@@ -324,45 +328,36 @@ nmap ga <Plug>(EasyAlign)
 let g:javascript_enable_domhtmlcss = 1
 
 " vim autoformat
-set verbose=0
-let g:autoformat_verbosemode = 0
-let g:format = 1
+let b:format = 1
 let g:autoformat_autoindent = 1
 
-let g:formatdef_astyle_java = '"astyle"'
-let g:formatters_java = ['astyle_java']
-
 " filetypes (ft) for which vim's auto indent should not be used by autoformat
-let s:autoformat_ft_blacklist = ['markdown']
-
-let g:formatdef_goimports = '"goimports"'
-let g:formatters_go = ['goimports']
+let s:autoformat_ft_blacklist = ['markdown', 'jade', 'pug']
 
 function s:FormatterToggle()
-    if g:format
-        let g:format = 0
+    if b:format
+        let b:format = 0
         echo 'Disabled Formatter'
     else
-        let g:format = 1
+        let b:format = 1
         echo 'Enabled Formatter'
     endif
 endfunction
 
 command! FormatterToggle :call s:FormatterToggle()
 
-function s:CheckAutoformatBlacklist()
-    for l:i in s:autoformat_ft_blacklist
-        if l:i == &filetype
-            " disable vim's indent as fallback for autoformat
-            let g:autoformat_autoindent = 0
-            break
-        endif
-    endfor
-endfunction
-
 function s:Formatter()
-    if g:format
-        call s:CheckAutoformatBlacklist()
+    if !exists('b:format')
+        let b:format = 1
+    endif
+    if b:format
+        for l:i in s:autoformat_ft_blacklist
+            if l:i == &filetype
+                " disable vim's indent as fallback for autoformat
+                let g:autoformat_autoindent = 0
+                break
+            endif
+        endfor
         Autoformat
     endif
 endfunction
@@ -376,6 +371,7 @@ augroup END
 augroup Neomake
     autocmd!
     autocmd BufWritePost * Neomake
+    autocmd QuitPre * let g:neomake_verbose = 0
 augroup END
 
 let g:neomake_error_sign = {
@@ -391,22 +387,6 @@ let g:neomake_info = {
             \ 'text': '!❯',
             \ 'texthl': 'WarningMsg',
             \ }
-
-let g:neomake_go_gometalinter_maker = {
-            \ 'args': ['-E', 'gofmt', '-E', 'goimports', '-t', '%:p:h'],
-            \ 'append_file': 0,
-            \ 'errorformat':
-            \ '%E%f:%l:%c:error: %m,' .
-            \ '%E%f:%l::error: %m,' .
-            \ '%W%f:%l:%c:warning: %m,' .
-            \ '%W%f:%l::warning: %m'
-            \ }
-
-let g:neomake_go_enabled_makers = [
-            \ 'golint',
-            \ 'go',
-            \ 'gometalinter'
-            \ ]
 
 " vim-go
 let g:go_highlight_functions = 1

@@ -10,8 +10,6 @@ defaults write -g ApplePressAndHoldEnabled -bool false
 defaults write com.apple.dock workspaces-edge-delay -float 0.1
 
 # https://github.com/necolas/dotfiles/blob/master/bin/osxdefaults
-# lots of culling of unnecessary/nonfunctioning defaults
-
 # Always show scrollbars
 defaults write NSGlobalDomain AppleShowScrollBars -string "Always"
 
@@ -50,6 +48,3 @@ defaults write com.apple.finder AppleShowAllFiles -bool true
 
 # Disable Dashboard
 defaults write com.apple.dashboard mcx-disabled -boolean YES
-
-# Finder: use list view in all windows by default
-# Four-letter codes for the other view modes: `icnv`, `clmv`, `Flwv`
