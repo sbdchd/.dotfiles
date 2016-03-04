@@ -55,6 +55,7 @@ brew install curl
 brew install git-extras
 brew install highlight
 brew install htop-osx
+brew install httpie
 brew install jlhonora/lsusb/lsusb
 brew install sbdchd/macchanger/macchanger
 brew install shellcheck
