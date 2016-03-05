@@ -9,32 +9,27 @@ else
     OS='unknown'
 fi
 
+
+
+# Aliases #
 # alias ls according to the current os
 if [[ $OS == "mac" ]]; then
     alias ls='ls -A -G -F'
 elif [[ $OS == "linux" ]]; then
     alias ls='ls -A -F --color=auto'
 fi
+# ls with lots of data
+alias ll='ls -l'
 
 # Prompt user before taking action
 alias rm='rm -iv'
 alias cp='cp -iv'
 alias mv='mv -iv'
 
-alias ll='ls -l'
-
+# General Commands
+alias c="clear"
 alias e='exit'
 alias q='exit'
-
-# Easier movement
-alias ..='cd ..'
-alias ...='cd ../..'
-alias ....='cd ../../..'
-alias .....='cd ../../../..'
-alias ~='cd ~'
-
-# misspellings
-alias mdkir='mkdir'
 
 if hash pmset 2>/dev/null; then
     alias sleep='pmset sleepnow'
@@ -67,10 +62,6 @@ if [[ $OS == mac ]]; then
     alias airport="/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport"
 fi
 
-# Go setup stuff
-export GOPATH=$HOME/Dropbox/$USER/projects/go
-export PATH=$PATH:$GOPATH/bin
-
 # Default places
 alias projects='cd ~/Dropbox/$USER/projects'
 alias desktop='cd ~/Desktop'
@@ -82,13 +73,9 @@ alias trash='cd ~/.Trash'
 alias homebrew='cd /usr/local/Library/Formula'
 alias caskroom='cd /usr/local/Library/Taps/caskroom'
 
-# http://unix.stackexchange.com/a/43005
-# Use vi/vim style commands to edit & select  cli commands
-set -o vi
-
 # Alias vim to nvim if nvim is installed
 if hash nvim 2>/dev/null; then
-    alias vimvim='nvim'
+    alias vimvim='vim'
     alias vim='nvim'
     alias vi='nvim'
     alias ni='nvim'
@@ -115,11 +102,10 @@ if hash git 2>/dev/null; then
     alias gst='git stash'
     alias gu='git undo'
 fi
-
-# Bash Completion
+# Bash Completion - Git Aliases
 if [ -f /usr/local/etc/bash_completion.d/git-completion.bash ]; then
     . /usr/local/etc/bash_completion.d/git-completion.bash
-    # Git Aliases
+
     __git_complete ga  _git_add
     __git_complete gb  _git_branch
     __git_complete gc  _git_commit
@@ -136,14 +122,8 @@ if [ -f /usr/local/etc/bash_completion.d/git-completion.bash ]; then
     __git_complete gu  _git_undo
 fi
 
-if hash virtualenv 2>/dev/null; then
-    function venv() {
-    local env="$1"
-    if [ -f "$env/bin/activate" ]; then
-        . "$env"/bin/activate
-    fi
-}
-
+if hash screenfetch 2>/dev/null; then
+    alias screenfetch='screenfetch -d "+disk"'
 fi
 
 # docker machine aliases
@@ -160,9 +140,6 @@ if hash python3 2>/dev/null; then
 elif hash python2 2>/dev/null; then
     alias httpserver='python2 -m SimpleHTTPServer'
 fi
-
-# General Commands
-alias c="clear"
 
 # IP addresses - https://github.com/necolas/dotfiles
 if hash dig 2>/dev/null; then
@@ -182,8 +159,14 @@ if [[ $OS == mac ]]; then
     alias pubkey="more ~/.ssh/id_rsa.pub | pbcopy | printf '=> Public key copied to pasteboard.\n'"
 fi
 
+
+
+# Exports #
 # make shells use history from other shells
 export PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
+
+# disable the default virtualenv prompt
+export VIRTUAL_ENV_DISABLE_PROMPT=1
 
 # set default editor
 if hash nvim 2>/dev/null; then
@@ -191,16 +174,63 @@ if hash nvim 2>/dev/null; then
 else
     export EDITOR=vim
 fi
+# make postgresql cli tools work
+export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/9.4/bin
+# LS Colors
+export CLICOLOR=1
+if [[ $OS == "mac" ]]; then
+    # http://www.freebsd.org/cgi/man.cgi?query=ls&apropos=0&sektion=1&format=html
+    LSCOLORS='ex'   # dir
+    LSCOLORS+='fx'  # symbolic link
+    LSCOLORS+='bx'  # socket
+    LSCOLORS+='bx'  # pipe
+    LSCOLORS+='cx'  # executable
+    LSCOLORS+='bx'  # block special
+    LSCOLORS+='bx'  # character special
+    LSCOLORS+='ab'  # executable with setuid bit set
+    LSCOLORS+='ag'  # executable with setgid bit set
+    LSCOLORS+='ac'  # directory writable to others, with sticky bit
+    LSCOLORS+='ad'  # directory writable to others, without sticky bit
+    export LSCOLORS
+fi
+if [[ $OS == "linux" ]]; then
+    # http://linux-sxs.org/housekeeping/lscolors.html
+    LS_COLORS='di=34'   # directory
+    LS_COLORS+=':fi=0'  # file
+    LS_COLORS+=':ln=35' # symbolic link
+    LS_COLORS+=':pi=5'  # fifo file
+    LS_COLORS+=':so=5'  # socket file
+    LS_COLORS+=':bd=5'  # block (buffered) special file
+    LS_COLORS+=':cd=5'  # character (unbuffered) special file
+    LS_COLORS+=':or=31' # symbolic link pointing to a non-existent file (orphan)
+    LS_COLORS+=':mi=0'  # non-existent file pointed to by a symbolic link (visible when you type ls -l)
+    LS_COLORS+=':ex=32' # executable permissions set
+    export LS_COLORS
+fi
 
+export PATH="/usr/local/sbin:$PATH"
+
+# Go setup stuff
+export GOPATH=$HOME/Dropbox/$USER/projects/go
+export PATH=$PATH:$GOPATH/bin
+
+# FZF
+export FZF_DEFAULT_COMMAND='ag --hidden -U --ignore .git -g ""'
+export FZF_DEFAULT_OPTS='--color hl:221,hl+:221
+--color pointer:143,info:143,prompt:109,spinner:143,pointer:143,marker:143'
+
+
+
+# History #
 # Number of lines of commands loaded & stored during a bash session
 HISTSIZE=10000
 # Number of lines of commands stored in .bash_history file persistently
 HISTFILESIZE=10000
 HISTCONTROL=ignoreboth
 
-# make postgresql cli tools work
-export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/9.4/bin
 
+
+# Bash Prompt #
 # https://github.com/necolas/dotfiles/blob/master/shell/bash_prompt
 prompt_git() {
     local s=""
@@ -208,10 +238,8 @@ prompt_git() {
 
     # check if the current directory is in a git repository
     if [ "$(git rev-parse --is-inside-work-tree &>/dev/null; printf "%s" $?)" == 0 ]; then
-
         # check if the current directory is in .git before running git checks
         if [ "$(git rev-parse --is-inside-git-dir 2> /dev/null)" == "false" ]; then
-
             # ensure index is up to date
             git update-index --really-refresh  -q &>/dev/null
 
@@ -250,7 +278,6 @@ prompt_git() {
             if [[ $(git status 2> /dev/null) =~ ${diverge_pattern} ]]; then
                 remote="<>" # Diverged
             fi
-
         fi
 
         # get the short symbolic ref
@@ -278,17 +305,22 @@ virtualenv_info(){
     [[ -n "$venv" ]] && echo "$venv"
 }
 
-# disable the default virtualenv prompt
-export VIRTUAL_ENV_DISABLE_PROMPT=1
+if hash virtualenv 2>/dev/null; then
+    function venv() {
+    local env="$1"
+    if [ -f "$env/bin/activate" ]; then
+        . "$env"/bin/activate
+    fi
+}
+fi
 
-# Ansi escape color codes
+# ANSI escape color codes
 Color_Off='\e[0m'       # Text Reset
 Green='\e[0;32m'        # Green
 Yellow='\e[0;33m'       # Yellow
 Blue='\e[0;34m'         # Blue
 Purple='\e[0;35m'       # Purple
 Cyan='\e[0;36m'         # Cyan
-
 set_prompts() {
     # set the terminal title to the current working directory
     PS1="\[\033]0;\w\007\]"
@@ -304,12 +336,12 @@ set_prompts() {
     PS1+="\[$Color_Off\]\$ "                # $ or # depending on user status
     export PS1
 }
-
 set_prompts
 unset set_prompts
 
-# Functions
 
+
+# Functions #
 findtext() {
     # 2nd optional argument for directory. Defaults to $PWD.
     if (( $# < 2 )); then
@@ -427,12 +459,10 @@ if [[ $OS == "mac" ]]; then
 }
 fi
 
-if hash screenfetch 2>/dev/null; then
-    alias screenfetch='screenfetch -d "+disk"'
-fi
 
+
+# Tmux #
 # https://wiki.archlinux.org/index.php/Tmux#Autostart_tmux_with_default_tmux_layout
-# make Tmux open on terminal startup
 if [[ -z "$TMUX" ]]; then
     ID="$(tmux ls | grep -vm1 attached | cut -d: -f1)" # get the id of a deattached session
     if [[ -z "$ID" ]]; then # if not available create a new one
@@ -443,39 +473,8 @@ if [[ -z "$TMUX" ]]; then
 fi
 
 
-# LS Colors
-export CLICOLOR=1
-if [[ $OS == "mac" ]]; then
-    # http://www.freebsd.org/cgi/man.cgi?query=ls&apropos=0&sektion=1&format=html
-    LSCOLORS='ex'   # dir
-    LSCOLORS+='fx'  # symbolic link
-    LSCOLORS+='bx'  # socket
-    LSCOLORS+='bx'  # pipe
-    LSCOLORS+='cx'  # executable
-    LSCOLORS+='bx'  # block special
-    LSCOLORS+='bx'  # character special
-    LSCOLORS+='ab'  # executable with setuid bit set
-    LSCOLORS+='ag'  # executable with setgid bit set
-    LSCOLORS+='ac'  # directory writable to others, with sticky bit
-    LSCOLORS+='ad'  # directory writable to others, without sticky bit
-    export LSCOLORS
-fi
 
-if [[ $OS == "linux" ]]; then
-    # http://linux-sxs.org/housekeeping/lscolors.html
-    LS_COLORS='di=34'   # directory
-    LS_COLORS+=':fi=0'  # file
-    LS_COLORS+=':ln=35' # symbolic link
-    LS_COLORS+=':pi=5'  # fifo file
-    LS_COLORS+=':so=5'  # socket file
-    LS_COLORS+=':bd=5'  # block (buffered) special file
-    LS_COLORS+=':cd=5'  # character (unbuffered) special file
-    LS_COLORS+=':or=31' # symbolic link pointing to a non-existent file (orphan)
-    LS_COLORS+=':mi=0'  # non-existent file pointed to by a symbolic link (visible when you type ls -l)
-    LS_COLORS+=':ex=32' # executable permissions set
-    export LS_COLORS
-fi
-
+# Bash Settings #
 # make * select normal and dot files
 shopt -s dotglob
 
@@ -488,20 +487,21 @@ shopt -s cdspell
 # append history instead of overwriting history file
 shopt -s histappend
 
-export PATH="/usr/local/sbin:$PATH"
+# Use vi/vim style commands to edit & select  cli commands
+# http://unix.stackexchange.com/a/43005
+set -o vi
 
-#FZF
-export FZF_DEFAULT_COMMAND='ag --hidden -U --ignore .git -g ""'
-export FZF_DEFAULT_OPTS='--color hl:221,hl+:221
---color pointer:143,info:143,prompt:109,spinner:143,pointer:143,marker:143'
 
+
+# Bash Completion #
 if [ -f "$(brew --prefix)"/share/bash-completion/bash_completion ]; then
     . "$(brew --prefix)"/share/bash-completion/bash_completion
 fi
-
-## Complete
+# FZF completion
 complete -F _fzf_file_completion -o default -o bashdefault ni
 complete -F _fzf_file_completion -o default -o bashdefault bash
 
-# for fzf previous command history search `<CTRL> R`
+
+
+# for FZF previous command history search `<CTRL> R`
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
