@@ -354,13 +354,13 @@ findtext() {
 
 # Make directory and enter it
 md() {
-    mkdir -p "$@" && cd "$@"
+    mkdir -p "$@" && cd "$@" || exit
 }
 
 # http://serverfault.com/a/28649
 # move up directories more easily
 up() {
-    cd "$(eval printf '../'%.s $(seq 1 $1))"
+    cd "$(eval printf '../'%.s $(seq 1 $1))" || exit
 }
 
 # https://wiki.archlinux.org/index.php/Bash/Functions#cd_and_ls_in_one
@@ -369,10 +369,16 @@ cl() {
     local dir="$1"
     local dir="${dir:=$HOME}"
     if [[ -d "$dir" ]]; then
-        cd "$dir" >/dev/null; ls
+        cd "$dir" >/dev/null || exit; ls
     else
         echo "bash: cl: $dir: Directory not found"
     fi
+}
+
+# https://github.com/paulirish/dotfiles/blob/master/.functions
+# open most recent finder window directory in terminal
+cdf() {
+    cd "$(osascript -e 'tell app "Finder" to POSIX path of (insertion location as alias)')" || exit
 }
 
 if hash awk 2>/dev/null && hash column 2>/dev/null; then

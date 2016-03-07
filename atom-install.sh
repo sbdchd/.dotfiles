@@ -2,32 +2,57 @@
 
 # packages
 apm install atom-bootstrap3
-apm install atom-csscomb
 apm install atom-terminal
 apm install block-travel
 apm install color-picker
-apm install ex-mode
 apm install file-icons
 apm install git-control
 apm install git-log
 apm install go-plus
 apm install highlight-line
-apm install linter
-apm install linter-shellcheck
 apm install local-history
 apm install markdown-writer
 apm install merge-conflicts
-apm install minimap
 apm install pigments
 apm install project-manager
-apm install save-session
 apm install script
 apm install tabs-to-spaces
+apm install java-importer
+
+# vim mode
+apm install ex-mode
 apm install vim-mode
 apm install vim-mode-visual-block
 apm install vim-surround
 
-# syntax
-apm install peacock-syntax
-apm install slime
+# atom beautify
+apm install atom-beautify
+apm install jade-beautify
 
+# linters
+apm install linter
+apm install linter-bootlint
+apm install linter-csslint
+apm install linter-eslint
+apm install linter-golinter
+apm install linter-htmlhint
+apm install linter-jade
+apm install linter-javac
+apm install linter-js-yaml
+apm install linter-jsonlint
+apm install linter-markdownlint
+apm install linter-pylint
+apm install linter-rubocop
+apm install linter-sass-lint
+apm install linter-shellcheck
+apm install linter-xmllint
+
+# languages
+apm install atom-jade
+apm install atom-jinja2
+apm install language-liquid
+apm install language-tmux
+apm install language-viml
+
+# syntax
+apm install hybrid-next-syntax
