@@ -265,9 +265,9 @@ Plug 'pangloss/vim-javascript'
 Plug 'rhysd/clever-f.vim'
 Plug 'sbdchd/vim-run'
 Plug 'sbdchd/vim-shebang'
-Plug 'scrooloose/nerdcommenter'
 Plug 'sentientmachine/erics_vim_syntax_and_color_highlighting', {'for': 'java'}
 Plug 'tmux-plugins/vim-tmux'
+Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-markdown'
@@ -285,9 +285,6 @@ call plug#end()
 inoremap <C-j> <Down>
 inoremap <C-k> <Up>
 command! DeopleteDisable let g:deoplete#disable_auto_complete=1
-
-" nerdcommenter
-filetype plugin on
 
 " fzf
 nnoremap <leader>f :FZF<CR>
@@ -330,6 +327,10 @@ let g:javascript_enable_domhtmlcss = 1
 " vim autoformat
 let b:format = 1
 let g:autoformat_autoindent = 1
+
+" vim peekaboo
+let g:peekaboo_delay = 600
+let g:peekaboo_compact = 1
 
 " filetypes (ft) for which vim's auto indent should not be used by autoformat
 let s:autoformat_ft_blacklist = ['markdown', 'jade', 'pug']

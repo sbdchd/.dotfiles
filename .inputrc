@@ -1,7 +1,13 @@
 #!/usr/bin/env bash
 
-# Use case-insensitive TAB autocompletion - https://github.com/necolas/dotfiles
+# Use case-insensitive TAB autocompletion
 set completion-ignore-case on
 
-# Auto list tab completions - https://github.com/necolas/dotfiles
+# Auto list tab completions
 set show-all-if-ambiguous on
+
+# Use vi style key binds for interpreters
+set editing-mode vi
+
+# No audio or visual bell
+set bell-style none

@@ -1,8 +1,11 @@
+# http://astyle.sourceforge.net/astyle.html
 --style=attach
 
 --indent=spaces=4
 
 --pad-oper
+
+--pad-header
 
 --unpad-paren
 
