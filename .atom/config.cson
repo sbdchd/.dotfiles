@@ -1,0 +1,27 @@
+"*":
+  "atom-beautify": {}
+  core:
+    audioBeep: false
+    disabledPackages: [
+      "minimap"
+    ]
+    openEmptyEditorOnStart: false
+    themes: [
+      "atom-dark-ui"
+      "hybrid-next-syntax"
+    ]
+  editor:
+    fontFamily: "menlo"
+    fontSize: 12
+    invisibles: {}
+    showIndentGuide: true
+    softWrap: true
+  "exception-reporting":
+    userId: "d328e0b0-e5b7-fc72-e42e-e537c668efbf"
+  "go-plus": {}
+  minimap:
+    autoToggle: false
+  "save-session":
+    dataSaveFolder: "/Users/steve/.atom/packages/save-session/projects"
+  welcome:
+    showOnStartup: false

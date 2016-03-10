@@ -493,7 +493,7 @@ shopt -s cdspell
 # append history instead of overwriting history file
 shopt -s histappend
 
-# Use vi/vim style commands to edit & select  cli commands
+# Use vi/vim style commands to edit & select cli commands
 # http://unix.stackexchange.com/a/43005
 set -o vi
 

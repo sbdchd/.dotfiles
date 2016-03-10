@@ -10,6 +10,7 @@ apm install git-control
 apm install git-log
 apm install go-plus
 apm install highlight-line
+apm install java-importer
 apm install local-history
 apm install markdown-writer
 apm install merge-conflicts
@@ -17,13 +18,14 @@ apm install pigments
 apm install project-manager
 apm install script
 apm install tabs-to-spaces
-apm install java-importer
+apm install term3
 
 # vim mode
-apm install ex-mode
-apm install vim-mode
-apm install vim-mode-visual-block
-apm install vim-surround
+apm install atom-keyboard-macros-vim
+apm install vim-mode-plus
+apm install vim-mode-plus-ex-mode
+apm install vim-mode-plus-subword-movement
+apm install vim-modeline
 
 # atom beautify
 apm install atom-beautify

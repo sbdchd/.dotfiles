@@ -1,34 +1,48 @@
 #!/usr/bin/env bash
 
-# Parts taken from https://github.com/necolas/dotfiles
-
-#http://stackoverflow.com/a/4774063
+# http://stackoverflow.com/a/4774063
 DOTFILES_DIRECTORY="$(cd "$( dirname "${BASH_SOURCE[0]}")" > /dev/null && pwd)"
 
+
 link() {
-    # Force create/replace the symlink.
-    ln -fs "$DOTFILES_DIRECTORY/$1" "$HOME/$2"
+    arg1="$1"
+    arg2="$2"
+
+    # check length of args
+    if [[ "$#" -lt 2 ]]; then
+        arg2="$arg1"
+    fi
+
+    if [[ "$arg1" == "-d" ]]; then
+        arg1="$arg2"
+        arg2="$3"
+    fi
+
+    # force create/replace the symlink.
+    ln -fs "$DOTFILES_DIRECTORY/$arg1" "$HOME/$arg2"
 }
 
-# Copy `.gitconfig`.
-# Any global git commands in `~/.bash_profile.local` will be written to
-# `.gitconfig`. This prevents them being committed to the repository.
-cp -n .gitconfig  "$HOME"/.gitconfig
 
-# Link .dotfiles to $HOME
-link ".tmux.conf"    ".tmux.conf"
-link ".vimrc"        ".vimrc"
+# link files
+link ".astylerc"
+link ".bash_profile"
+link ".bashrc"
+link ".eslintrc"
+link ".gitconfig"
+link ".gitignore"
+link ".inputrc"
+link ".jsbeautifyrc"
+link ".nanorc"
+link ".tmux.conf"
+link ".vimrc"
 link ".vimrc"        ".ideavimrc"
-link ".vim/"         ".vim/"
-link ".bashrc"       ".bashrc"
-link ".bash_profile" ".bash_profile"
-link ".inputrc"      ".inputrc"
-link ".gitignore"    ".gitignore"
-link ".eslintrc"     ".eslintrc"
-link ".astylerc"     ".astylerc"
-link ".nanorc"       ".nanorc"
-link ".vintrc.yaml"  ".vintrc.yaml"
-link ".jsbeautifyrc" ".jsbeautify.rc"
+link ".vintrc.yaml"
+
+
+# link dirs
+link -d ".vim"
+link -d ".atom"
+
 
 # neovim
 XDG_CONFIG_HOME="$HOME"/.config
@@ -36,4 +50,5 @@ mkdir -p      "$XDG_CONFIG_HOME"
 link ".vim/"  "$XDG_CONFIG_HOME/nvim"
 link ".vimrc" "$XDG_CONFIG_HOME/nvim/init.vim"
 
-echo "dotfiles link complete!"
+
+echo "dotfiles linked!"

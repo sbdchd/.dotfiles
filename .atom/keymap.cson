@@ -1,0 +1,13 @@
+# make vim-mode-plus surround behave
+'atom-text-editor.vim-mode-plus:not(.insert-mode)':
+  'y s': 'vim-mode-plus:surround'
+  'y s w': 'vim-mode-plus:surround-word'
+  'd s': 'vim-mode-plus:delete-surround'
+  'c s': 'vim-mode-plus:change-surround'
+  'd s': 'vim-mode-plus:delete-surround-any-pair'
+  'c s': 'vim-mode-plus:change-surround-any-pair'
+
+# vim-mode-plus-ex-mode
+'atom-text-editor.vim-mode-plus.normal-mode':
+  ':': 'vim-mode-plus-ex-mode:open'
+  '!': 'vim-mode-plus-ex-mode:toggle-setting'
