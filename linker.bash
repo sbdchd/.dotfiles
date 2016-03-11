@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# linker - system links dotfiles
+
 # http://stackoverflow.com/a/4774063
 DOTFILES_DIRECTORY="$(cd "$( dirname "${BASH_SOURCE[0]}")" > /dev/null && pwd)"
 

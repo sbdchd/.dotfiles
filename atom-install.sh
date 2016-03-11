@@ -25,7 +25,6 @@ apm install atom-keyboard-macros-vim
 apm install vim-mode-plus
 apm install vim-mode-plus-ex-mode
 apm install vim-mode-plus-subword-movement
-apm install vim-modeline
 
 # atom beautify
 apm install atom-beautify

@@ -1,47 +1,21 @@
 # Dotfiles
 
-A collection of dotfiles, currently for osx.
+A collection of dotfiles, mostly for osx.
 
 ## Install
 
 ```bash
 git clone https://github.com/sbdchd/.dotfiles && \
 cd .dotfiles && \
-bash dotfiles-link.sh
+./linker.sh
+./install.bash
 ```
 
-### Update
+## Update
 
 ```bash
 git pull
-```
-
-## Install Programs
-
-OSX
-
-```bash
-bash osx-install.sh
-```
-
-Linux
-
-```bash
-sudo bash linux-install.sh
-```
-
-## Update Programs
-
-OSX
-
-```bash
-bash osx-update.sh
-```
-
-Linux
-
-```bash
-sudo bash linux-update.sh
+./update.bash
 ```
 
 ## Notes
