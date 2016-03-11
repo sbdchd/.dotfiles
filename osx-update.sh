@@ -19,3 +19,6 @@ npm update -g
 
 # atom
 apm upgrade --no-confirm
+
+# go
+sh go-install.sh

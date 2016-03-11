@@ -4,6 +4,8 @@
     audioBeep: false
     disabledPackages: [
       "minimap"
+      "metrics"
+      "exception-reporting"
     ]
     openEmptyEditorOnStart: false
     themes: [
@@ -16,11 +18,7 @@
     invisibles: {}
     showIndentGuide: true
     softWrap: true
-  "exception-reporting":
-    userId: "d328e0b0-e5b7-fc72-e42e-e537c668efbf"
   "go-plus": {}
-  minimap:
-    autoToggle: false
   "save-session":
     dataSaveFolder: "/Users/steve/.atom/packages/save-session/projects"
   welcome:

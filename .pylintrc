@@ -1,0 +1,4 @@
+[MESSAGES CONTROL]
+# C0111 (Empty %s docstring)
+# C0103 (Invalid %s name "%s")
+disable=C0111,C0103

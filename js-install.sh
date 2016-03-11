@@ -8,4 +8,5 @@ npm install -g js-beautify
 npm install -g markdown-pdf
 npm install -g pug-cli
 npm install -g pug-lint
+npm install -g tern
 npm install -g uglify

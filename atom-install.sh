@@ -34,6 +34,7 @@ apm install jade-beautify
 apm install linter
 apm install linter-bootlint
 apm install linter-csslint
+apm install linter-elixirc
 apm install linter-eslint
 apm install linter-golinter
 apm install linter-htmlhint
@@ -48,9 +49,15 @@ apm install linter-sass-lint
 apm install linter-shellcheck
 apm install linter-xmllint
 
+# autocompletions
+apm install atom-ternjs
+apm install autocomplete-go
+apm install autocomplete-plus-python-jedi
+
 # languages
 apm install atom-jade
 apm install atom-jinja2
+apm install language-elixir
 apm install language-liquid
 apm install language-tmux
 apm install language-viml
