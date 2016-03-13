@@ -47,6 +47,8 @@ bash rb-install.sh
 brew install node
 bash js-install.sh
 
+brew install elixir
+
 # Utilities
 brew install ag
 brew install ccat

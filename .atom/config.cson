@@ -1,5 +1,12 @@
 "*":
   "atom-beautify": {}
+  "autocomplete-plus":
+    suppressActivationForEditorClasses: [
+      "vim-mode-plus.normal-mode"
+      "vim-mode-plus.visual-mode"
+      "vim-mode-plus.operator-pending-mode"
+      "vim-mode-plus.insert-mode.replace"
+    ]
   core:
     audioBeep: false
     disabledPackages: [
@@ -13,10 +20,12 @@
       "hybrid-next-syntax"
     ]
   editor:
+    backUpBeforeSaving: true
     fontFamily: "menlo"
     fontSize: 12
     invisibles: {}
     showIndentGuide: true
+    showInvisibles: true
     softWrap: true
   "go-plus": {}
   "save-session":

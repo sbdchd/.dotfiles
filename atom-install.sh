@@ -6,8 +6,8 @@ apm install atom-terminal
 apm install block-travel
 apm install color-picker
 apm install file-icons
-apm install git-control
 apm install git-log
+apm install git-plus
 apm install go-plus
 apm install highlight-line
 apm install java-importer
@@ -16,12 +16,14 @@ apm install markdown-writer
 apm install merge-conflicts
 apm install pigments
 apm install project-manager
+apm install python-isort
 apm install script
 apm install tabs-to-spaces
 apm install term3
 
 # vim mode
 apm install atom-keyboard-macros-vim
+apm install cursor-history
 apm install vim-mode-plus
 apm install vim-mode-plus-ex-mode
 apm install vim-mode-plus-subword-movement

@@ -3,6 +3,7 @@
 pip install autopep8
 pip install pylint
 pip install vim-vint
+pip install isort
 pip install virtualenv
 pip install jedi
 pip2 install neovim

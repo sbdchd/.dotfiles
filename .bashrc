@@ -73,11 +73,7 @@ alias trash='cd ~/.Trash'
 alias homebrew='cd /usr/local/Library/Formula'
 alias caskroom='cd /usr/local/Library/Taps/caskroom'
 
-# Alias vim to nvim if nvim is installed
 if hash nvim 2>/dev/null; then
-    alias vimvim='vim'
-    alias vim='nvim'
-    alias vi='nvim'
     alias ni='nvim'
 fi
 
