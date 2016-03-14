@@ -194,6 +194,7 @@ set listchars+=eol:¬
 set listchars+=trail:·
 " use list characters
 set list
+set iskeyword+=^_
 
 
 " Miscellaneous
@@ -231,51 +232,70 @@ autocmd! BufNewFile,BufRead .eslintrc,.jsbeautifyrc set filetype=json
 autocmd! BufNewFile,BufRead .astylerc set filetype=config
 " change spacing from the default 4 to the desired 2
 autocmd! filetype jade,pug,gitconfig,ruby,scss,css,markdown setlocal shiftwidth=2
+" cson
+autocmd! BufNewFile,BufRead *.cson set filetype=cson
 
-" vim-plug setup
+" vim-plug plugins setup
 " https://github.com/junegunn/vim-plug
 call plug#begin('~/.vim/plugged')
 
+" Utilities
 Plug 'Chiel92/vim-autoformat'
-Plug 'Glench/Vim-Jinja2-Syntax', {'for': ['html', 'jinja']}
-Plug 'Shougo/deoplete.nvim'
-Plug 'Tyilo/applescript.vim'
-Plug 'airblade/vim-gitgutter'
-Plug 'ap/vim-css-color'
 Plug 'benekastah/neomake'
-Plug 'bling/vim-airline' | Plug 'sbdchd/airline-steve'
 Plug 'chrisbra/Recover.vim'
-Plug 'christoomey/vim-sort-motion'
-Plug 'digitaltoad/vim-pug'
-Plug 'easymotion/vim-easymotion'
-Plug 'fatih/vim-go', {'for': 'go'}
-Plug 'hail2u/vim-css3-syntax'
-Plug 'henrik/vim-indexed-search'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
-Plug 'junegunn/vim-easy-align'
 Plug 'junegunn/vim-peekaboo'
-Plug 'kshenoy/vim-signature'
-Plug 'lervag/vimtex'
 Plug 'majutsushi/tagbar'
 Plug 'mbbill/undotree', {'on' : 'UndotreeToggle'}
-Plug 'mhinz/vim-startify'
 Plug 'milkypostman/vim-togglelist'
-Plug 'othree/html5.vim'
-Plug 'pangloss/vim-javascript'
-Plug 'rhysd/clever-f.vim'
 Plug 'sbdchd/vim-run'
 Plug 'sbdchd/vim-shebang'
-Plug 'sentientmachine/erics_vim_syntax_and_color_highlighting', {'for': 'java'}
-Plug 'tmux-plugins/vim-tmux'
-Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-markdown'
-Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-surround'
+
+
+" Interface
+Plug 'airblade/vim-gitgutter'
+Plug 'bling/vim-airline' | Plug 'sbdchd/airline-steve'
+Plug 'kshenoy/vim-signature'
+Plug 'mhinz/vim-startify'
+
+
+" Syntax & Coloring
+Plug 'ap/vim-css-color'
 Plug 'vim-utils/vim-troll-stopper'
 Plug 'w0ng/vim-hybrid'
+
+
+" Motion
+Plug 'christoomey/vim-sort-motion'
+Plug 'easymotion/vim-easymotion'
+Plug 'henrik/vim-indexed-search'
+Plug 'junegunn/vim-easy-align'
+Plug 'rhysd/clever-f.vim'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-surround'
 Plug 'wellle/targets.vim'
+
+
+" Languages
+Plug 'Glench/Vim-Jinja2-Syntax', {'for': ['html', 'jinja']}
+Plug 'Tyilo/applescript.vim'
+Plug 'digitaltoad/vim-pug'
+Plug 'elixir-lang/vim-elixir'
+Plug 'fatih/vim-go', {'for': 'go'}
+Plug 'hail2u/vim-css3-syntax'
+Plug 'lervag/vimtex'
+Plug 'othree/html5.vim'
+Plug 'pangloss/vim-javascript'
+Plug 'sentientmachine/erics_vim_syntax_and_color_highlighting', {'for': 'java'}
+Plug 'tmux-plugins/vim-tmux'
+Plug 'tpope/vim-markdown'
+
+
+" Autocompletion
+Plug 'Shougo/deoplete.nvim'
 
 call plug#end()
 
@@ -284,7 +304,8 @@ call plug#end()
 " deoplete mappings
 inoremap <C-j> <Down>
 inoremap <C-k> <Up>
-command! DeopleteDisable let g:deoplete#disable_auto_complete=1
+command! DeopleteDisable let b:deoplete#disable_auto_complete = 1
+command! DeopleteDisableAll let g:deoplete#disable_auto_complete = 1
 
 " fzf
 nnoremap <leader>f :FZF<CR>
@@ -325,48 +346,11 @@ nmap ga <Plug>(EasyAlign)
 let g:javascript_enable_domhtmlcss = 1
 
 " vim autoformat
-let b:format = 1
 let g:autoformat_autoindent = 1
 
 " vim peekaboo
 let g:peekaboo_delay = 600
 let g:peekaboo_compact = 1
-
-" filetypes (ft) for which vim's auto indent should not be used by autoformat
-let s:autoformat_ft_blacklist = ['markdown', 'jade', 'pug']
-
-function s:FormatterToggle()
-    if b:format
-        let b:format = 0
-        echo 'Disabled Formatter'
-    else
-        let b:format = 1
-        echo 'Enabled Formatter'
-    endif
-endfunction
-
-command! FormatterToggle :call s:FormatterToggle()
-
-function s:Formatter()
-    if !exists('b:format')
-        let b:format = 1
-    endif
-    if b:format
-        for l:i in s:autoformat_ft_blacklist
-            if l:i == &filetype
-                " disable vim's indent as fallback for autoformat
-                let g:autoformat_autoindent = 0
-                break
-            endif
-        endfor
-        Autoformat
-    endif
-endfunction
-
-augroup Format
-    autocmd!
-    autocmd BufWrite * call s:Formatter()
-augroup END
 
 " neomake
 augroup Neomake

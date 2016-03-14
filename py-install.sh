@@ -2,6 +2,7 @@
 
 pip install autopep8
 pip install pylint
+pip3 install pylint
 pip install vim-vint
 pip install isort
 pip install virtualenv

@@ -327,7 +327,7 @@ set_prompts() {
     PS1+="\[$Blue\] \w"                     # working directory
     PS1+="\[$Green\]\$(prompt_git \" \")"   # git repository details
     PS1+=" \[$Cyan\]\$(virtualenv_info)"    # virtual environment status
-    PS1+="\[$Cyan\]\$DOCKER_MACHINE_NAME" # display docker machine name
+    PS1+="\[$Cyan\]\$DOCKER_MACHINE_NAME"   # display docker machine name
     PS1+="\n"
     PS1+="\[$Color_Off\]\$ "                # $ or # depending on user status
     export PS1
@@ -345,7 +345,16 @@ findtext() {
     else
         local arg2="$2"
     fi
-    grep -riI --color "$1" "$arg2" 2>/dev/null
+    if hash ag 2>/dev/null; then
+        # -t search all text files
+        # -Q match pattern litterally,
+        # -f follow symlinks
+        # --silent suppress log msgs & errors
+        # --hidden search hidden files
+        ag  -Q -f --silent --hidden "$1" "$arg2"
+    else
+        grep -riI --color "$1" "$arg2" 2>/dev/null
+    fi
 }
 
 # Make directory and enter it
