@@ -1,5 +1,7 @@
 "*":
-  "atom-beautify": {}
+  "atom-beautify":
+    analytics: false
+    java_configPath: "~/.uncrustify.cfg"
   "autocomplete-plus":
     suppressActivationForEditorClasses: [
       "vim-mode-plus.normal-mode"

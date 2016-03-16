@@ -6,9 +6,13 @@ xcode-select --install
 # Install Homebrew
 ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
+# Upgrade Bash
+brew install bash
+sudo bash -c 'echo /usr/local/bin/bash >> /etc/shells'
+chsh -s /usr/local/bin/bash
+
 # General Programs
 brew install autossh
-brew install bash
 brew install git
 brew install homebrew/dupes/openssh
 brew install mosh
@@ -23,6 +27,7 @@ brew install vim
 brew install youtube-dl
 # ffmpeg is needed for some youtube-dl features
 brew install ffmpeg
+brew install lame
 
 # DBs
 brew install mongodb
@@ -51,6 +56,7 @@ brew install elixir
 
 # Utilities
 brew install ag
+brew install astyle
 brew install ccat
 brew install ctags
 brew install curl
@@ -62,6 +68,7 @@ brew install jlhonora/lsusb/lsusb
 brew install sbdchd/macchanger/macchanger
 brew install shellcheck
 brew install tree
+brew install uncrustify
 brew install unp
 brew install wakeonlan
 brew install wget
