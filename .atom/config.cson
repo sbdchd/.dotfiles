@@ -2,6 +2,7 @@
   "atom-beautify":
     analytics: false
     java_configPath: "~/.uncrustify.cfg"
+    language_markdown_default_beautifier: "Remark"
   "autocomplete-plus":
     suppressActivationForEditorClasses: [
       "vim-mode-plus.normal-mode"
