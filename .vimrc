@@ -194,7 +194,6 @@ set listchars+=eol:¬
 set listchars+=trail:·
 " use list characters
 set list
-set iskeyword+=^_
 
 
 " Miscellaneous
@@ -228,12 +227,14 @@ augroup QuickFixClose
     au WinEnter * if winnr('$') == 1 && getbufvar(winbufnr(winnr()), "&buftype") == "quickfix" | q | endif
 augroup END
 "set file types for certain files
-autocmd! BufNewFile,BufRead .eslintrc,.jsbeautifyrc set filetype=json
+autocmd! BufNewFile,BufRead .remarkrc,.eslintrc,.jsbeautifyrc set filetype=json
 autocmd! BufNewFile,BufRead .astylerc set filetype=config
 " change spacing from the default 4 to the desired 2
 autocmd! filetype jade,pug,gitconfig,ruby,scss,css,markdown setlocal shiftwidth=2
 " cson
 autocmd! BufNewFile,BufRead *.cson set filetype=cson
+" cfg
+autocmd! filetype cfg setlocal commentstring=#\ %s
 
 " vim-plug plugins setup
 " https://github.com/junegunn/vim-plug
