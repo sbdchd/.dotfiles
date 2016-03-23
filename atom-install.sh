@@ -60,6 +60,8 @@ apm install autocomplete-plus-python-jedi
 apm install atom-jade
 apm install atom-jinja2
 apm install language-elixir
+apm install language-erlang
+apm install language-fortran
 apm install language-liquid
 apm install language-tmux
 apm install language-viml

@@ -67,6 +67,7 @@ brew install httpie
 brew install jlhonora/lsusb/lsusb
 brew install sbdchd/macchanger/macchanger
 brew install shellcheck
+brew install tidy-html5
 brew install tree
 brew install uncrustify
 brew install unp

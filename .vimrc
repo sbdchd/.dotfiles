@@ -133,6 +133,7 @@ let g:mapleader = ' '
 " more efficient for typing commands
 nnoremap ; :
 vnoremap ; :
+nnoremap K kJ
 
 
 " Undo and Swap
@@ -244,11 +245,13 @@ call plug#begin('~/.vim/plugged')
 Plug 'Chiel92/vim-autoformat'
 Plug 'benekastah/neomake'
 Plug 'chrisbra/Recover.vim'
+Plug 'editorconfig/editorconfig-vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
 Plug 'junegunn/vim-peekaboo'
 Plug 'majutsushi/tagbar'
 Plug 'mbbill/undotree', {'on' : 'UndotreeToggle'}
 Plug 'milkypostman/vim-togglelist'
+Plug 'sbdchd/neoformat'
 Plug 'sbdchd/vim-run'
 Plug 'sbdchd/vim-shebang'
 Plug 'tpope/vim-eunuch'
@@ -287,6 +290,8 @@ Plug 'digitaltoad/vim-pug'
 Plug 'elixir-lang/vim-elixir'
 Plug 'fatih/vim-go', {'for': 'go'}
 Plug 'hail2u/vim-css3-syntax'
+Plug 'kchmck/vim-coffee-script'
+Plug 'leafgarland/typescript-vim'
 Plug 'lervag/vimtex'
 Plug 'othree/html5.vim'
 Plug 'pangloss/vim-javascript'

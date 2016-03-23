@@ -29,6 +29,7 @@ link() {
 link ".astylerc"
 link ".bash_profile"
 link ".bashrc"
+link ".editorconfig"
 link ".eslintrc"
 link ".gitconfig"
 link ".gitignore"
