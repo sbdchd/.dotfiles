@@ -34,6 +34,8 @@ set nostartofline
 " Syntax
 " tells vim what type of background is used
 set background=dark
+" limit syntax highlighting on long lines - can help avoid some slow downs
+set synmaxcol=120
 " turn on syntax highlighting
 syntax on
 " Enable 256 color
@@ -227,22 +229,11 @@ augroup QuickFixClose
     au!
     au WinEnter * if winnr('$') == 1 && getbufvar(winbufnr(winnr()), "&buftype") == "quickfix" | q | endif
 augroup END
-"set file types for certain files
-autocmd! BufNewFile,BufRead .remarkrc,.eslintrc,.jsbeautifyrc set filetype=json
-autocmd! BufNewFile,BufRead .astylerc set filetype=config
-" change spacing from the default 4 to the desired 2
-autocmd! filetype jade,pug,gitconfig,ruby,scss,css,markdown setlocal shiftwidth=2
-" cson
-autocmd! BufNewFile,BufRead *.cson set filetype=cson
-" cfg
-autocmd! filetype cfg setlocal commentstring=#\ %s
-
 " vim-plug plugins setup
 " https://github.com/junegunn/vim-plug
 call plug#begin('~/.vim/plugged')
 
 " Utilities
-Plug 'Chiel92/vim-autoformat'
 Plug 'benekastah/neomake'
 Plug 'chrisbra/Recover.vim'
 Plug 'editorconfig/editorconfig-vim'
