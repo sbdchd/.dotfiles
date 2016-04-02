@@ -84,9 +84,6 @@ brew install docker-machine-completion
 brew install pip-completion
 brew tap sbdchd/completions
 brew install go-completion
-brew install mosh-completion
-# mosh-completion conflicts with mosh's own bash completion
-brew link --overwrite mosh-completion
 
 # Other Utilities
 brew install cmatrix
