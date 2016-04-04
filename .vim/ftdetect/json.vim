@@ -1,1 +1,1 @@
-autocmd! BufNewFile,BufRead .remarkrc,.eslintrc,.jsbeautifyrc set filetype=json
+autocmd! BufNewFile,BufRead .remarkrc,.eslintrc,.jsbeautifyrc,.babelrc set filetype=json

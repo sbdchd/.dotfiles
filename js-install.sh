@@ -1,5 +1,6 @@
 #!/usr/bin/env sh
 
+npm install -g babel-eslint
 npm install -g bower
 npm install -g coffee-script
 npm install -g csslint
