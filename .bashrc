@@ -224,7 +224,10 @@ export FZF_DEFAULT_OPTS='--color hl:221,hl+:221
 HISTSIZE=10000
 # Number of lines of commands stored in .bash_history file persistently
 HISTFILESIZE=10000
+# ignore duplicated commands
 HISTCONTROL=ignoreboth
+# don't ignore commands that start with a space
+HISTCONTROL=ignorespace
 
 
 
