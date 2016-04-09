@@ -223,12 +223,25 @@ function! TrimWhiteSpace()
     call winrestview(l:view)
 endfunction
 command! TrimWhiteSpace :call TrimWhiteSpace()
+
+function! TrimEndings()
+let l:search = @/
+    let l:view = winsaveview()
+    " vint: -ProhibitCommandRelyOnUser -ProhibitCommandWithUnintendedSideEffect
+    silent! %s/\r//g
+    " vint: +ProhibitCommandRelyOnUser +ProhibitCommandWithUnintendedSideEffect
+    let @/=l:search
+    call winrestview(l:view)
+endfunction
+command! TrimEndings :call TrimEndings()
+
 "Automatically close vim if only the quickfix window is open
 "http://stackoverflow.com/a/7477056/3720597
 augroup QuickFixClose
     au!
     au WinEnter * if winnr('$') == 1 && getbufvar(winbufnr(winnr()), "&buftype") == "quickfix" | q | endif
 augroup END
+
 " vim-plug plugins setup
 " https://github.com/junegunn/vim-plug
 call plug#begin('~/.vim/plugged')
