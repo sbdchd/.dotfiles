@@ -1,5 +1,5 @@
 [core]
-  editor = vim
+  editor = nvim
   autocrlf = false
   excludesfile = ~/.gitignore
   attributesfile = ~/.gitattributes

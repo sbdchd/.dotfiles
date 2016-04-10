@@ -306,6 +306,15 @@ Plug 'tpope/vim-markdown'
 
 " Autocompletion
 Plug 'Shougo/deoplete.nvim'
+" Sources
+Plug 'Shougo/neco-vim'
+Plug 'carlitux/deoplete-ternjs'
+Plug 'zchee/deoplete-go', {'do': 'make'}
+Plug 'zchee/deoplete-jedi'
+
+if has('nvim')
+    Plug 'awetzel/elixir.nvim', {'do': 'yes \| ./install.sh'}
+endif
 
 call plug#end()
 
@@ -316,6 +325,9 @@ inoremap <C-j> <Down>
 inoremap <C-k> <Up>
 command! DeopleteDisable let b:deoplete#disable_auto_complete = 1
 command! DeopleteDisableAll let g:deoplete#disable_auto_complete = 1
+" prevent deoplete from creating a buffer above
+set completeopt-=preview
+noremap <leader>a :DeopleteEnable<CR>
 
 " fzf
 nnoremap <leader>f :FZF<CR>
