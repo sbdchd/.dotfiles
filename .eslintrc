@@ -203,7 +203,7 @@
             "nonwords": false
         }],
         "spaced-comment": 0,
-        "strict": 1,
+        "strict": 0,
         "use-isnan": 2,
         "valid-jsdoc": 0,
         "valid-typeof": 2,

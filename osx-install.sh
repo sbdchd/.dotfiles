@@ -13,6 +13,7 @@ chsh -s /usr/local/bin/bash
 
 # General Programs
 brew install autossh
+brew install emacs
 brew install git
 brew install gpg
 brew install homebrew/dupes/openssh

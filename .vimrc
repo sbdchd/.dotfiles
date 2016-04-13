@@ -35,7 +35,7 @@ set nostartofline
 " tells vim what type of background is used
 set background=dark
 " limit syntax highlighting on long lines - can help avoid some slow downs
-set synmaxcol=120
+set synmaxcol=200
 " turn on syntax highlighting
 syntax on
 " Enable 256 color
@@ -136,6 +136,8 @@ let g:mapleader = ' '
 nnoremap ; :
 vnoremap ; :
 nnoremap K kJ
+" paste from system register
+nnoremap <leader>p "+p
 
 
 " Undo and Swap
@@ -177,6 +179,7 @@ nnoremap <leader>k :bprevious<CR>
 if has('nvim')
     tnoremap <Esc> <C-\><C-n>
 endif
+
 " disable netrw help banner
 let g:netrw_banner = 0
 nnoremap <leader>d :Explore<CR>
@@ -252,7 +255,7 @@ Plug 'chrisbra/Recover.vim'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
 Plug 'junegunn/vim-peekaboo'
-Plug 'majutsushi/tagbar'
+Plug 'majutsushi/tagbar', {'on': 'TagBarToggle'}
 Plug 'mbbill/undotree', {'on' : 'UndotreeToggle'}
 Plug 'milkypostman/vim-togglelist'
 Plug 'sbdchd/neoformat'
@@ -290,6 +293,7 @@ Plug 'wellle/targets.vim'
 " Languages
 Plug 'Glench/Vim-Jinja2-Syntax', {'for': ['html', 'jinja']}
 Plug 'Tyilo/applescript.vim'
+Plug 'dannywillems/vim-icalendar'
 Plug 'digitaltoad/vim-pug'
 Plug 'elixir-lang/vim-elixir'
 Plug 'fatih/vim-go', {'for': 'go'}
