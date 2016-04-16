@@ -261,6 +261,7 @@ Plug 'milkypostman/vim-togglelist'
 Plug 'sbdchd/neoformat'
 Plug 'sbdchd/vim-run'
 Plug 'sbdchd/vim-shebang'
+Plug 't9md/vim-textmanip'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-fugitive'
 
@@ -409,3 +410,9 @@ let g:go_highlight_build_constraints = 1
 let g:go_fmt_command = 'goimports'
 let g:go_fmt_fail_silently = 1
 let g:go_fmt_autosave = 0
+
+" vim-textmanip
+map <C-j> <Plug>(textmanip-move-down)
+map <C-k> <Plug>(textmanip-move-up)
+map <C-h> <Plug>(textmanip-move-left)
+map <C-l> <Plug>(textmanip-move-right)
