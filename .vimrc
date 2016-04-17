@@ -1,5 +1,7 @@
-" set default encoding
-set encoding=utf-8
+if !has('nvim')
+    " set default encoding
+    set encoding=utf-8
+endif
 " vint commands this
 scriptencoding utf-8
 
@@ -9,6 +11,8 @@ if !has('nvim')
     set nocompatible
     " increase redraw smoothness
     set ttyfast
+    " add ability to use plugins for indent settings
+    filetype plugin indent on
 endif
 
 
@@ -49,8 +53,12 @@ set t_vb=
 
 
 " Status Line
-" ensure status line is always present
-set laststatus=2
+if !has('nvim')
+    " ensure status line is always present
+    set laststatus=2
+    " don't display '@' when line is cut off
+    set display+=lastline
+endif
 " show current mode below status line
 set noshowmode
 " clear status line
@@ -91,10 +99,12 @@ set smartcase
 set wildignorecase
 " use C as a command to clear search entry and their highlighting
 command! C let @/=""
-" highlight search matches
-set hlsearch
-" shows matches as you type search command
-set incsearch
+if !has('nvim')
+    " highlight search matches
+    set hlsearch
+    " shows matches as you type search command
+    set incsearch
+endif
 
 
 " Tabs & Spaces
@@ -107,8 +117,14 @@ set softtabstop=4
 " convert tab to spaces
 set expandtab
 set smartindent
-" make backspace work as expected
-set backspace=indent,eol,start
+if !has('nvim')
+    " make backspace work as expected
+    set backspace=indent,eol,start
+    set smarttab
+    set formatoptions+=j
+    " remove octals from incrementing and decrementing with <C-x> & <C-a>
+    set nrformats-=octal
+endif
 
 
 " Buffers
@@ -121,12 +137,14 @@ set switchbuf=useopen
 
 
 " Command Line
-" Add <Tab> completion for commands
-set wildmenu
 " list all matches and complete till the longest common string
 set wildmode=list:longest
-" increase cmdline-history to 1000 items
-set history=1000
+if !has('nvim')
+    " increase cmdline-history
+    set history=10000
+    " Add <Tab> completion for commands
+    set wildmenu
+endif
 
 
 " Mappings
@@ -183,8 +201,10 @@ endif
 " disable netrw help banner
 let g:netrw_banner = 0
 nnoremap <leader>d :Explore<CR>
-" mouse will only work with certain terminals
-set mouse=a
+if !has('nvim')
+    " mouse will only work with certain terminals
+    set mouse=a
+endif
 
 
 " Spelling
@@ -203,8 +223,10 @@ set list
 
 
 " Miscellaneous
-" read file again on change
-set autoread
+if !has('nvim')
+    " read file again on change
+    set autoread
+endif
 " add $ to end of word being changed/replaced
 set cpoptions+=$
 " make vim create unix endings by default but also be able to process dos
@@ -213,6 +235,7 @@ set filetype=unix,dos
 set nomore
 " make diffs default to vertical
 set diffopt+=vertical
+
 
 " Commands
 "http://stackoverflow.com/q/356126
@@ -244,6 +267,12 @@ augroup QuickFixClose
     au!
     au WinEnter * if winnr('$') == 1 && getbufvar(winbufnr(winnr()), "&buftype") == "quickfix" | q | endif
 augroup END
+
+" remove new line characters in the terminal
+autocmd! TermOpen * if &buftype == 'terminal'
+            \| setlocal nolist
+            \| endif
+
 
 " vim-plug plugins setup
 " https://github.com/junegunn/vim-plug
