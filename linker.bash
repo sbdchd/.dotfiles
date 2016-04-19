@@ -53,10 +53,9 @@ link -d ".emacs.d"
 
 
 # neovim
-XDG_CONFIG_HOME="$HOME"/.config
-mkdir -p      "$XDG_CONFIG_HOME"
-link ".vim/"  "$XDG_CONFIG_HOME/nvim"
-link ".vimrc" "$XDG_CONFIG_HOME/nvim/init.vim"
+mkdir -p       "$HOME/.config"
+link  ".vim/"  ".config/nvim"
+link  ".vimrc" ".config/nvim/init.vim"
 
 
 echo "dotfiles linked!"

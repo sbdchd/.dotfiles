@@ -33,6 +33,14 @@ set matchtime=2
 set colorcolumn=81
 " make cursor stays in general column when moving
 set nostartofline
+" only highlight the cursorline in the active window
+augroup CursorLine
+    autocmd!
+    autocmd VimEnter    * setl cursorline
+    autocmd WinEnter    * setl cursorline
+    autocmd BufWinEnter * setl cursorline
+    autocmd WinLeave    * setl nocursorline
+augroup END
 
 
 " Syntax
@@ -154,6 +162,8 @@ let g:mapleader = ' '
 nnoremap ; :
 vnoremap ; :
 nnoremap K kJ
+" make Y work like D
+nnoremap Y y$
 " paste from system register
 nnoremap <leader>p "+p
 
@@ -251,7 +261,7 @@ endfunction
 command! TrimWhiteSpace :call TrimWhiteSpace()
 
 function! TrimEndings()
-let l:search = @/
+    let l:search = @/
     let l:view = winsaveview()
     " vint: -ProhibitCommandRelyOnUser -ProhibitCommandWithUnintendedSideEffect
     silent! %s/\r//g
@@ -268,19 +278,25 @@ augroup QuickFixClose
     au WinEnter * if winnr('$') == 1 && getbufvar(winbufnr(winnr()), "&buftype") == "quickfix" | q | endif
 augroup END
 
-" remove new line characters in the terminal
-autocmd! TermOpen * if &buftype == 'terminal'
-            \| setlocal nolist
-            \| endif
+if has('nvim')
+    " remove new line characters in the terminal
+    autocmd! TermOpen * if &buftype == 'terminal'
+                \| setlocal nolist
+                \| endif
+endif
 
 
 " vim-plug plugins setup
 " https://github.com/junegunn/vim-plug
+function! DoRemote(arg)
+    UpdateRemotePlugins
+endfunction
 call plug#begin('~/.vim/plugged')
 
 " Utilities
 Plug 'benekastah/neomake'
 Plug 'chrisbra/Recover.vim'
+Plug 'duggiefresh/vim-easydir'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
 Plug 'junegunn/vim-peekaboo'
@@ -293,7 +309,6 @@ Plug 'sbdchd/vim-shebang'
 Plug 't9md/vim-textmanip'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-fugitive'
-
 
 " Interface
 Plug 'airblade/vim-gitgutter'
@@ -339,7 +354,7 @@ Plug 'tpope/vim-markdown'
 
 
 " Autocompletion
-Plug 'Shougo/deoplete.nvim'
+Plug 'Shougo/deoplete.nvim', {'do': function('DoRemote')}
 " Sources
 Plug 'Shougo/neco-vim'
 Plug 'carlitux/deoplete-ternjs'
