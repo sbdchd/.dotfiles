@@ -298,6 +298,7 @@ Plug 'benekastah/neomake'
 Plug 'chrisbra/Recover.vim'
 Plug 'duggiefresh/vim-easydir'
 Plug 'editorconfig/editorconfig-vim'
+Plug 'gregsexton/gitv'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
 Plug 'junegunn/vim-peekaboo'
 Plug 'majutsushi/tagbar', {'on': 'TagBarToggle'}

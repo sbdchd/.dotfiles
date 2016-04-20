@@ -1,0 +1,15 @@
+# unbind keys
+bind generic G none
+bind main    G none
+bind generic g none
+
+# make g & G more vim like
+bind generic G move-last-line
+bind generic g move-first-line
+
+# make name shorted, add commit hash
+set main-view = \
+    date:default \
+    author:abbreviated \
+    id:yes,color \
+    commit-title:graph=yes,refs=yes
