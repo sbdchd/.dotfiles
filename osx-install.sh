@@ -23,7 +23,7 @@ brew install optipng
 brew install reattach-to-user-namespace
 brew install ssh-copy-id
 brew install sshuttle
-brew install tig
+brew install tig --with-docs
 brew install tmux
 brew install vim
 

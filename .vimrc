@@ -48,8 +48,10 @@ augroup END
 set background=dark
 " limit syntax highlighting on long lines - can help avoid some slow downs
 set synmaxcol=200
-" turn on syntax highlighting
-syntax on
+if !has('nvim')
+    " turn on syntax highlighting
+    syntax on
+endif
 " Enable 256 color
 set t_Co=256
 set showcmd

@@ -19,6 +19,8 @@
         relative-line-numbers
         fill-column-indicator
         sublime-themes
+        vim-empty-lines-mode
+        git-gutter
 
         flycheck
         auto-complete
@@ -93,6 +95,12 @@
 
 ; Autocomplete
 (ac-config-default)
+
+; Vim-empty-lines-mode
+(global-vim-empty-lines-mode)
+
+; Git gutter
+(global-git-gutter-mode +1)
 
 
 ; Misc
