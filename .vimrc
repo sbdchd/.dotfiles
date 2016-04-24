@@ -375,7 +375,8 @@ call plug#end()
 " deoplete mappings
 inoremap <C-j> <Down>
 inoremap <C-k> <Up>
-command! DeopleteDisable let b:deoplete#disable_auto_complete = 1
+command! DeopleteEnable     call deoplete#enable()
+command! DeopleteDisable    let b:deoplete_disable_auto_complete = 1
 command! DeopleteDisableAll let g:deoplete#disable_auto_complete = 1
 " prevent deoplete from creating a buffer above
 set completeopt-=preview
