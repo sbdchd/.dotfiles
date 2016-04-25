@@ -182,6 +182,17 @@ set updatetime=750
 " make vim use a different folder for swp files
 set directory-=.
 set directory+=~/tmp
+" function to delete swap files
+function! SwapRm()
+    " hack to get output from :swapname
+    silent! redir => l:path | silent swapname | redir end
+    if exists('l:path')
+        call delete(l:path)
+        echom "swap deleted"
+    endif
+endfunction
+
+command! SwapRm :call SwapRm()
 
 
 " Wrapping & Folding
