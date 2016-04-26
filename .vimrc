@@ -314,7 +314,7 @@ Plug 'benekastah/neomake'
 Plug 'chrisbra/Recover.vim'
 Plug 'duggiefresh/vim-easydir'
 Plug 'editorconfig/editorconfig-vim'
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
+Plug 'junegunn/fzf', {'dir': '~/.fzf', 'do': 'yes \| ./install'}
 Plug 'junegunn/vim-peekaboo'
 Plug 'majutsushi/tagbar', {'on': 'TagBarToggle'}
 Plug 'mbbill/undotree', {'on' : 'UndotreeToggle'}
@@ -326,9 +326,10 @@ Plug 't9md/vim-textmanip'
 Plug 'tpope/vim-eunuch'
 
 " Git
-Plug 'tpope/vim-fugitive'
-Plug 'junegunn/gv.vim'
 Plug 'airblade/vim-gitgutter'
+Plug 'gregsexton/gitv'
+Plug 'junegunn/gv.vim'
+Plug 'tpope/vim-fugitive'
 
 " Interface
 Plug 'vim-airline/vim-airline' | Plug 'sbdchd/airline-steve'

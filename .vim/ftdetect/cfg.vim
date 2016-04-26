@@ -1,1 +1,1 @@
-autocmd! BufNewFile,BufRead .astylerc,.tigrc set filetype=cfg
+autocmd! BufNewFile,BufRead .astylerc,.tigrc,.agignore set filetype=cfg

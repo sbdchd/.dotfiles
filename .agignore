@@ -1,0 +1,9 @@
+.atom/*
+!.atom/.gitignore
+!.atom/keymap.cson
+!.atom/config.cson
+
+.emacs.d/*
+!.emacs.d/init.el
+
+.vim/undo

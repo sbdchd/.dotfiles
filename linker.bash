@@ -26,6 +26,7 @@ link() {
 
 
 # link files
+link ".agignore"
 link ".astylerc"
 link ".bash_profile"
 link ".bashrc"
