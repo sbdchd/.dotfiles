@@ -284,11 +284,14 @@ function! TrimEndings()
 endfunction
 command! TrimEndings :call TrimEndings()
 
-"Automatically close vim if only the quickfix window is open
-"http://stackoverflow.com/a/7477056/3720597
+" Automatically close vim if only the quickfix window is open
+" http://stackoverflow.com/a/7477056/3720597
 augroup QuickFixClose
-    au!
-    au WinEnter * if winnr('$') == 1 && getbufvar(winbufnr(winnr()), "&buftype") == "quickfix" | q | endif
+    autocmd!
+    autocmd WinEnter * if winnr('$') == 1 &&
+                \getbufvar(winbufnr(winnr()), "&buftype") == "quickfix"
+                \| q
+                \| endif
 augroup END
 
 if has('nvim')
@@ -311,7 +314,6 @@ Plug 'benekastah/neomake'
 Plug 'chrisbra/Recover.vim'
 Plug 'duggiefresh/vim-easydir'
 Plug 'editorconfig/editorconfig-vim'
-Plug 'gregsexton/gitv'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
 Plug 'junegunn/vim-peekaboo'
 Plug 'majutsushi/tagbar', {'on': 'TagBarToggle'}
@@ -322,11 +324,14 @@ Plug 'sbdchd/vim-run'
 Plug 'sbdchd/vim-shebang'
 Plug 't9md/vim-textmanip'
 Plug 'tpope/vim-eunuch'
+
+" Git
 Plug 'tpope/vim-fugitive'
+Plug 'junegunn/gv.vim'
+Plug 'airblade/vim-gitgutter'
 
 " Interface
-Plug 'airblade/vim-gitgutter'
-Plug 'bling/vim-airline' | Plug 'sbdchd/airline-steve'
+Plug 'vim-airline/vim-airline' | Plug 'sbdchd/airline-steve'
 Plug 'kshenoy/vim-signature'
 Plug 'mhinz/vim-startify'
 

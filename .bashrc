@@ -220,6 +220,11 @@ export FZF_DEFAULT_OPTS='--color hl:221,hl+:221
 # XDG
 export XDG_CONFIG_HOME="$HOME"/.config
 
+# Disable Homebrew Analytics
+export HOMEBREW_NO_ANALYTICS=1
+if [[ -e "$HOME/.homebrew_analytics_user_uuid" ]]; then
+    rm -f "$HOME/.homebrew_analytics_user_uuid"
+fi
 
 
 # History #
