@@ -168,6 +168,8 @@ nnoremap K kJ
 nnoremap Y y$
 " paste from system register
 nnoremap <leader>p "+p
+" yank from system register
+nnoremap <leader>y "+y
 
 
 " Undo and Swap
@@ -316,7 +318,7 @@ Plug 'duggiefresh/vim-easydir'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'junegunn/fzf', {'dir': '~/.fzf', 'do': 'yes \| ./install'}
 Plug 'junegunn/vim-peekaboo'
-Plug 'majutsushi/tagbar', {'on': 'TagBarToggle'}
+Plug 'majutsushi/tagbar'
 Plug 'mbbill/undotree', {'on' : 'UndotreeToggle'}
 Plug 'milkypostman/vim-togglelist'
 Plug 'sbdchd/neoformat'
@@ -344,6 +346,7 @@ Plug 'w0ng/vim-hybrid'
 
 
 " Motion
+Plug 'buztard/vim-rel-jump'
 Plug 'christoomey/vim-sort-motion'
 Plug 'easymotion/vim-easymotion'
 Plug 'henrik/vim-indexed-search'

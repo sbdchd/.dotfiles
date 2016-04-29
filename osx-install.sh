@@ -57,6 +57,10 @@ bash js-install.sh
 
 brew install elixir
 
+brew install lua
+brew tap homebrew/versions
+brew install lua51
+
 # Utilities
 brew install ag
 brew install astyle

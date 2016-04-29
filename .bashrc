@@ -73,10 +73,6 @@ alias trash='cd ~/.Trash'
 alias homebrew='cd /usr/local/Library/Formula'
 alias caskroom='cd /usr/local/Library/Taps/caskroom'
 
-if hash nvim 2>/dev/null; then
-    alias ni='nvim'
-fi
-
 # Git Aliases
 if hash git 2>/dev/null; then
     alias ga='git add'
@@ -207,6 +203,9 @@ if [[ $OS == "linux" ]]; then
 fi
 
 export PATH="/usr/local/sbin:$PATH"
+
+# Luarocks
+export PATH=$PATH:"$HOME"/.luarocks/bin/
 
 # Go setup stuff
 export GOPATH=$HOME/Dropbox/$USER/projects/go
@@ -521,11 +520,12 @@ set -o vi
 if [ -f "$(brew --prefix)"/share/bash-completion/bash_completion ]; then
     . "$(brew --prefix)"/share/bash-completion/bash_completion
 fi
+
 # FZF completion
-complete -F _fzf_file_completion -o default -o bashdefault ni
+complete -F _fzf_file_completion -o default -o bashdefault atom
 complete -F _fzf_file_completion -o default -o bashdefault bash
 
 
 
 # for FZF previous command history search `<CTRL> R`
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+[ -f "$HOME"/.fzf.bash ] && source "$HOME"/.fzf.bash
