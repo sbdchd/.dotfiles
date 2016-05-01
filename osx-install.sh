@@ -58,8 +58,10 @@ bash js-install.sh
 brew install elixir
 
 brew install lua
+brew install luajit
 brew tap homebrew/versions
 brew install lua51
+bash lua-install.sh
 
 # Utilities
 brew install ag

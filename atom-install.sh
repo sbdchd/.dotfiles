@@ -54,7 +54,7 @@ apm install linter-xmllint
 # autocompletions
 apm install atom-ternjs
 apm install autocomplete-go
-apm install autocomplete-plus-python-jedi
+apm install autocomplete-python
 
 # languages
 apm install atom-jade
