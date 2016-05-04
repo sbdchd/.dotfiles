@@ -26,6 +26,7 @@ brew install sshuttle
 brew install tig --with-docs
 brew install tmux
 brew install vim
+brew install webarchiver
 
 brew install youtube-dl
 # ffmpeg is needed for some youtube-dl features

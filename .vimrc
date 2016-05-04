@@ -201,7 +201,7 @@ command! SwapRm :call SwapRm()
 " ensure wrapping is enabled
 set wrap
 " show break with chars
-set showbreak=..
+set showbreak=↪
 " make wrapped lines indent visually
 if has('linebreak')
     set breakindent
@@ -356,6 +356,7 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'wellle/targets.vim'
+Plug 'coderifous/textobj-word-column.vim'
 
 
 " Languages
@@ -368,6 +369,7 @@ Plug 'fatih/vim-go', {'for': 'go'}
 Plug 'hail2u/vim-css3-syntax'
 Plug 'kchmck/vim-coffee-script'
 Plug 'leafgarland/typescript-vim'
+Plug 'leafo/moonscript-vim'
 Plug 'lervag/vimtex'
 Plug 'othree/html5.vim'
 Plug 'pangloss/vim-javascript'
