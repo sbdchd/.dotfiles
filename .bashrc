@@ -211,6 +211,9 @@ export PATH=$PATH:"$HOME"/.luarocks/bin/
 export GOPATH=$HOME/Dropbox/$USER/projects/go
 export PATH=$PATH:$GOPATH/bin
 
+# Rust
+export PATH=$PATH:$HOME/.cargo/bin
+
 # FZF
 export FZF_DEFAULT_COMMAND='ag --hidden -U --ignore .git -g ""'
 export FZF_DEFAULT_OPTS='--color hl:221,hl+:221

@@ -1,9 +1,9 @@
 #!/usr/bin/env sh
 
 # brew
-brew update 
+brew update
 brew upgrade
-brew cleanup 
+brew cleanup
 brew cask cleanup
 
 # python

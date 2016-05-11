@@ -99,6 +99,7 @@ brew install go-completion
 brew install cmatrix
 brew install cowsay
 brew install fortune
+brew install no-more-secrets
 brew install screenfetch
 brew install sl
 
@@ -130,7 +131,6 @@ brew cask install google-hangouts
 brew cask install grandperspective
 brew cask install handbrake
 brew cask install hashcat
-brew cask install iterm2
 brew cask install java
 brew cask install keepingyouawake
 brew cask install limechat
@@ -152,7 +152,9 @@ brew cask install virtualbox
 brew cask install vlc
 brew cask install wireshark
 
-brew cask install caskroom/versions/intellij-idea-ce
+brew cask tap caskroom/versions
+brew cask install intellij-idea-ce
+brew cask install iterm2-beta
 
 brew tap sbdchd/sleep-restart-shutdown
 brew cask install sleep

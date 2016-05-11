@@ -63,6 +63,7 @@ apm install language-elixir
 apm install language-erlang
 apm install language-fortran
 apm install language-liquid
+apm install language-markdown
 apm install language-tmux
 apm install language-viml
 

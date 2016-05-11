@@ -312,7 +312,6 @@ endfunction
 call plug#begin('~/.vim/plugged')
 
 " Utilities
-Plug 'benekastah/neomake'
 Plug 'chrisbra/Recover.vim'
 Plug 'duggiefresh/vim-easydir'
 Plug 'editorconfig/editorconfig-vim'
@@ -321,6 +320,7 @@ Plug 'junegunn/vim-peekaboo'
 Plug 'majutsushi/tagbar'
 Plug 'mbbill/undotree', {'on' : 'UndotreeToggle'}
 Plug 'milkypostman/vim-togglelist'
+Plug 'neomake/neomake'
 Plug 'sbdchd/neoformat'
 Plug 'sbdchd/vim-run'
 Plug 'sbdchd/vim-shebang'
@@ -373,6 +373,7 @@ Plug 'leafo/moonscript-vim'
 Plug 'lervag/vimtex'
 Plug 'othree/html5.vim'
 Plug 'pangloss/vim-javascript'
+Plug 'rust-lang/rust.vim'
 Plug 'sentientmachine/erics_vim_syntax_and_color_highlighting', {'for': 'java'}
 Plug 'tmux-plugins/vim-tmux'
 Plug 'tpope/vim-markdown'

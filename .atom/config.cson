@@ -1,6 +1,7 @@
 "*":
   "atom-beautify":
     analytics: false
+    general: {}
     java_configPath: "~/.uncrustify.cfg"
     language_markdown_default_beautifier: "Remark"
   "autocomplete-plus":
@@ -16,6 +17,7 @@
       "minimap"
       "metrics"
       "exception-reporting"
+      "language-gfm"
     ]
     openEmptyEditorOnStart: false
     themes: [
