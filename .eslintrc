@@ -25,7 +25,7 @@
         "no-dupe-args": 2,
         "no-duplicate-case": 2,
         "no-else-return": 0,
-        "no-empty": 1,
+        "no-empty": 0,
         "no-empty-character-class": 2,
         "no-empty-label": 0,
         "no-empty-pattern": 0,
@@ -56,7 +56,7 @@
         "no-mixed-requires": [0, false],
         "no-mixed-spaces-and-tabs": [2, false],
         "linebreak-style": [0, "unix"],
-        "no-multi-spaces": 1,
+        "no-multi-spaces": 0,
         "no-multi-str": 0,
         "no-multiple-empty-lines": [0, {
             "max": 2

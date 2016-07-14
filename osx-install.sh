@@ -13,10 +13,13 @@ chsh -s /usr/local/bin/bash
 
 # General Programs
 brew install autossh
+brew install catimg
 brew install emacs
+brew install flow
 brew install git
 brew install gpg
 brew install homebrew/dupes/openssh
+brew install make --with-default-names
 brew install mosh
 brew install neovim/neovim/neovim
 brew install optipng
@@ -27,6 +30,7 @@ brew install tig --with-docs
 brew install tmux
 brew install vim
 brew install webarchiver
+brew install imagemagick
 
 brew install youtube-dl
 # ffmpeg is needed for some youtube-dl features
@@ -57,6 +61,9 @@ brew install node
 bash js-install.sh
 
 brew install elixir
+
+brew install ghc
+brew install cabal-install
 
 brew install lua
 brew install luajit

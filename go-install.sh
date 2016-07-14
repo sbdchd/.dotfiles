@@ -6,3 +6,7 @@ go get -u github.com/alecthomas/gometalinter && \
 go get -u github.com/pilu/fresh
 
 go get -u github.com/nsf/gocode
+
+go get -u github.com/motemen/gore
+
+go get -u github.com/tools/godep

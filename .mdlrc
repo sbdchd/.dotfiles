@@ -1,2 +1,2 @@
 # MD029 Ordered list item prefix
-rules "~MD029","~MD013","~MD014"
+rules "~MD029","~MD013","~MD014", "~MD026"

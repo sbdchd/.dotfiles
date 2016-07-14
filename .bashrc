@@ -30,6 +30,7 @@ alias mv='mv -iv'
 alias c="clear"
 alias e='exit'
 alias q='exit'
+alias o="open"
 
 if hash pmset 2>/dev/null; then
     alias sleep='pmset sleepnow'
@@ -63,15 +64,16 @@ if [[ $OS == mac ]]; then
 fi
 
 # Default places
-alias projects='cd ~/Dropbox/$USER/projects'
+alias apps='cd ~/Applications'
+alias caskroom='cd /usr/local/Library/Taps/caskroom'
 alias desktop='cd ~/Desktop'
 alias downloads='cd ~/Downloads'
 alias dropbox='cd ~/Dropbox'
 alias golang='cd $GOPATH/src/github.com/sbdchd'
-alias apps='cd ~/Applications'
-alias trash='cd ~/.Trash'
 alias homebrew='cd /usr/local/Library/Formula'
-alias caskroom='cd /usr/local/Library/Taps/caskroom'
+alias projects='cd ~/Dropbox/$USER/projects'
+alias tmp='cd /tmp'
+alias trash='cd ~/.Trash'
 
 # Git Aliases
 if hash git 2>/dev/null; then
@@ -156,8 +158,6 @@ fi
 
 
 # Exports #
-# make shells use history from other shells
-export PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
 
 # disable the default virtualenv prompt
 export VIRTUAL_ENV_DISABLE_PROMPT=1
@@ -202,7 +202,7 @@ if [[ $OS == "linux" ]]; then
     export LS_COLORS
 fi
 
-export PATH="/usr/local/sbin:$PATH"
+export PATH="$PATH:/usr/local/sbin"
 
 # Luarocks
 export PATH=$PATH:"$HOME"/.luarocks/bin/
@@ -230,14 +230,17 @@ fi
 
 
 # History #
+# append history instead of overwriting history file
+shopt -s histappend
 # Number of lines of commands loaded & stored during a bash session
-HISTSIZE=10000
+HISTSIZE=
 # Number of lines of commands stored in .bash_history file persistently
-HISTFILESIZE=10000
-# ignore duplicated commands
-HISTCONTROL=ignoreboth
-# don't ignore commands that start with a space
-HISTCONTROL=ignorespace
+HISTFILESIZE=
+# ignore and remove duplicated commands
+HISTCONTROL=ignoreboth:erasedups
+# make shells use history from other shells
+# http://unix.stackexchange.com/a/18443
+export PROMPT_COMMAND="history -n; history -w; history -c; history -r; $PROMPT_COMMAND"
 
 
 
@@ -353,7 +356,7 @@ unset set_prompts
 
 
 # Functions #
-findtext() {
+ft() {
     # 2nd optional argument for directory. Defaults to $PWD.
     if (( $# < 2 )); then
         local arg2=$PWD
@@ -487,19 +490,6 @@ fi
 
 
 
-# Tmux #
-# https://wiki.archlinux.org/index.php/Tmux#Autostart_tmux_with_default_tmux_layout
-if [[ -z "$TMUX" ]]; then
-    ID="$(tmux ls | grep -vm1 attached | cut -d: -f1)" # get the id of a deattached session
-    if [[ -z "$ID" ]]; then # if not available create a new one
-        tmux new-session
-    else
-        tmux attach-session -t "$ID" # if available attach to it
-    fi
-fi
-
-
-
 # Bash Settings #
 # make * select normal and dot files
 shopt -s dotglob
@@ -509,9 +499,6 @@ shopt -s extglob
 
 # fix minor errors when typing names of dirs
 shopt -s cdspell
-
-# append history instead of overwriting history file
-shopt -s histappend
 
 # Use vi/vim style commands to edit & select cli commands
 # http://unix.stackexchange.com/a/43005
@@ -531,4 +518,5 @@ complete -F _fzf_file_completion -o default -o bashdefault bash
 
 
 # for FZF previous command history search `<CTRL> R`
+# Needs to be at the bottom
 [ -f "$HOME"/.fzf.bash ] && source "$HOME"/.fzf.bash

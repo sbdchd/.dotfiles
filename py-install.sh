@@ -1,11 +1,14 @@
 #!/usr/bin/env sh
 
 pip install autopep8
+pip install editorconfig
 pip install isort
 pip install jedi
 pip install sqlparse
 pip install vim-vint
 pip install virtualenv
+pip install waybackpack
+pip install yamllint
 pip install yapf
 
 pip install pylint

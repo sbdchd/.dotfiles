@@ -1,0 +1,2 @@
+-- enable multi-line inputs
+:set +m

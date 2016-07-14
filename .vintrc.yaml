@@ -7,3 +7,9 @@ env:
 policies:
     ProhibitSetNoCompatible:
         enabled: false
+    ProhibitImplicitScopeVariable:
+        enabled: false
+    ProhibitEqualTildeOperator:
+        enabled: false
+    ProhibitNoAbortFunction:
+        enabled: false

@@ -127,6 +127,7 @@ set softtabstop=4
 " convert tab to spaces
 set expandtab
 set smartindent
+set nojoinspaces
 if !has('nvim')
     " make backspace work as expected
     set backspace=indent,eol,start
@@ -166,10 +167,28 @@ vnoremap ; :
 nnoremap K kJ
 " make Y work like D
 nnoremap Y y$
-" paste from system register
+
+" make the system register great again
 nnoremap <leader>p "+p
-" yank from system register
+nnoremap <leader>P "+P
+nnoremap <Leader>d "+d
 nnoremap <leader>y "+y
+nnoremap <leader>Y "+Y
+
+vnoremap <leader>p "+p
+vnoremap <leader>P "+P
+vnoremap <Leader>d "+d
+vnoremap <leader>y "+y
+vnoremap <leader>Y "+Y
+
+command! Copy :%y+
+
+
+" make window spliting work with `|` & `_`
+nnoremap <expr><silent> \| !v:count ? "<C-W>v<C-W><Right>" : '\|'
+nnoremap <expr><silent> _  !v:count ? "<C-W>s<C-W><Down>"  : '_' 
+nnoremap <silent> <TAB>   :bnext<CR>
+nnoremap <silent> <S-TAB> :bprevious<CR>
 
 
 " Undo and Swap
@@ -216,12 +235,8 @@ noremap j gj
 noremap k gk
 " better buffer nav
 nnoremap <leader>b :ls<CR>:b<Space>
-nnoremap <leader>j :bnext<CR>
-nnoremap <leader>k :bprevious<CR>
-" map esc to exit terminal mode
-if has('nvim')
-    tnoremap <Esc> <C-\><C-n>
-endif
+nnoremap <silent> <leader>j :bnext<CR>
+nnoremap <silent> <leader>k :bprevious<CR>
 
 " disable netrw help banner
 let g:netrw_banner = 0
@@ -260,7 +275,8 @@ set filetype=unix,dos
 set nomore
 " make diffs default to vertical
 set diffopt+=vertical
-
+" swap files become more annoying than helpful
+set noswapfile
 
 " Commands
 "http://stackoverflow.com/q/356126
@@ -306,7 +322,7 @@ endif
 
 " vim-plug plugins setup
 " https://github.com/junegunn/vim-plug
-function! DoRemote(arg)
+function! DoRemote()
     UpdateRemotePlugins
 endfunction
 call plug#begin('~/.vim/plugged')
@@ -316,34 +332,37 @@ Plug 'chrisbra/Recover.vim'
 Plug 'duggiefresh/vim-easydir'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'junegunn/fzf', {'dir': '~/.fzf', 'do': 'yes \| ./install'}
+Plug 'junegunn/vader.vim'
 Plug 'junegunn/vim-peekaboo'
 Plug 'majutsushi/tagbar'
 Plug 'mbbill/undotree', {'on' : 'UndotreeToggle'}
 Plug 'milkypostman/vim-togglelist'
 Plug 'neomake/neomake'
+Plug 'rking/ag.vim'
 Plug 'sbdchd/neoformat'
 Plug 'sbdchd/vim-run'
 Plug 'sbdchd/vim-shebang'
 Plug 't9md/vim-textmanip'
 Plug 'tpope/vim-eunuch'
+Plug 'svermeulen/vim-easyclip'
 
 " Git
 Plug 'airblade/vim-gitgutter'
 Plug 'gregsexton/gitv'
 Plug 'junegunn/gv.vim'
 Plug 'tpope/vim-fugitive'
+Plug 'rhysd/conflict-marker.vim'
 
 " Interface
 Plug 'vim-airline/vim-airline' | Plug 'sbdchd/airline-steve'
-Plug 'kshenoy/vim-signature'
+" Plug 'kshenoy/vim-signature' " See: https://github.com/neovim/neovim/issues/4882
 Plug 'mhinz/vim-startify'
-
 
 " Syntax & Coloring
 Plug 'ap/vim-css-color'
 Plug 'vim-utils/vim-troll-stopper'
 Plug 'w0ng/vim-hybrid'
-
+Plug 'xu-cheng/brew.vim'
 
 " Motion
 Plug 'buztard/vim-rel-jump'
@@ -356,11 +375,15 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'wellle/targets.vim'
-Plug 'coderifous/textobj-word-column.vim'
 
+" Text Objects
+Plug 'kana/vim-textobj-user' 
+            \| Plug 'kana/vim-textobj-function'
+            \| Plug 'michaeljsmith/vim-indent-object'
 
 " Languages
 Plug 'Glench/Vim-Jinja2-Syntax', {'for': ['html', 'jinja']}
+Plug 'LnL7/vim-nix'
 Plug 'Tyilo/applescript.vim'
 Plug 'dannywillems/vim-icalendar'
 Plug 'digitaltoad/vim-pug'
@@ -368,9 +391,11 @@ Plug 'elixir-lang/vim-elixir'
 Plug 'fatih/vim-go', {'for': 'go'}
 Plug 'hail2u/vim-css3-syntax'
 Plug 'kchmck/vim-coffee-script'
+Plug 'keith/swift.vim'
 Plug 'leafgarland/typescript-vim'
 Plug 'leafo/moonscript-vim'
 Plug 'lervag/vimtex'
+Plug 'neovimhaskell/haskell-vim'
 Plug 'othree/html5.vim'
 Plug 'pangloss/vim-javascript'
 Plug 'rust-lang/rust.vim'
@@ -409,14 +434,14 @@ noremap <leader>a :DeopleteEnable<CR>
 nnoremap <leader>f :FZF<CR>
 
 " airline
-let g:airline_left_sep = ''
-let g:airline_right_sep = ''
-let g:airline_section_y = '%{&fenc?&fenc:&enc} %{&fileformat}'
-let g:airline_section_z = '%8.(%l/%L%)'
-let g:airline_section_warning = '%3.p%%'
-let g:airline_theme = 'steve'
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#left_sep = ''
+let g:airline_left_sep                        = ''
+let g:airline_right_sep                       = ''
+let g:airline_section_y                       = '%{&fenc?&fenc:&enc} %{&fileformat}'
+let g:airline_section_z                       = '%8.(%l/%L%)'
+let g:airline_section_warning                 = '%3.p%%'
+let g:airline_theme                           = 'steve'
+let g:airline#extensions#tabline#enabled      = 1
+let g:airline#extensions#tabline#left_sep     = ''
 let g:airline#extensions#tabline#left_alt_sep = ''
 
 " set color scheme
@@ -447,7 +472,7 @@ let g:javascript_enable_domhtmlcss = 1
 let g:autoformat_autoindent = 1
 
 " vim peekaboo
-let g:peekaboo_delay = 600
+let g:peekaboo_delay   = 600
 let g:peekaboo_compact = 1
 
 " neomake
@@ -472,20 +497,31 @@ let g:neomake_info = {
             \ }
 
 " vim-go
-let g:go_highlight_functions = 1
-let g:go_highlight_methods = 1
-let g:go_highlight_structs = 1
-let g:go_highlight_structs = 1
-let g:go_highlight_operators = 1
+let g:go_highlight_functions         = 1
+let g:go_highlight_methods           = 1
+let g:go_highlight_structs           = 1
+let g:go_highlight_structs           = 1
+let g:go_highlight_operators         = 1
 let g:go_highlight_build_constraints = 1
-let g:go_fmt_command = 'goimports'
-let g:go_fmt_fail_silently = 1
-let g:go_fmt_autosave = 0
+let g:go_fmt_command                 = 'goimports'
+let g:go_fmt_fail_silently           = 1
+let g:go_fmt_autosave                = 0
 " prevent vim-go from mapping :GoDoc to K
-let g:go_doc_keywordprg_enabled = 0
+let g:go_doc_keywordprg_enabled      = 0
 
 " vim-textmanip
 map <C-j> <Plug>(textmanip-move-down)
 map <C-k> <Plug>(textmanip-move-up)
 map <C-h> <Plug>(textmanip-move-left)
 map <C-l> <Plug>(textmanip-move-right)
+
+" ag.vim
+let g:ag_highlight = 1
+nnoremap <leader>/ :Ag 
+
+" vim rel jumps
+let g:rel_jump_move_down = 'gj'
+let g:rel_jump_move_up   = 'gk'
+
+" vim-easyclip
+nnoremap gm m

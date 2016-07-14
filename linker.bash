@@ -2,9 +2,6 @@
 
 # linker - system links dotfiles
 
-# http://stackoverflow.com/a/4774063
-DOTFILES_DIRECTORY="$(cd "$( dirname "${BASH_SOURCE[0]}")" > /dev/null && pwd)"
-
 
 link() {
     arg1="$1"
@@ -20,6 +17,9 @@ link() {
         arg2="$3"
     fi
 
+    # http://stackoverflow.com/a/4774063
+    DOTFILES_DIRECTORY="$(cd "$( dirname "${BASH_SOURCE[0]}")" > /dev/null && pwd)"
+
     # force create/replace the symlink.
     ln -fs "$DOTFILES_DIRECTORY/$arg1" "$HOME/$arg2"
 }
@@ -32,14 +32,17 @@ link ".bash_profile"
 link ".bashrc"
 link ".editorconfig"
 link ".eslintrc"
+link ".ghci"
 link ".gitconfig"
 link ".gitignore"
+link ".hushlogin"
 link ".inputrc"
 link ".jsbeautifyrc"
 link ".mdlrc"
 link ".nanorc"
 link ".pylintrc"
 link ".remarkrc"
+link ".stylelintrc"
 link ".tigrc"
 link ".tmux.conf"
 link ".uncrustify.cfg"
