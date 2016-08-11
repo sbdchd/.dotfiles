@@ -168,25 +168,15 @@ nnoremap K kJ
 " make Y work like D
 nnoremap Y y$
 
-" make the system register great again
-nnoremap <leader>p "+p
-nnoremap <leader>P "+P
-nnoremap <Leader>d "+d
-nnoremap <leader>y "+y
-nnoremap <leader>Y "+Y
-
-vnoremap <leader>p "+p
-vnoremap <leader>P "+P
-vnoremap <Leader>d "+d
-vnoremap <leader>y "+y
-vnoremap <leader>Y "+Y
-
+" copy entire file
 command! Copy :%y+
 
+" make y copy to clipboard automatically
+set clipboard=unnamed
 
 " make window spliting work with `|` & `_`
-nnoremap <expr><silent> \| !v:count ? "<C-W>v<C-W><Right>" : '\|'
-nnoremap <expr><silent> _  !v:count ? "<C-W>s<C-W><Down>"  : '_' 
+nnoremap <expr><silent> \| !v:count ? "<C-W>v" : '\|'
+nnoremap <expr><silent> _  !v:count ? "<C-W>s"  : '_'
 nnoremap <silent> <TAB>   :bnext<CR>
 nnoremap <silent> <S-TAB> :bprevious<CR>
 
@@ -349,9 +339,10 @@ Plug 'svermeulen/vim-easyclip'
 " Git
 Plug 'airblade/vim-gitgutter'
 Plug 'gregsexton/gitv'
+Plug 'jreybert/vimagit'
 Plug 'junegunn/gv.vim'
-Plug 'tpope/vim-fugitive'
 Plug 'rhysd/conflict-marker.vim'
+Plug 'tpope/vim-fugitive'
 
 " Interface
 Plug 'vim-airline/vim-airline' | Plug 'sbdchd/airline-steve'
@@ -415,6 +406,8 @@ Plug 'zchee/deoplete-jedi'
 if has('nvim')
     Plug 'awetzel/elixir.nvim', {'do': 'yes \| ./install.sh'}
 endif
+
+Plug 'prabirshrestha/async.vim'
 
 call plug#end()
 

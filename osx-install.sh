@@ -19,7 +19,9 @@ brew install flow
 brew install git
 brew install gpg
 brew install homebrew/dupes/openssh
+brew install imagemagick
 brew install make --with-default-names
+brew install mercurial
 brew install mosh
 brew install neovim/neovim/neovim
 brew install optipng
@@ -30,7 +32,6 @@ brew install tig --with-docs
 brew install tmux
 brew install vim
 brew install webarchiver
-brew install imagemagick
 
 brew install youtube-dl
 # ffmpeg is needed for some youtube-dl features
@@ -73,11 +74,13 @@ bash lua-install.sh
 
 # Utilities
 brew install ag
+brew install aspell
 brew install astyle
 brew install ccat
 brew install ctags
 brew install curl
 brew install git-extras
+brew install global
 brew install highlight
 brew install htop-osx
 brew install httpie
@@ -85,6 +88,7 @@ brew install jlhonora/lsusb/lsusb
 brew install sbdchd/macchanger/macchanger
 brew install shellcheck
 brew install tidy-html5
+brew install trash
 brew install tree
 brew install uncrustify
 brew install unp
@@ -174,6 +178,7 @@ brew cask install neovim-automator-app
 brew tap caskroom/fonts
 brew cask install font-latin-modern
 brew cask install font-inconsolata
+brew cask install font-source-code-pro
 
 # Install Vim Plug Package Manager
 bash vimplug-install.sh

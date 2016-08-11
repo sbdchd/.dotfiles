@@ -204,6 +204,8 @@ fi
 
 export PATH="$PATH:/usr/local/sbin"
 
+export PATH=$PATH:"$HOME"/bin/
+
 # Luarocks
 export PATH=$PATH:"$HOME"/.luarocks/bin/
 
@@ -329,25 +331,30 @@ if hash virtualenv 2>/dev/null; then
 fi
 
 # ANSI escape color codes
-Color_Off='\e[0m'       # Text Reset
-Green='\e[0;32m'        # Green
-Yellow='\e[0;33m'       # Yellow
-Blue='\e[0;34m'         # Blue
-Purple='\e[0;35m'       # Purple
-Cyan='\e[0;36m'         # Cyan
+Color_Off='\e[0m'
+Green='\e[0;32m'
+Yellow='\e[0;33m'
+Blue='\e[0;34m'
+Purple='\e[0;35m'
+Cyan='\e[0;36m'
+Red='\e[0;31m'
+White='\e[0;37m'
+
 set_prompts() {
     # set the terminal title to the current working directory
     PS1="\[\033]0;\w\007\]"
     PS1+="\n"
-    PS1+="\[$Yellow\]\u"                    # username
+    PS1+="\[$Yellow\]\u"                   # username
     PS1+="\[$Color_Off\]@"
-    PS1+="\[$Purple\]\h"                    # host
-    PS1+="\[$Blue\] \w"                     # working directory
-    PS1+="\[$Green\]\$(prompt_git \" \")"   # git repository details
-    PS1+=" \[$Cyan\]\$(virtualenv_info)"    # virtual environment status
-    PS1+="\[$Cyan\]\$DOCKER_MACHINE_NAME"   # display docker machine name
+    PS1+="\[$Purple\]\h"                   # host
+    PS1+="\[$Blue\] \w"                    # working directory
+    PS1+="\[$Green\]\$(prompt_git \" \") " # git repository details
+    PS1+="\[$Cyan\]\$(virtualenv_info)"    # virtual environment status
+    PS1+="\[$Cyan\]\$DOCKER_MACHINE_NAME"  # display docker machine name
+    PS1+="\[$White\]\d"                    # date
+    PS1+=" \@"
     PS1+="\n"
-    PS1+="\[$Color_Off\]\$ "                # $ or # depending on user status
+    PS1+="\[$Color_Off\]\$ "               # $ or # depending on user status
     export PS1
 }
 set_prompts

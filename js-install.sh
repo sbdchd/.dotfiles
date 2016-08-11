@@ -13,6 +13,7 @@ npm install -g pug-cli
 npm install -g pug-lint
 npm install -g tern
 npm install -g typescript
+npm install -g typescript-tools
 npm install -g typescript-formatter
 npm install -g uglify
 npm install -g vimlint

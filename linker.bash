@@ -49,12 +49,12 @@ link ".uncrustify.cfg"
 link ".vimrc"
 link ".vimrc"        ".ideavimrc"
 link ".vintrc.yaml"
+link ".spacemacs"
 
 
 # link dirs
 link -d ".vim"
 link -d ".atom"
-link -d ".emacs.d"
 
 
 # neovim
