@@ -342,8 +342,11 @@ White='\e[0;37m'
 
 set_prompts() {
     # set the terminal title to the current working directory
-    PS1="\[\033]0;\w\007\]"
-    PS1+="\n"
+    PS1="\n"
+    if [[ -z "$EMACS" ]]; then
+        # term / ansi-term / multi-term do not process this char
+        PS1+="\[\033]0;\w\007\]"
+    fi
     PS1+="\[$Yellow\]\u"                   # username
     PS1+="\[$Color_Off\]@"
     PS1+="\[$Purple\]\h"                   # host

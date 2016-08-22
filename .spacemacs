@@ -10,7 +10,6 @@ values."
    dotspacemacs-configuration-layers
    '(
      ;; languages
-     dockerfile
      emacs-lisp
      extra-langs
      haskell
@@ -20,48 +19,42 @@ values."
      latex
      lua
      markdown
-     nixos
-     org
      python
      sql
-     swift
      typescript
      vimscript
      yaml
-     (rust :variables rust-enable-racer t)
      (go :variables gofmt-command "goimports")
 
-     command-log
      typography
+
+     colors
 
      osx
 
-     ;; project management
-     gtags
-     eyebrowse
-
      (shell :variables
             shell-default-height 30
-            shell-default-position 'bottom)
+            shell-default-position 'bottom
+            shell-default-shell 'ansi-term
+            shell-default-term-shell "/usr/local/bin/bash")
 
      auto-completion
      spell-checking
-     syntax-checking
+     (syntax-checking :variables syntax-checking-use-original-bitmaps t)
 
-     ;; version control
-     (git :variables git-gutter-use-fringe t)
-     version-control
+     git
      )
 
    dotspacemacs-additional-packages
    '(
-     ;; languages
-     moonscript
+     diff-hl
+     ;; language(s)
      applescript-mode
 
      ;; utils
      editorconfig
      fzf
+     vdiff
 
      ;; git
      mo-git-blame
@@ -70,7 +63,9 @@ values."
    dotspacemacs-excluded-packages
    '(
      evil-search-highlight-persist
+     evil-esc
      yasnippet
+     vi-tilde-fringe
      )
 
    dotspacemacs-delete-orphan-packages t
@@ -93,11 +88,7 @@ values."
 
    dotspacemacs-scratch-mode 'text-mode
 
-   dotspacemacs-themes
-   '(
-     solarized-light
-     brin
-     )
+   dotspacemacs-themes '(solarized-light)
    dotspacemacs-colorize-cursor-according-to-state nil ;; a bit glitchy when enabled
    dotspacemacs-default-font
    '(
@@ -117,8 +108,7 @@ values."
 
    dotspacemacs-remap-Y-to-y$ t
 
-   ;; Info about layouts vs workspaces b.c. they are confusing
-   ;; https://github.com/syl20bnr/spacemacs/blob/develop/doc/DOCUMENTATION.org#layouts-and-workspaces
+   ;; Consider layout = workspace, workspace = layout
    dotspacemacs-default-layout-name "default"
    dotspacemacs-display-default-layout nil
    dotspacemacs-auto-resume-layouts t
@@ -147,7 +137,7 @@ values."
 
    dotspacemacs-mode-line-unicode-symbols nil
    dotspacemacs-smooth-scrolling t
-   dotspacemacs-line-numbers nil
+   dotspacemacs-line-numbers 'relative
 
    dotspacemacs-smartparens-strict-mode nil
    dotspacemacs-highlight-delimiters 'all
@@ -159,23 +149,13 @@ values."
    ))
 
 (defun dotspacemacs/user-init ()
-
-;;; timestamps in *Messages*
-  (defun current-time-microseconds ()
-    (let* ((nowtime (current-time))
-           (now-ms (nth 2 nowtime)))
-      (concat (format-time-string "[%Y-%m-%dT%T" nowtime) (format ".%d] " now-ms))))
-
-  (defadvice message (before test-symbol activate)
-    (if (not (string-equal (ad-get-arg 0) "%s%s"))
-        (let ((deactivate-mark nil)
-              (inhibit-read-only t))
-          (save-excursion
-            (set-buffer "*Messages*")
-            (goto-char (point-max))
-            (if (not (bolp))
-                (newline))
-            (insert (current-time-microseconds))))))
+  ;; indicate empty lines
+  (defun enable-indicate-empty-lines ()
+    (interactive)
+    (unless (minibufferp)
+      (setq indicate-empty-lines t)))
+  (add-hook 'text-mode-hook 'enable-indicate-empty-lines)
+  (add-hook 'prog-mode-hook 'enable-indicate-empty-lines)
 
   ;; persistent undo
   (setq undo-tree-auto-save-history t
@@ -188,20 +168,51 @@ values."
   ;; http://stackoverflow.com/a/22656515/3720597
   (set-fontset-font t 'unicode "Apple Color Emoji" nil 'prepend)
 
-  ;; make workspaces (persp-mode) save and restore automatically
-  ;; https://www.gnu.org/software/emacs/manual/html_node/emacs/Saving-Emacs-Sessions.html#Saving-Emacs-Sessions
-  ;; (desktop-save-mode 1) ;; TODO
+  ;; theme setup
+  (setq solarized-distinct-fringe-background t)
+  (setq solarized-emphasize-indicators nil)
+
+  ;; git gutter style change highlighting
+  (defun enable-diff-hl-mode ()
+    (when (fboundp 'diff-hl-mode)
+      (diff-hl-mode)
+      (diff-hl-flydiff-mode)))
+    (add-hook 'text-mode-hook 'enable-diff-hl-mode)
+    (add-hook 'prog-mode-hook 'enable-diff-hl-mode)
+    (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh)
+
+  ;; magit
+  ;; 2 way diff (default 3) with ediff via magit
+  (setq magit-ediff-dwim-show-on-hunks t)
+
+  ;; term mode stuff
+  (defun sbdchd/setup-term-mode ()
+    "setup C-r to work in term-mode"
+    (evil-local-set-key 'insert (kbd "C-r") 'sbdchd/send-C-r))
+  (defun sbdchd/send-C-r ()
+    "send C-r to the terminal raw"
+    (interactive)
+    (term-send-raw-string "\C-r"))
+  (add-hook 'term-mode-hook 'sbdchd/setup-term-mode)
 
   )
 
 (defun dotspacemacs/user-config ()
+
+  (defadvice save-buffers-kill-emacs (around no-query-kill-emacs activate)
+    "Prevent annoying \"Active processes exist\" query when you quit Emacs."
+    (flet ((process-list ())) ad-do-it))
+
+  ;; set title of emacs window
+  (setq frame-title-format
+        '(buffer-file-name "%f" (dired-directory dired-directory "%b")))
+
+  ;; update file if changed on disk (only works if buffer isn't modified)
+  (global-auto-revert-mode t)
+
   ;; modeline
   (setq powerline-default-separator nil)
   (spaceline-compile)
-
-  ;; make j & k work like gj & gk in vim
-  (define-key evil-normal-state-map (kbd "j") 'evil-next-visual-line)
-  (define-key evil-normal-state-map (kbd "k") 'evil-previous-visual-line)
 
   ;; fzf
   (defadvice fzf/start (after normalize-fzf-mode-line activate)
@@ -209,18 +220,21 @@ values."
     (setq mode-line-format nil))
   (spacemacs/set-leader-keys "fz" 'fzf)
 
-  (setq-default
+  ;; mo-git-blame - similar to vim-fugitive's :Gblame
+  (spacemacs/set-leader-keys "gB" 'mo-git-blame-current)
+  (push '("*mo-git-blame" . emacs) evil-buffer-regexps)
+  ;; TODO, just disable evil keybinds that interfere with mo-git-blame instead
+  ;; of disabling evil for mo-git-blame buffers
 
-   ;; version control
-   vc-follow-symlinks t
+  (setq-default
 
    ;; evil mode
    evil-shift-round nil ;; make << or >> shift by a constant amount
    evil-move-cursor-back nil
    evil-cross-lines t ;; make `f` work across lines
 
-   ;; shell
-   shell-default-shell 'shell
+   ;; terminal
+   term-suppress-hard-newline t
 
    )
   )

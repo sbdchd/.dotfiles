@@ -77,6 +77,7 @@ brew install ag
 brew install aspell
 brew install astyle
 brew install ccat
+brew install cloc
 brew install ctags
 brew install curl
 brew install git-extras

@@ -107,8 +107,6 @@ set ignorecase
 set smartcase
 " ignore case when completing file names and directories
 set wildignorecase
-" use C as a command to clear search entry and their highlighting
-command! C let @/=""
 if !has('nvim')
     " highlight search matches
     set hlsearch
@@ -116,6 +114,14 @@ if !has('nvim')
     set incsearch
 endif
 
+function! ClearSearch()
+    nohlsearch
+    let @/ = ""
+    exe "normal! <return><esc>"
+    echom ''
+endfunction
+" clear search with <esc>
+nnoremap <esc> :call ClearSearch()<CR>
 
 " Tabs & Spaces
 " number of spaces=<tab>
@@ -174,11 +180,9 @@ command! Copy :%y+
 " make y copy to clipboard automatically
 set clipboard=unnamed
 
-" make window spliting work with `|` & `_`
-nnoremap <expr><silent> \| !v:count ? "<C-W>v" : '\|'
-nnoremap <expr><silent> _  !v:count ? "<C-W>s"  : '_'
-nnoremap <silent> <TAB>   :bnext<CR>
-nnoremap <silent> <S-TAB> :bprevious<CR>
+" bind + / - to increase or decrease numbers
+nnoremap - <C-a>
+nnoremap + <C-x>
 
 
 " Undo and Swap
@@ -223,10 +227,105 @@ set nofoldenable
 " move up visual line instead of file line
 noremap j gj
 noremap k gk
+
+" ~~~~~~~~~~SPACESTEVEVIM~~~~~~~~~~
+
+autocmd VimEnter * command! -nargs=* Ag call fzf#vim#ag(
+            \ <q-args>,
+            \ "--hidden -U --ignore .git",
+            \ fzf#vim#default_layout)
+
 " better buffer nav
-nnoremap <leader>b :ls<CR>:b<Space>
-nnoremap <silent> <leader>j :bnext<CR>
-nnoremap <silent> <leader>k :bprevious<CR>
+nnoremap <silent> <leader>bp :bprevious<CR>
+nnoremap <silent> <leader>bn :bnext<CR>
+nnoremap <silent> <leader>bd :bdelete<CR>
+
+" save file
+nnoremap <silent> <leader>sf :w<CR>
+
+" buffer format
+nnoremap <silent> <leader>bf :Neoformat<CR>
+
+
+" NOTE: fzf.vim required for many of these
+nnoremap <silent> <leader>bl :Buffers<CR>
+let g:fzf_buffers_jump = 1 " jump to preexisting window if possible
+
+" buffer search
+nnoremap <silent> <leader>bs :BLines<CR>
+" search files
+nnoremap <silent> <leader>sf :Lines<CR>
+" ag search
+nnoremap <leader>as :Ag 
+
+" search commits
+nnoremap <silent> <leader>bg/ :BCommits<CR>
+nnoremap <silent> <leader>g/ :Commits<CR>
+
+" search help
+nnoremap <silent> <leader>h :Helptags<CR>
+nnoremap <silent> <leader>? :Helptags<CR>
+
+" command history
+nnoremap <silent> <leader>q: :History:<CR>
+" searches
+nnoremap <silent> <leader>q/ :History/<CR>
+" recent files
+nnoremap <silent> <leader>fr :History<CR>
+nnoremap <leader>ff :FZF<CR>
+
+" better window nav
+nnoremap <leader>wl <C-W>l
+nnoremap <leader>wh <C-W>h
+nnoremap <leader>wj <C-W>j
+nnoremap <leader>wk <C-W>k
+
+nnoremap <leader>wv <C-W>v
+nnoremap <leader>ws <C-W>s
+
+" kill window
+nnoremap <leader>wc <C-W>c
+nnoremap <leader>wd <C-W>c
+nnoremap <leader>wx <C-W>c
+
+" exit vim
+nnoremap <leader>qa :qa<CR>
+
+command! Minimize :exe "normal! <C-w>="
+command! Maximize :exe "normal! <C-w>\|<C-w>_"
+function! ToggleMaximizeWindow() 
+    if !exists('b:window_maximized')
+        let b:window_maximized = 0
+    endif
+    if b:window_maximized
+        Minimize
+        let b:window_maximized = 0
+    else
+        Maximize
+        let b:window_maximized = 1
+    endif
+endfunction
+nnoremap <leader>wm :call ToggleMaximizeWindow()<CR>
+
+" shell
+command! Shell :split | exe "normal! <C-w>j" | terminal
+nnoremap <leader>' :Shell<CR>
+nnoremap <leader>! :!
+
+" toggles
+noremap <leader>ta :DeopleteEnable<CR>
+noremap <leader>tg :GitGutterToggle<CR>
+noremap <leader>tm :SignatureToggle<CR>
+noremap <leader>tt :TagbarToggle<CR>
+noremap <leader>tu :UndotreeToggle<CR>
+" spelling
+syntax spell toplevel
+nnoremap <leader>ts :set spell! spelllang=en<CR>
+
+" git
+noremap <leader>gd :Gdiff<CR>
+
+" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 " disable netrw help banner
 let g:netrw_banner = 0
@@ -235,11 +334,6 @@ if !has('nvim')
     " mouse will only work with certain terminals
     set mouse=a
 endif
-
-
-" Spelling
-syntax spell toplevel
-nnoremap <leader>s :set spell! spelllang=en<CR>
 
 
 " List Chars
@@ -276,7 +370,7 @@ function! TrimWhiteSpace()
     " vint: -ProhibitCommandRelyOnUser -ProhibitCommandWithUnintendedSideEffect
     %s/\s\+$//e
     " vint: +ProhibitCommandRelyOnUser +ProhibitCommandWithUnintendedSideEffect
-    let @/=l:search
+    let @/ = l:search
     call winrestview(l:view)
 endfunction
 command! TrimWhiteSpace :call TrimWhiteSpace()
@@ -287,7 +381,7 @@ function! TrimEndings()
     " vint: -ProhibitCommandRelyOnUser -ProhibitCommandWithUnintendedSideEffect
     silent! %s/\r//g
     " vint: +ProhibitCommandRelyOnUser +ProhibitCommandWithUnintendedSideEffect
-    let @/=l:search
+    let @/ = l:search
     call winrestview(l:view)
 endfunction
 command! TrimEndings :call TrimEndings()
@@ -310,7 +404,7 @@ if has('nvim')
 endif
 
 
-" vim-plug plugins setup
+" Plugins
 " https://github.com/junegunn/vim-plug
 function! DoRemote()
     UpdateRemotePlugins
@@ -318,23 +412,23 @@ endfunction
 call plug#begin('~/.vim/plugged')
 
 " Utilities
-Plug 'chrisbra/Recover.vim'
 Plug 'duggiefresh/vim-easydir'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'junegunn/fzf', {'dir': '~/.fzf', 'do': 'yes \| ./install'}
+Plug 'junegunn/fzf.vim'
 Plug 'junegunn/vader.vim'
 Plug 'junegunn/vim-peekaboo'
 Plug 'majutsushi/tagbar'
 Plug 'mbbill/undotree', {'on' : 'UndotreeToggle'}
 Plug 'milkypostman/vim-togglelist'
 Plug 'neomake/neomake'
-Plug 'rking/ag.vim'
 Plug 'sbdchd/neoformat'
 Plug 'sbdchd/vim-run'
 Plug 'sbdchd/vim-shebang'
+Plug 'svermeulen/vim-easyclip'
 Plug 't9md/vim-textmanip'
 Plug 'tpope/vim-eunuch'
-Plug 'svermeulen/vim-easyclip'
+Plug 'justinmk/vim-gtfo'
 
 " Git
 Plug 'airblade/vim-gitgutter'
@@ -345,9 +439,10 @@ Plug 'rhysd/conflict-marker.vim'
 Plug 'tpope/vim-fugitive'
 
 " Interface
-Plug 'vim-airline/vim-airline' | Plug 'sbdchd/airline-steve'
-" Plug 'kshenoy/vim-signature' " See: https://github.com/neovim/neovim/issues/4882
+Plug 'hecal3/vim-leader-guide'
+Plug 'kshenoy/vim-signature'
 Plug 'mhinz/vim-startify'
+Plug 'vim-airline/vim-airline' | Plug 'sbdchd/airline-steve'
 
 " Syntax & Coloring
 Plug 'ap/vim-css-color'
@@ -407,8 +502,6 @@ if has('nvim')
     Plug 'awetzel/elixir.nvim', {'do': 'yes \| ./install.sh'}
 endif
 
-Plug 'prabirshrestha/async.vim'
-
 call plug#end()
 
 
@@ -421,10 +514,6 @@ command! DeopleteDisable    let b:deoplete_disable_auto_complete = 1
 command! DeopleteDisableAll let g:deoplete#disable_auto_complete = 1
 " prevent deoplete from creating a buffer above
 set completeopt-=preview
-noremap <leader>a :DeopleteEnable<CR>
-
-" fzf
-nnoremap <leader>f :FZF<CR>
 
 " airline
 let g:airline_left_sep                        = ''
@@ -440,17 +529,6 @@ let g:airline#extensions#tabline#left_alt_sep = ''
 " set color scheme
 silent! colorscheme hybrid
 
-" signature
-noremap <leader>m :SignatureToggle<CR>
-
-" tagbar
-noremap <leader>t :TagbarToggle<CR>
-
-" undotree
-noremap <leader>u :UndotreeToggle<CR>
-
-" gitgutter
-noremap <leader>g :GitGutterToggle<CR>
 
 " vim-easy-align
 " Start interactive EasyAlign in visual mode (e.g. vipga)
@@ -484,7 +562,7 @@ let g:neomake_warning_sign = {
             \ 'text': '~❯',
             \ 'texthl': 'WarningMsg',
             \ }
-let g:neomake_info = {
+let g:neomake_info_sign = {
             \ 'text': '!❯',
             \ 'texthl': 'WarningMsg',
             \ }
@@ -508,13 +586,25 @@ map <C-k> <Plug>(textmanip-move-up)
 map <C-h> <Plug>(textmanip-move-left)
 map <C-l> <Plug>(textmanip-move-right)
 
-" ag.vim
-let g:ag_highlight = 1
-nnoremap <leader>/ :Ag 
-
 " vim rel jumps
 let g:rel_jump_move_down = 'gj'
 let g:rel_jump_move_up   = 'gk'
 
 " vim-easyclip
 nnoremap gm m
+
+" vim-easymotion
+" Move to char
+map  <Leader><Leader>f <Plug>(easymotion-bd-f)
+nmap <Leader><Leader>f <Plug>(easymotion-overwin-f)
+
+" s{char}{char} to move to {char}{char}
+nmap s <Plug>(easymotion-overwin-f2)
+
+" Move to line
+map <Leader><Leader>l <Plug>(easymotion-bd-jk)
+nmap <Leader><Leader>l <Plug>(easymotion-overwin-line)
+
+" Move to word
+map  <Leader><Leader>w <Plug>(easymotion-bd-w)
+nmap <Leader><Leader>w <Plug>(easymotion-overwin-w)
