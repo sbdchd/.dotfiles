@@ -18,6 +18,7 @@ brew install emacs
 brew install flow
 brew install git
 brew install gpg
+brew install grep
 brew install homebrew/dupes/openssh
 brew install imagemagick
 brew install make --with-default-names
@@ -37,6 +38,10 @@ brew install youtube-dl
 # ffmpeg is needed for some youtube-dl features
 brew install ffmpeg
 brew install lame
+
+brew tap d12frosted/emacs-plus
+brew install emacs-plus --with-cocoa --with-gnutls --with-librsvg --with-imagemagick --with-spacemacs-icon
+brew linkapps
 
 # DBs
 brew install mongodb
@@ -153,6 +158,7 @@ brew cask install mobile-mouse-server
 brew cask install origin
 brew cask install pgadmin3
 brew cask install postgres
+brew cask install postman
 brew cask install seashore
 brew cask install spectacle
 brew cask install sqlitebrowser
@@ -163,6 +169,9 @@ brew cask install vagrant
 brew cask install virtualbox
 brew cask install vlc
 brew cask install wireshark
+
+# git
+brew cask install gitup
 
 brew cask tap caskroom/versions
 brew cask install intellij-idea-ce

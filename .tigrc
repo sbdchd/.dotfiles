@@ -7,6 +7,9 @@ bind generic g none
 bind generic G move-last-line
 bind generic g move-first-line
 
+bind main R !git rebase -i %(commit)
+bind main M !git merge --ff-only %(commit)
+
 # make name shorted, add commit hash
 set main-view = \
     date:default \

@@ -181,8 +181,8 @@ command! Copy :%y+
 set clipboard=unnamed
 
 " bind + / - to increase or decrease numbers
-nnoremap - <C-a>
-nnoremap + <C-x>
+nnoremap - <C-x>
+nnoremap + <C-a>
 
 
 " Undo and Swap
@@ -248,7 +248,7 @@ nnoremap <silent> <leader>bf :Neoformat<CR>
 
 
 " NOTE: fzf.vim required for many of these
-nnoremap <silent> <leader>bl :Buffers<CR>
+nnoremap <silent> <leader>bb :Buffers<CR>
 let g:fzf_buffers_jump = 1 " jump to preexisting window if possible
 
 " buffer search
@@ -279,9 +279,13 @@ nnoremap <leader>wl <C-W>l
 nnoremap <leader>wh <C-W>h
 nnoremap <leader>wj <C-W>j
 nnoremap <leader>wk <C-W>k
+nnoremap <leader>w= <C-W>=
+nnoremap <leader>ww :Windows<CR>
 
+" window splitting
 nnoremap <leader>wv <C-W>v
 nnoremap <leader>ws <C-W>s
+nnoremap <leader>wt :terminal<CR>
 
 " kill window
 nnoremap <leader>wc <C-W>c
@@ -401,6 +405,10 @@ if has('nvim')
     autocmd! TermOpen * if &buftype == 'terminal'
                 \| setlocal nolist
                 \| endif
+
+    autocmd! BufEnter * if &buftype == 'terminal'
+                \| startinsert
+                \| endif
 endif
 
 
@@ -464,6 +472,7 @@ Plug 'wellle/targets.vim'
 
 " Text Objects
 Plug 'kana/vim-textobj-user' 
+            \| Plug 'kana/vim-textobj-entire'
             \| Plug 'kana/vim-textobj-function'
             \| Plug 'michaeljsmith/vim-indent-object'
 

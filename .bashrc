@@ -28,9 +28,15 @@ alias mv='mv -iv'
 
 # General Commands
 alias c="clear"
-alias e='exit'
+alias e='$EDITOR'
 alias q='exit'
 alias o="open"
+
+
+# make nvim open a file in the previous window when using the terminal
+if [[ "$NVIM_LISTEN_ADDRESS" ]] && hash nvr 2>/dev/null; then
+    alias e="nvr -l"
+fi
 
 if hash pmset 2>/dev/null; then
     alias sleep='pmset sleepnow'
@@ -79,14 +85,15 @@ alias trash='cd ~/.Trash'
 if hash git 2>/dev/null; then
     alias ga='git add'
     alias gb='git branch'
+    alias gblame='git blame'
     alias gc='git commit'
     alias gca='git commit -a'
     alias gcl='git clone'
     alias gco='git checkout'
     alias gd='git diff'
-    alias gl='git log'
+    alias gl='git log --graph --pretty=oneline --abbrev-commit --decorate'
     alias glist='git log --pretty=format: --name-status | cut -f2- | sort -u'
-    alias glpretty='git log --graph --decorate --pretty=oneline --abbrev-commit'
+    alias glpretty="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative"
     alias gls='git ls-files'
     alias gp='git push'
     alias gpl='git pull'
@@ -94,7 +101,7 @@ if hash git 2>/dev/null; then
     alias grb='git rebase'
     alias gre='git reset'
     alias grm='git rm'
-    alias gs='git status'
+    alias gs='git status -sb'
     alias gst='git stash'
     alias gu='git undo'
 fi
@@ -323,11 +330,11 @@ virtualenv_info(){
 
 if hash virtualenv 2>/dev/null; then
     function venv() {
-    local env="$1"
-    if [ -f "$env/bin/activate" ]; then
-        . "$env"/bin/activate
-    fi
-}
+        local env="$1"
+        if [ -f "$env/bin/activate" ]; then
+            . "$env"/bin/activate
+        fi
+    }
 fi
 
 # ANSI escape color codes
@@ -352,7 +359,7 @@ set_prompts() {
     PS1+="\[$Purple\]\h"                   # host
     PS1+="\[$Blue\] \w"                    # working directory
     PS1+="\[$Green\]\$(prompt_git \" \") " # git repository details
-    PS1+="\[$Cyan\]\$(virtualenv_info)"    # virtual environment status
+    PS1+="\[$Cyan\]\$(virtualenv_info) "    # virtual environment status
     PS1+="\[$Cyan\]\$DOCKER_MACHINE_NAME"  # display docker machine name
     PS1+="\[$White\]\d"                    # date
     PS1+=" \@"
@@ -486,16 +493,16 @@ localip() {
 #http://stackoverflow.com/a/19458217/3720597
 if [[ $OS == "mac" ]]; then
     function clip() {
-    if [[ -p /dev/stdin ]]; then
-        # stdin is a pipe
-        # stdin -> clipboard
-        pbcopy
-    else
-        # stdin is not a pipe
-        # clipboard -> stdout
-        pbpaste
-    fi
-}
+        if [[ -p /dev/stdin ]]; then
+            # stdin is a pipe
+            # stdin -> clipboard
+            pbcopy
+        else
+            # stdin is not a pipe
+            # clipboard -> stdout
+            pbpaste
+        fi
+    }
 fi
 
 

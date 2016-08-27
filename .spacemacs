@@ -56,8 +56,6 @@ values."
      fzf
      vdiff
 
-     ;; git
-     mo-git-blame
      )
 
    dotspacemacs-excluded-packages
@@ -219,12 +217,6 @@ values."
     "Hide the modeline so FZF will render properly."
     (setq mode-line-format nil))
   (spacemacs/set-leader-keys "fz" 'fzf)
-
-  ;; mo-git-blame - similar to vim-fugitive's :Gblame
-  (spacemacs/set-leader-keys "gB" 'mo-git-blame-current)
-  (push '("*mo-git-blame" . emacs) evil-buffer-regexps)
-  ;; TODO, just disable evil keybinds that interfere with mo-git-blame instead
-  ;; of disabling evil for mo-git-blame buffers
 
   (setq-default
 
