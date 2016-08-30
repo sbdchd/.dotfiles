@@ -3,6 +3,7 @@
 gem install jekyll
 gem install lolcat
 gem install mdl
+gem install neovim
 gem install rubocop
 gem install rubocop-cask
 gem install ruby-beautify

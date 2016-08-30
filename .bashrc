@@ -27,11 +27,13 @@ alias cp='cp -iv'
 alias mv='mv -iv'
 
 # General Commands
-alias c="clear"
+alias c='clear'
 alias e='$EDITOR'
 alias q='exit'
-alias o="open"
+alias o='open'
 
+# kill all sessions except the current one
+alias tmux-kill-extra='tmux kill-session -a'
 
 # make nvim open a file in the previous window when using the terminal
 if [[ "$NVIM_LISTEN_ADDRESS" ]] && hash nvr 2>/dev/null; then
@@ -80,6 +82,7 @@ alias homebrew='cd /usr/local/Library/Formula'
 alias projects='cd ~/Dropbox/$USER/projects'
 alias tmp='cd /tmp'
 alias trash='cd ~/.Trash'
+alias dotfiles='projects && cd .dotfiles'
 
 # Git Aliases
 if hash git 2>/dev/null; then
@@ -394,13 +397,13 @@ ft() {
 
 # Make directory and enter it
 md() {
-    mkdir -p "$@" && cd "$@" || exit
+    mkdir -p "$@" && cd "$@"
 }
 
 # http://serverfault.com/a/28649
 # move up directories more easily
 up() {
-    cd "$(eval printf '../'%.s $(seq 1 $1))" || exit
+    cd "$(eval printf '../'%.s $(seq 1 $1))"
 }
 
 # https://wiki.archlinux.org/index.php/Bash/Functions#cd_and_ls_in_one
@@ -409,7 +412,7 @@ cl() {
     local dir="$1"
     local dir="${dir:=$HOME}"
     if [[ -d "$dir" ]]; then
-        cd "$dir" >/dev/null || exit; ls
+        cd "$dir" >/dev/null; ls
     else
         echo "bash: cl: $dir: Directory not found"
     fi
@@ -418,7 +421,7 @@ cl() {
 # https://github.com/paulirish/dotfiles/blob/master/.functions
 # open most recent finder window directory in terminal
 cdf() {
-    cd "$(osascript -e 'tell app "Finder" to POSIX path of (insertion location as alias)')" || exit
+    cd "$(osascript -e 'tell app "Finder" to POSIX path of (insertion location as alias)')"
 }
 
 if hash awk 2>/dev/null && hash column 2>/dev/null; then

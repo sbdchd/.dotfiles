@@ -3,6 +3,12 @@ bind generic G none
 bind main    G none
 bind generic g none
 
+color cursor      default black
+color title-blur  default black
+color title-focus default black bold
+
+set line-graphics = utf-8
+
 # make g & G more vim like
 bind generic G move-last-line
 bind generic g move-first-line

@@ -58,9 +58,9 @@ link -d ".atom"
 
 
 # neovim
-mkdir -p       "$HOME/.config"
-link  ".vim/"  ".config/nvim"
-link  ".vimrc" ".config/nvim/init.vim"
+mkdir -p       "$XDG_CONFIG_HOME/.config"
+link  ".vim/"  "$XDG_CONFIG_HOME/nvim"
+link ".config/nvim/init.vim" "$XDG_CONFIG_HOME/nvim/init.vim"
 
 
 echo "dotfiles linked!"
