@@ -1,7 +1,6 @@
 #!/usr/bin/env sh
 
 pip install autoflake
-pip install autopep8
 pip install editorconfig
 pip install isort
 pip install jedi

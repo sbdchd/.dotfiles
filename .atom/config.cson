@@ -33,6 +33,8 @@
     showInvisibles: true
     softWrap: true
   "go-plus": {}
+  "markdown-preview":
+    useGitHubStyle: true
   "save-session":
     dataSaveFolder: "/Users/steve/.atom/packages/save-session/projects"
   welcome:

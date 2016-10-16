@@ -115,10 +115,7 @@ set smartcase
 set wildignorecase
 
 " clear search with <esc>
-" vim 7.4 freaks out when using this for some reason
-if has('nvim')
-    nnoremap <esc> :noh<CR>
-endif
+nnoremap <esc> :noh<CR>
 
 " Tabs & Spaces
 " number of spaces=<tab>
@@ -156,6 +153,9 @@ vnoremap ; :
 nnoremap K kJ
 " make Y work like D
 nnoremap Y y$
+" helpful stuff
+nnoremap H ^
+nnoremap L $
 
 if exists(':tnoremap')
     autocmd! TermOpen term://*FZF tnoremap <silent> <buffer><nowait> <esc> <c-c>
@@ -219,44 +219,26 @@ autocmd VimEnter * command! -nargs=* Ag call fzf#vim#ag(
             \ fzf#vim#default_layout)
 
 " better buffer nav
-nnoremap <silent> <leader>bp :bprevious<CR>
-nnoremap <silent> <leader>bn :bnext<CR>
 nnoremap <silent> <leader>bd :bdelete<CR>
 nnoremap <silent> <leader>b# :b#<CR>
-
-" save file
-nnoremap <silent> <leader>fs :w<CR>
-
-" buffer format
-nnoremap <silent> <leader>bf :Neoformat<CR>
-
-
-" NOTE: fzf.vim required for many of these
-nnoremap <silent> <leader>bb :Buffers<CR>
+" primary method for navigating buffers
+nnoremap <silent> <leader>ls :Buffers<CR>
 let g:fzf_buffers_jump = 1 " jump to preexisting window if possible
 
-" buffer search
-nnoremap <silent> <leader>bs :BLines<CR>
-" search files
-nnoremap <silent> <leader>sf :Lines<CR>
-" ag search
-nnoremap <leader>as :Ag
+" search buffer
+nnoremap <silent> <leader>s :BLines<CR>
 
-" search commits
-nnoremap <silent> <leader>bg/ :BCommits<CR>
-nnoremap <silent> <leader>g/ :Commits<CR>
+" ag search
+nnoremap <leader>ag :Ag 
 
 " search help
-nnoremap <silent> <leader>h :Helptags<CR>
 nnoremap <silent> <leader>? :Helptags<CR>
 
-" command history
-nnoremap <silent> <leader>q: :History:<CR>
-" searches
-nnoremap <silent> <leader>q/ :History/<CR>
 " recent files
-nnoremap <silent> <leader>fr :History<CR>
-nnoremap <leader>ff :FZF<CR>
+nnoremap <silent> <leader>r :History<CR>
+
+" find files
+nnoremap <leader>f :FZF<CR>
 
 " better window nav
 nnoremap <leader>wl <C-W>l
@@ -272,6 +254,7 @@ nnoremap <leader>wH <C-W>H
 nnoremap <leader>wJ <C-W>J
 nnoremap <leader>wK <C-W>K
 
+" allows for <Leader>w2 to switch to window 2
 function! CreateWindowKeybinds()
     let i = 1
     while i <= 9
@@ -290,14 +273,14 @@ nnoremap <leader>wt :terminal<CR>
 
 " kill window
 nnoremap <leader>wc <C-W>c
-nnoremap <leader>wd <C-W>c
+nnoremap <leader>wd <C-W>c buffer
 nnoremap <leader>wx <C-W>c
 
 " exit vim
 nnoremap <leader>qa :qa<CR>
 
-command! Maximize :exe "normal! <C-w>\|<C-w>_"
-command! Minimize :exe "normal! <C-w>="
+command! Maximize :exe "normal! <C-w>\|<C-W>_"
+command! Minimize :exe "normal! <C-W>="
 function! ToggleMaximizeWindow()
     if !exists('b:window_maximized')
         let b:window_maximized = 0
@@ -310,17 +293,17 @@ function! ToggleMaximizeWindow()
         let b:window_maximized = 1
     endif
 endfunction
+
 nnoremap <leader>wm :call ToggleMaximizeWindow()<CR>
 
 " shell
-function! Shell()
-endfunction
 command! Shell :split | exe "normal! <C-w>j" | terminal
 nnoremap <leader>' :Shell<CR>
-nnoremap <leader>! :!
 
 " toggles
-let g:deoplete#enable_at_startup = 1
+if has('nvim')
+    let g:deoplete#enable_at_startup = 1
+endif
 function! DeopleteToggle()
     if exists('b:deoplete_enabled') && b:deoplete_enabled == 1
         let b:deoplete_enabled = 0
@@ -342,19 +325,15 @@ noremap <leader>tu :UndotreeToggle<CR>
 syntax spell toplevel
 nnoremap <leader>ts :set spell! spelllang=en<CR>
 
-" git
-noremap <leader>gd :Gdiff<CR>
-
 " ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 " disable netrw help banner
 let g:netrw_banner = 0
 nnoremap <leader>d :Explore<CR>
 
-
 " List Chars
 " use certain characters to show whitespace characters
-set listchars=tab:▸\
+set listchars=tab:▸\ 
 set listchars+=nbsp:⎵
 set listchars+=eol:¬
 set listchars+=trail:·
@@ -362,7 +341,7 @@ set listchars+=trail:·
 set list
 
 " change the default split seperator from | to a start bar like tmux
-set fillchars=vert:│
+set fillchars=vert:│,diff:─
 
 " enable tilde as an operator
 set tildeop
@@ -378,7 +357,6 @@ set nomore
 set diffopt+=vertical
 " swap files become more annoying than helpful
 set noswapfile
-set autochdir
 
 " Commands
 "http://stackoverflow.com/q/356126
@@ -402,9 +380,9 @@ function! TrimEndings()
     let @/ = l:search
     call winrestview(l:view)
 endfunction
-command! TrimEndings :call TrimEndings()
+command! -bar TrimEndings :call TrimEndings()
 
-command! ReloadConfig :source $MYVIMRC
+command! -bar ReloadConfig :source $MYVIMRC
 
 " Automatically close vim if only the quickfix window is open
 " http://stackoverflow.com/a/7477056/3720597
@@ -430,7 +408,6 @@ if has('nvim')
     autocmd! TermClose * call feedkeys('<cr>')
 
 endif
-
 
 " Plugins
 " https://github.com/junegunn/vim-plug
@@ -471,20 +448,26 @@ Plug 'tpope/vim-fugitive'
 Plug 'hecal3/vim-leader-guide'
 Plug 'kshenoy/vim-signature'
 Plug 'mhinz/vim-startify'
+Plug 'junegunn/goyo.vim'
 
 " Syntax & Coloring
 Plug 'ap/vim-css-color'
-Plug 'vim-utils/vim-troll-stopper'
 Plug 'xu-cheng/brew.vim'
 
 " Themes
 Plug 'altercation/vim-colors-solarized'
+Plug 'chriskempson/base16-vim'
+Plug 'joshdick/onedark.vim'
 Plug 'junegunn/seoul256.vim'
+Plug 'lifepillar/vim-solarized8'
 Plug 'morhetz/gruvbox'
 Plug 'nanotech/jellybeans.vim'
 Plug 'rakr/vim-one'
+Plug 'rakr/vim-two-firewatch'
 Plug 'w0ng/vim-hybrid'
+Plug 'jacoborus/tender.vim'
 Plug 'zefei/cake16'
+Plug 'zeis/vim-kolor'
 
 " Motion
 Plug 'buztard/vim-rel-jump'
@@ -501,14 +484,17 @@ Plug 'wellle/targets.vim'
 
 " Text Objects
 Plug 'kana/vim-textobj-user'
+            \| Plug 'glts/vim-textobj-comment'
             \| Plug 'kana/vim-textobj-entire'
             \| Plug 'kana/vim-textobj-function'
+            \| Plug 'kana/vim-textobj-line'
             \| Plug 'michaeljsmith/vim-indent-object'
 
 " Languages
 Plug 'Glench/Vim-Jinja2-Syntax', {'for': ['html', 'jinja']}
 Plug 'LnL7/vim-nix'
 Plug 'Tyilo/applescript.vim'
+Plug 'cespare/vim-toml'
 Plug 'dannywillems/vim-icalendar'
 Plug 'digitaltoad/vim-pug'
 Plug 'elixir-lang/vim-elixir'
@@ -517,7 +503,6 @@ Plug 'hail2u/vim-css3-syntax'
 Plug 'kchmck/vim-coffee-script'
 Plug 'keith/swift.vim'
 Plug 'leafgarland/typescript-vim'
-Plug 'leafo/moonscript-vim'
 Plug 'lervag/vimtex'
 Plug 'neovimhaskell/haskell-vim'
 Plug 'othree/html5.vim'
@@ -527,7 +512,6 @@ Plug 'sentientmachine/erics_vim_syntax_and_color_highlighting', {'for': 'java'}
 Plug 'tmux-plugins/vim-tmux'
 Plug 'tpope/vim-markdown'
 
-
 " Autocompletion
 Plug 'Shougo/deoplete.nvim', {'do': function('DoRemote')}
 " Sources
@@ -536,12 +520,7 @@ Plug 'carlitux/deoplete-ternjs'
 Plug 'zchee/deoplete-go', {'do': 'make'}
 Plug 'zchee/deoplete-jedi'
 
-if has('nvim')
-    Plug 'awetzel/elixir.nvim', {'do': 'yes \| ./install.sh'}
-endif
-
 call plug#end()
-
 
 " Plugin Config
 " deoplete mappings
@@ -560,8 +539,10 @@ silent! colorscheme hybrid
 set background=dark
 " https://github.com/neovim/neovim/wiki/Following-HEAD#20160511
 " see: https://github.com/neovim/neovim/issues/4696
-if exists('&termguicolors')
+if exists('&termguicolors') && has('nvim')
     set termguicolors
+elseif exists('&guicolors')
+    set guicolors
 else
     set t_Co=256
 endif
@@ -579,16 +560,18 @@ let g:javascript_enable_domhtmlcss = 1
 let g:peekaboo_delay   = 600
 let g:peekaboo_compact = 1
 
-" neomake
+" " neomake
 augroup Neomake
     autocmd!
-    autocmd BufWritePost * Neomake
+    if has('nvim')
+        autocmd BufWritePost * Neomake
+    endif
     autocmd QuitPre * let g:neomake_verbose = 0
 augroup END
 
 let g:neomake_error_sign = {
             \ 'text': '❯❯',
-            \ 'texthl': 'ErrorMsg',
+            \ 'texthl': 'WarningMsg',
             \ }
 
 let g:neomake_warning_sign = {
@@ -640,3 +623,6 @@ nmap <Leader><Leader>w <Plug>(easymotion-overwin-w)
 
 " for reloading of vimrc while in vim
 filetype detect
+
+" make targets play nice with line text object by disabling `nl`
+let g:targets_nlNL = 'n NL'

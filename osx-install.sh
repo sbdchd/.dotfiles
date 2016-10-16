@@ -160,6 +160,7 @@ brew cask install pgadmin3
 brew cask install postgres
 brew cask install postman
 brew cask install seashore
+brew cask install slack
 brew cask install spectacle
 brew cask install sqlitebrowser
 brew cask install steam

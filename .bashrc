@@ -28,17 +28,23 @@ alias mv='mv -iv'
 
 # General Commands
 alias c='clear'
-alias e='$EDITOR'
 alias q='exit'
 alias o='open'
 
 # kill all sessions except the current one
 alias tmux-kill-extra='tmux kill-session -a'
 
+if [[ -n $TMUX ]]; then
+    # needed to make fzf render somewhat correctly
+    export TERM='screen-256color'
+fi
+
+alias e='$EDITOR'
 # make nvim open a file in the previous window when using the terminal
 if [[ "$NVIM_LISTEN_ADDRESS" ]] && hash nvr 2>/dev/null; then
     alias e="nvr -l"
 fi
+complete -F _fzf_file_completion -o default -o bashdefault e
 
 if hash pmset 2>/dev/null; then
     alias sleep='pmset sleepnow'
@@ -158,6 +164,9 @@ if [[ $OS == "mac" ]]; then
     # Empty the Trash on all mounted volumes and the main HDD
     # Also, clear Apple’s System Logs to improve shell startup speed
     alias emptytrash="sudo rm -rfv /Volumes/*/.Trashes; sudo rm -rfv ~/.Trash; sudo rm -rfv /private/var/log/asl/*.asl"
+
+    alias showdotfiles="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
+    alias hidedotfiles="defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder"
 fi
 
 # Copy my public key to the pasteboard
@@ -214,10 +223,10 @@ fi
 
 export PATH="$PATH:/usr/local/sbin"
 
-export PATH=$PATH:"$HOME"/bin/
+export PATH=$PATH:"$HOME"/bin
 
 # Luarocks
-export PATH=$PATH:"$HOME"/.luarocks/bin/
+export PATH=$PATH:"$HOME"/.luarocks/bin
 
 # Go setup stuff
 export GOPATH=$HOME/Dropbox/$USER/projects/go
@@ -236,6 +245,9 @@ export XDG_CONFIG_HOME="$HOME"/.config
 
 # Disable Homebrew Analytics
 export HOMEBREW_NO_ANALYTICS=1
+# Ignore Homebrew change
+export HOMEBREW_CASK_OPTS='--caskroom=/opt/homebrew-cask/Caskroom'
+
 if [[ -e "$HOME/.homebrew_analytics_user_uuid" ]]; then
     rm -f "$HOME/.homebrew_analytics_user_uuid"
 fi
@@ -334,8 +346,10 @@ virtualenv_info(){
 if hash virtualenv 2>/dev/null; then
     function venv() {
         local env="$1"
-        if [ -f "$env/bin/activate" ]; then
+        if [[ -f "$env/bin/activate" ]] && [[ -z "$VIRTUAL_ENV" ]]; then
             . "$env"/bin/activate
+        else
+            deactivate
         fi
     }
 fi
@@ -367,7 +381,7 @@ set_prompts() {
     PS1+="\[$White\]\d"                    # date
     PS1+=" \@"
     PS1+="\n"
-    PS1+="\[$Color_Off\]\$ "               # $ or # depending on user status
+    PS1+="\[$Color_Off\]❯ "
     export PS1
 }
 set_prompts

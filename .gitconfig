@@ -3,6 +3,7 @@
   autocrlf = false
   excludesfile = ~/.gitignore
   attributesfile = ~/.gitattributes
+  pager = "diff-so-fancy | less --tabs=4 -RFX"
 [push]
   default = simple
 [color]
@@ -12,3 +13,5 @@
 [user]
   name = Steve Dignam
   email = steve@dignam.xyz
+[diff-so-fancy]
+  stripLeadingSymbols = false

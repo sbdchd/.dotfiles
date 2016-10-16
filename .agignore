@@ -3,6 +3,10 @@
 !.atom/keymap.cson
 !.atom/config.cson
 
+node_modules
+
+venv
+
 .emacs.d/*
 !.emacs.d/init.el
 
