@@ -1,10 +1,7 @@
-" Cursor Line
 " show the line number relative to the cursor line
 set relativenumber
 " show actual line number instead of the relative 0
 set number
-" highlight the screen line of the cursor
-set cursorline
 " min number of screen lines above/below of cursor
 set scrolloff=5
 " cursor briefly jumps to matching bracket upon the insertion
@@ -15,14 +12,6 @@ set matchtime=2
 set colorcolumn=81
 " make cursor stays in general column when moving
 set nostartofline
-" only highlight the cursorline in the active window
-augroup CursorLine
-    autocmd!
-    autocmd VimEnter    * setl cursorline
-    autocmd WinEnter    * setl cursorline
-    autocmd BufWinEnter * setl cursorline
-    autocmd WinLeave    * setl nocursorline
-augroup END
 " remember previous cursor position
 function! RecallCursorPosition()
     if &filetype == 'gitcommit'
@@ -343,9 +332,6 @@ set list
 " change the default split seperator from | to a start bar like tmux
 set fillchars=vert:│,diff:─
 
-" enable tilde as an operator
-set tildeop
-
 " Miscellaneous
 " add $ to end of word being changed/replaced
 set cpoptions+=$
@@ -394,6 +380,14 @@ augroup QuickFixClose
                 \| endif
 augroup END
 
+augroup MakeQuickFixPrettier
+    autocmd!
+    autocmd BufRead * if &buftype == 'quickfix'
+                \| setlocal colorcolumn=
+                \| setlocal nolist
+                \| endif
+augroup END
+
 if has('nvim')
     " remove new line characters in the terminal
     autocmd! TermOpen * if &buftype == 'terminal'
@@ -427,7 +421,15 @@ Plug 'justinmk/vim-gtfo'
 Plug 'majutsushi/tagbar'
 Plug 'mbbill/undotree', {'on' : 'UndotreeToggle'}
 Plug 'milkypostman/vim-togglelist'
-Plug 'neomake/neomake'
+
+Plug 'w0rp/ale'
+let g:ale_sign_column_always = 1
+let g:ale_sign_error = '❯❯'
+let g:ale_sign_warning = '~❯'
+
+highlight link ALEErrorSign WarningMsg
+highlight link ALEWarningSign WarningMsg
+
 Plug 'qpkorr/vim-bufkill'
 Plug 'sbdchd/neoformat'
 Plug 'sbdchd/vim-run'
@@ -435,6 +437,7 @@ Plug 'sbdchd/vim-shebang'
 Plug 'svermeulen/vim-easyclip'
 Plug 't9md/vim-textmanip'
 Plug 'tpope/vim-eunuch'
+Plug 'jiangmiao/auto-pairs'
 
 " Git
 Plug 'airblade/vim-gitgutter'
@@ -445,7 +448,6 @@ Plug 'rhysd/conflict-marker.vim'
 Plug 'tpope/vim-fugitive'
 
 " Interface
-Plug 'hecal3/vim-leader-guide'
 Plug 'kshenoy/vim-signature'
 Plug 'mhinz/vim-startify'
 Plug 'junegunn/goyo.vim'
@@ -560,28 +562,6 @@ let g:javascript_enable_domhtmlcss = 1
 let g:peekaboo_delay   = 600
 let g:peekaboo_compact = 1
 
-" " neomake
-augroup Neomake
-    autocmd!
-    if has('nvim')
-        autocmd BufWritePost * Neomake
-    endif
-    autocmd QuitPre * let g:neomake_verbose = 0
-augroup END
-
-let g:neomake_error_sign = {
-            \ 'text': '❯❯',
-            \ 'texthl': 'WarningMsg',
-            \ }
-
-let g:neomake_warning_sign = {
-            \ 'text': '~❯',
-            \ 'texthl': 'WarningMsg',
-            \ }
-let g:neomake_info_sign = {
-            \ 'text': '!❯',
-            \ 'texthl': 'WarningMsg',
-            \ }
 
 " vim-go
 let g:go_highlight_functions         = 1

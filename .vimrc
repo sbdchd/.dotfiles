@@ -23,7 +23,6 @@ set history=10000
 " Add <Tab> completion for commands
 set wildmenu
 
-
 " highlight search matches
 set hlsearch
 
