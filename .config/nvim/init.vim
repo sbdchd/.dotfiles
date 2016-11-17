@@ -43,7 +43,6 @@ set visualbell
 " make visual bell do nothing
 set t_vb=
 
-
 " ~~~~~~~~~~Status Line~~~~~~~~~~
 " show current mode below status line
 set showmode
@@ -118,7 +117,6 @@ set expandtab
 set smartindent
 set nojoinspaces
 
-
 " Buffers
 " asks to save files before exiting with :q or :e
 set confirm
@@ -127,11 +125,9 @@ set hidden
 " jump to first open window that contains the specified buffer
 set switchbuf=useopen
 
-
 " Command Line
 " list all matches and complete till the longest common string
 set wildmode=list:longest
-
 
 " Mappings
 " set the leader key
@@ -147,9 +143,10 @@ nnoremap H ^
 nnoremap L $
 
 if exists(':tnoremap')
-    autocmd! TermOpen term://*FZF tnoremap <silent> <buffer><nowait> <esc> <c-c>
     autocmd! TermOpen term://\.//* tnoremap <silent> <buffer><nowait> <esc><esc> <c-\><c-n>
 endif
+
+set inccommand=nosplit
 
 " copy entire file
 command! Copy :%y+
@@ -157,12 +154,6 @@ command! Copy :%y+
 " make y copy to clipboard automatically
 set clipboard=unnamed
 
-" bind +, - / _to increase or decrease numbers
-nnoremap - <C-x>
-nnoremap _ <C-x>
-nnoremap + <C-a>
-
-" Undo and Swap
 " use an undo file
 set undofile
 " undo file directory
@@ -171,21 +162,6 @@ set undodir=~/.vim/undo
 set undolevels=5000
 " make vim update more rapidly
 set updatetime=750
-" make vim use a different folder for swp files
-set directory-=.
-set directory+=~/tmp
-" function to delete swap files
-function! SwapRm()
-    " hack to get output from :swapname
-    silent! redir => l:path | silent swapname | redir end
-    if exists('l:path')
-        call delete(l:path)
-        echom "swap deleted"
-    endif
-endfunction
-
-command! SwapRm :call SwapRm()
-
 
 " Wrapping & Folding
 " ensure wrapping is enabled
@@ -199,35 +175,11 @@ endif
 " disable folding
 set nofoldenable
 
-
 " ~~~~~~~~~~SPACESTEVEVIM~~~~~~~~~~
-
-autocmd VimEnter * command! -nargs=* Ag call fzf#vim#ag(
-            \ <q-args>,
-            \ "--hidden -U --ignore .git",
-            \ fzf#vim#default_layout)
-
 " better buffer nav
 nnoremap <silent> <leader>bd :bdelete<CR>
 nnoremap <silent> <leader>b# :b#<CR>
 " primary method for navigating buffers
-nnoremap <silent> <leader>ls :Buffers<CR>
-let g:fzf_buffers_jump = 1 " jump to preexisting window if possible
-
-" search buffer
-nnoremap <silent> <leader>s :BLines<CR>
-
-" ag search
-nnoremap <leader>ag :Ag 
-
-" search help
-nnoremap <silent> <leader>? :Helptags<CR>
-
-" recent files
-nnoremap <silent> <leader>r :History<CR>
-
-" find files
-nnoremap <leader>f :FZF<CR>
 
 " better window nav
 nnoremap <leader>wl <C-W>l
@@ -252,7 +204,6 @@ function! CreateWindowKeybinds()
         let i = i + 1
     endwhile
 endfunction
-
 call CreateWindowKeybinds()
 
 " window splitting
@@ -282,34 +233,12 @@ function! ToggleMaximizeWindow()
         let b:window_maximized = 1
     endif
 endfunction
-
 nnoremap <leader>wm :call ToggleMaximizeWindow()<CR>
 
 " shell
 command! Shell :split | exe "normal! <C-w>j" | terminal
 nnoremap <leader>' :Shell<CR>
 
-" toggles
-if has('nvim')
-    let g:deoplete#enable_at_startup = 1
-endif
-function! DeopleteToggle()
-    if exists('b:deoplete_enabled') && b:deoplete_enabled == 1
-        let b:deoplete_enabled = 0
-        echom 'Deoplete: disabled'
-        return deoplete#disable()
-    endif
-    let b:deoplete_enabled = 1
-    echom 'Deoplete: enabled'
-    return deoplete#enable()
-endfunction
-command! DeopleteToggle :call DeopleteToggle()
-noremap <leader>ta :DeopleteToggle<CR>
-
-noremap <leader>tg :GitGutterToggle<CR>
-noremap <leader>tm :SignatureToggle<CR>
-noremap <leader>tt :TagbarToggle<CR>
-noremap <leader>tu :UndotreeToggle<CR>
 " spelling
 syntax spell toplevel
 nnoremap <leader>ts :set spell! spelllang=en<CR>
@@ -400,7 +329,6 @@ if has('nvim')
 
     " close term buffer on exit using a bit of a hack
     autocmd! TermClose * call feedkeys('<cr>')
-
 endif
 
 " Plugins
@@ -412,32 +340,61 @@ call plug#begin('~/.vim/plugged')
 
 " Utilities
 Plug 'duggiefresh/vim-easydir'
-Plug 'editorconfig/editorconfig-vim'
+Plug 'editorconfig/editorconfig-vim' 
+Plug 'junegunn/vader.vim'
+Plug 'justinmk/vim-gtfo'
+Plug 'milkypostman/vim-togglelist'
+Plug 'qpkorr/vim-bufkill'
+Plug 'sbdchd/neoformat'
+Plug 'sbdchd/vim-run'
+Plug 'sbdchd/vim-shebang'
+Plug 'tpope/vim-eunuch'
+Plug 'jiangmiao/auto-pairs'
+
 Plug 'junegunn/fzf', {'dir': '~/.fzf', 'do': 'yes \| ./install'}
 Plug 'junegunn/fzf.vim'
-Plug 'junegunn/vader.vim'
+autocmd VimEnter * command! -nargs=* Ag call fzf#vim#ag(
+            \ <q-args>,
+            \ "--hidden -U --ignore .git",
+            \ fzf#vim#default_layout)
+nnoremap <silent> <leader>ls :Buffers<CR>
+let g:fzf_buffers_jump = 1 " jump to preexisting window if possible 
+" search buffer
+nnoremap <silent> <leader>s :BLines<CR> 
+" ag search
+nnoremap <leader>ag :Ag 
+" search help
+nnoremap <silent> <leader>? :Helptags<CR>
+" recent files
+nnoremap <silent> <leader>r :History<CR>
+" find files
+nnoremap <leader>f :FZF<CR>
+
 Plug 'junegunn/vim-peekaboo'
-Plug 'justinmk/vim-gtfo'
+let g:peekaboo_delay   = 600
+let g:peekaboo_compact = 1
+
 Plug 'majutsushi/tagbar'
+nnoremap <leader>tt :TagbarToggle<CR>
+
 Plug 'mbbill/undotree', {'on' : 'UndotreeToggle'}
-Plug 'milkypostman/vim-togglelist'
+nnoremap <leader>ut :UndotreeToggle<CR>
 
 Plug 'w0rp/ale'
 let g:ale_sign_column_always = 1
 let g:ale_sign_error = '❯❯'
 let g:ale_sign_warning = '~❯'
-
 highlight link ALEErrorSign WarningMsg
 highlight link ALEWarningSign WarningMsg
 
-Plug 'qpkorr/vim-bufkill'
-Plug 'sbdchd/neoformat'
-Plug 'sbdchd/vim-run'
-Plug 'sbdchd/vim-shebang'
 Plug 'svermeulen/vim-easyclip'
+nnoremap gm m
+
 Plug 't9md/vim-textmanip'
-Plug 'tpope/vim-eunuch'
-Plug 'jiangmiao/auto-pairs'
+map <C-j> <Plug>(textmanip-move-down)
+map <C-k> <Plug>(textmanip-move-up)
+map <C-h> <Plug>(textmanip-move-left)
+map <C-l> <Plug>(textmanip-move-right)
 
 " Git
 Plug 'airblade/vim-gitgutter'
@@ -459,6 +416,7 @@ Plug 'xu-cheng/brew.vim'
 " Themes
 Plug 'altercation/vim-colors-solarized'
 Plug 'chriskempson/base16-vim'
+Plug 'jacoborus/tender.vim'
 Plug 'joshdick/onedark.vim'
 Plug 'junegunn/seoul256.vim'
 Plug 'lifepillar/vim-solarized8'
@@ -467,22 +425,41 @@ Plug 'nanotech/jellybeans.vim'
 Plug 'rakr/vim-one'
 Plug 'rakr/vim-two-firewatch'
 Plug 'w0ng/vim-hybrid'
-Plug 'jacoborus/tender.vim'
 Plug 'zefei/cake16'
 Plug 'zeis/vim-kolor'
 
 " Motion
 Plug 'buztard/vim-rel-jump'
 Plug 'christoomey/vim-sort-motion'
-Plug 'easymotion/vim-easymotion'
 Plug 'henrik/vim-indexed-search'
 Plug 'jszakmeister/vim-togglecursor'
-Plug 'junegunn/vim-easy-align'
 Plug 'rhysd/clever-f.vim'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
+
 Plug 'wellle/targets.vim'
+" make targets play nice with line text object by disabling `nl`
+let g:targets_nlNL = 'n NL'
+
+Plug 'easymotion/vim-easymotion'
+" Move to char
+map  <Leader><Leader>f <Plug>(easymotion-bd-f)
+nmap <Leader><Leader>f <Plug>(easymotion-overwin-f)
+" s{char}{char} to move to {char}{char}
+nmap s <Plug>(easymotion-overwin-f2)
+" Move to line
+map <Leader><Leader>l <Plug>(easymotion-bd-jk)
+nmap <Leader><Leader>l <Plug>(easymotion-overwin-line)
+" Move to word
+map  <Leader><Leader>w <Plug>(easymotion-bd-w)
+nmap <Leader><Leader>w <Plug>(easymotion-overwin-w)
+
+Plug 'junegunn/vim-easy-align'
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga <Plug>(EasyAlign)
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
 
 " Text Objects
 Plug 'kana/vim-textobj-user'
@@ -500,7 +477,6 @@ Plug 'cespare/vim-toml'
 Plug 'dannywillems/vim-icalendar'
 Plug 'digitaltoad/vim-pug'
 Plug 'elixir-lang/vim-elixir'
-Plug 'fatih/vim-go', {'for': 'go'}
 Plug 'hail2u/vim-css3-syntax'
 Plug 'kchmck/vim-coffee-script'
 Plug 'keith/swift.vim'
@@ -508,62 +484,12 @@ Plug 'leafgarland/typescript-vim'
 Plug 'lervag/vimtex'
 Plug 'neovimhaskell/haskell-vim'
 Plug 'othree/html5.vim'
-Plug 'pangloss/vim-javascript'
 Plug 'rust-lang/rust.vim'
 Plug 'sentientmachine/erics_vim_syntax_and_color_highlighting', {'for': 'java'}
 Plug 'tmux-plugins/vim-tmux'
 Plug 'tpope/vim-markdown'
 
-" Autocompletion
-Plug 'Shougo/deoplete.nvim', {'do': function('DoRemote')}
-" Sources
-Plug 'Shougo/neco-vim'
-Plug 'carlitux/deoplete-ternjs'
-Plug 'zchee/deoplete-go', {'do': 'make'}
-Plug 'zchee/deoplete-jedi'
-
-call plug#end()
-
-" Plugin Config
-" deoplete mappings
-inoremap <C-j> <Down>
-inoremap <C-k> <Up>
-command! DeopleteEnable     call deoplete#enable()
-command! DeopleteDisable    let b:deoplete_disable_auto_complete = 1
-command! DeopleteDisableAll let g:deoplete#disable_auto_complete = 1
-" prevent deoplete from creating a buffer above
-set completeopt-=preview
-
-" colorscheme
-"let g:hybrid_reduced_contrast = 1
-let g:hybrid_use_term_background = 1
-silent! colorscheme hybrid
-set background=dark
-" https://github.com/neovim/neovim/wiki/Following-HEAD#20160511
-" see: https://github.com/neovim/neovim/issues/4696
-if exists('&termguicolors') && has('nvim')
-    set termguicolors
-elseif exists('&guicolors')
-    set guicolors
-else
-    set t_Co=256
-endif
-
-" vim-easy-align
-" Start interactive EasyAlign in visual mode (e.g. vipga)
-xmap ga <Plug>(EasyAlign)
-" Start interactive EasyAlign for a motion/text object (e.g. gaip)
-nmap ga <Plug>(EasyAlign)
-
-" vim-javascript
-let g:javascript_enable_domhtmlcss = 1
-
-" vim peekaboo
-let g:peekaboo_delay   = 600
-let g:peekaboo_compact = 1
-
-
-" vim-go
+Plug 'fatih/vim-go', {'for': 'go'}
 let g:go_highlight_functions         = 1
 let g:go_highlight_methods           = 1
 let g:go_highlight_structs           = 1
@@ -576,33 +502,52 @@ let g:go_fmt_autosave                = 0
 " prevent vim-go from mapping :GoDoc to K
 let g:go_doc_keywordprg_enabled      = 0
 
-" vim-textmanip
-map <C-j> <Plug>(textmanip-move-down)
-map <C-k> <Plug>(textmanip-move-up)
-map <C-h> <Plug>(textmanip-move-left)
-map <C-l> <Plug>(textmanip-move-right)
+Plug 'pangloss/vim-javascript'
+let g:javascript_enable_domhtmlcss = 1
 
-" vim-easyclip
-nnoremap gm m
+" Autocompletion
+Plug 'Shougo/deoplete.nvim', {'do': function('DoRemote')}
+inoremap <C-j> <Down>
+inoremap <C-k> <Up>
+command! DeopleteEnable     call deoplete#enable()
+command! DeopleteDisable    let b:deoplete_disable_auto_complete = 1
+command! DeopleteDisableAll let g:deoplete#disable_auto_complete = 1
+if has('nvim')
+    let g:deoplete#enable_at_startup = 1
+endif
+function! DeopleteToggle()
+    if exists('b:deoplete_enabled') && b:deoplete_enabled == 1
+        let b:deoplete_enabled = 0
+        echom 'Deoplete: disabled'
+        return deoplete#disable()
+    endif
+    let b:deoplete_enabled = 1
+    echom 'Deoplete: enabled'
+    return deoplete#enable()
+endfunction
+command! DeopleteToggle :call DeopleteToggle()
+noremap <leader>ta :DeopleteToggle<CR>
+" prevent deoplete from creating a buffer above
+set completeopt-=preview
+" Sources
+Plug 'Shougo/neco-vim'
+Plug 'carlitux/deoplete-ternjs'
+Plug 'zchee/deoplete-go', {'do': 'make'}
+Plug 'zchee/deoplete-jedi'
 
-" vim-easymotion
-" Move to char
-map  <Leader><Leader>f <Plug>(easymotion-bd-f)
-nmap <Leader><Leader>f <Plug>(easymotion-overwin-f)
+call plug#end()
 
-" s{char}{char} to move to {char}{char}
-nmap s <Plug>(easymotion-overwin-f2)
-
-" Move to line
-map <Leader><Leader>l <Plug>(easymotion-bd-jk)
-nmap <Leader><Leader>l <Plug>(easymotion-overwin-line)
-
-" Move to word
-map  <Leader><Leader>w <Plug>(easymotion-bd-w)
-nmap <Leader><Leader>w <Plug>(easymotion-overwin-w)
+let g:hybrid_use_term_background = 1
+silent! colorscheme hybrid
+" https://github.com/neovim/neovim/wiki/Following-HEAD#20160511
+" see: https://github.com/neovim/neovim/issues/4696
+if exists('&termguicolors') && has('nvim')
+    set termguicolors
+elseif exists('&guicolors')
+    set guicolors
+else
+    set t_Co=256
+endif
 
 " for reloading of vimrc while in vim
 filetype detect
-
-" make targets play nice with line text object by disabling `nl`
-let g:targets_nlNL = 'n NL'

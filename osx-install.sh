@@ -198,3 +198,6 @@ bash vimplug-install.sh
 bash tpm-install.sh
 
 bash osx-defaults.sh
+
+# setup italics for tmux
+tic ./tmux-256color.terminfo

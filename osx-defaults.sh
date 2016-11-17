@@ -48,3 +48,6 @@ defaults write com.apple.finder AppleShowAllFiles -bool true
 
 # Disable Dashboard
 defaults write com.apple.dashboard mcx-disabled -boolean YES
+
+# Disable bouncing icons in dock
+defaults write com.apple.dock no-bouncing -bool TRUE
