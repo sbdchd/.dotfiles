@@ -146,7 +146,9 @@ if exists(':tnoremap')
     autocmd! TermOpen term://\.//* tnoremap <silent> <buffer><nowait> <esc><esc> <c-\><c-n>
 endif
 
-set inccommand=nosplit
+if exists('+inccommand')
+    set inccommand=nosplit
+endif
 
 " copy entire file
 command! Copy :%y+
@@ -296,6 +298,17 @@ function! TrimEndings()
     call winrestview(l:view)
 endfunction
 command! -bar TrimEndings :call TrimEndings()
+
+function! ConvertEndings()
+    let l:search = @/
+    let l:view = winsaveview()
+    " vint: -ProhibitCommandRelyOnUser -ProhibitCommandWithUnintendedSideEffect
+    silent! %s/\r/\r/g
+    " vint: +ProhibitCommandRelyOnUser +ProhibitCommandWithUnintendedSideEffect
+    let @/ = l:search
+    call winrestview(l:view)
+endfunction
+command! -bar ConvertEndings :call ConvertEndings()
 
 command! -bar ReloadConfig :source $MYVIMRC
 
