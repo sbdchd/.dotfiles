@@ -47,6 +47,7 @@ brew linkapps
 brew install mongodb
 brew install mysql
 brew install postgresql
+brew install redis
 brew install sqlite
 
 # Languages
@@ -91,6 +92,7 @@ brew install highlight
 brew install htop-osx
 brew install httpie
 brew install jlhonora/lsusb/lsusb
+brew install jq
 brew install sbdchd/macchanger/macchanger
 brew install shellcheck
 brew install tidy-html5
@@ -118,7 +120,6 @@ brew install cowsay
 brew install fortune
 brew install no-more-secrets
 brew install screenfetch
-brew install sl
 
 # Netsec
 brew install aircrack-ng

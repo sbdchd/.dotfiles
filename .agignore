@@ -3,12 +3,18 @@
 !.atom/keymap.cson
 !.atom/config.cson
 
+.DS_Store
+
 node_modules
+__pycache__
+.sass-cache
 
 venv
 
 .emacs.d/*
 !.emacs.d/init.el
+
+dist
 
 .vim/undo
 .git/*

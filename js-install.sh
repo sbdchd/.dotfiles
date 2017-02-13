@@ -18,3 +18,4 @@ npm install -g typescript-formatter
 npm install -g typescript-tools
 npm install -g uglify
 npm install -g vimlint
+npm install -g vue-cli

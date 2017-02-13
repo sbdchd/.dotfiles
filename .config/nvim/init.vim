@@ -21,7 +21,7 @@ function! RecallCursorPosition()
         exe "normal! g'\""
     endif
 endfunction
-autocmd! BufReadPost * call RecallCursorPosition()
+autocmd! Filetype * call RecallCursorPosition()
 
 " don't move the cursor back when exiting from insert mode
 function! DesiredCol()
@@ -91,9 +91,6 @@ set statusline+=\
 
 " ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-" disable tabline
-set showtabline=0
-
 " Search
 " needed for smartcase
 set ignorecase
@@ -116,6 +113,8 @@ set softtabstop=4
 set expandtab
 set smartindent
 set nojoinspaces
+" disable tabline
+set showtabline=0
 
 " Buffers
 " asks to save files before exiting with :q or :e
@@ -267,7 +266,6 @@ set fillchars=vert:│,diff:─
 " add $ to end of word being changed/replaced
 set cpoptions+=$
 " make vim create unix endings by default but also be able to process dos
-set filetype=unix,dos
 " disabled the more option
 set nomore
 " make diffs default to vertical
@@ -362,7 +360,10 @@ Plug 'sbdchd/neoformat'
 Plug 'sbdchd/vim-run'
 Plug 'sbdchd/vim-shebang'
 Plug 'tpope/vim-eunuch'
-Plug 'jiangmiao/auto-pairs'
+" Plug 'jiangmiao/auto-pairs'
+Plug 'EinfachToll/DidYouMean'
+Plug 'tpope/vim-unimpaired'
+Plug 'shime/vim-livedown'
 
 Plug 'junegunn/fzf', {'dir': '~/.fzf', 'do': 'yes \| ./install'}
 Plug 'junegunn/fzf.vim'
@@ -420,6 +421,7 @@ Plug 'tpope/vim-fugitive'
 " Interface
 Plug 'kshenoy/vim-signature'
 Plug 'mhinz/vim-startify'
+let g:startify_fortune_use_unicode = 1
 Plug 'junegunn/goyo.vim'
 
 " Syntax & Coloring
@@ -427,19 +429,8 @@ Plug 'ap/vim-css-color'
 Plug 'xu-cheng/brew.vim'
 
 " Themes
-Plug 'altercation/vim-colors-solarized'
-Plug 'chriskempson/base16-vim'
-Plug 'jacoborus/tender.vim'
 Plug 'joshdick/onedark.vim'
-Plug 'junegunn/seoul256.vim'
 Plug 'lifepillar/vim-solarized8'
-Plug 'morhetz/gruvbox'
-Plug 'nanotech/jellybeans.vim'
-Plug 'rakr/vim-one'
-Plug 'rakr/vim-two-firewatch'
-Plug 'w0ng/vim-hybrid'
-Plug 'zefei/cake16'
-Plug 'zeis/vim-kolor'
 
 " Motion
 Plug 'buztard/vim-rel-jump'
@@ -497,6 +488,7 @@ Plug 'leafgarland/typescript-vim'
 Plug 'lervag/vimtex'
 Plug 'neovimhaskell/haskell-vim'
 Plug 'othree/html5.vim'
+Plug 'posva/vim-vue'
 Plug 'rust-lang/rust.vim'
 Plug 'sentientmachine/erics_vim_syntax_and_color_highlighting', {'for': 'java'}
 Plug 'tmux-plugins/vim-tmux'
@@ -550,8 +542,7 @@ Plug 'zchee/deoplete-jedi'
 
 call plug#end()
 
-let g:hybrid_use_term_background = 1
-silent! colorscheme hybrid
+silent! colorscheme onedark
 " https://github.com/neovim/neovim/wiki/Following-HEAD#20160511
 " see: https://github.com/neovim/neovim/issues/4696
 if exists('&termguicolors') && has('nvim')

@@ -438,16 +438,7 @@ cdf() {
     cd "$(osascript -e 'tell app "Finder" to POSIX path of (insertion location as alias)')"
 }
 
-if hash awk 2>/dev/null && hash column 2>/dev/null; then
-    size(){
-        if (( $# > 0 )); then
-            local item=$1
-        else
-            local item=$PWD
-        fi
-        ls -lnh "$item" | awk '{print $5, $9}' | column -t
-    }
-fi
+alias size='du -sh *'
 
 if hash youtube-dl 2>/dev/null; then
     # https://github.com/exogen/dotfiles/
@@ -477,8 +468,6 @@ if hash youtube-dl 2>/dev/null; then
     }
 
     mp4() {
-        # Get the best audio, convert it to MP3, and save it to the current
-        # directory.
         youtube-dl --default-search=ytsearch: \
             --restrict-filenames \
             --format=best "$*"
@@ -553,4 +542,4 @@ complete -F _fzf_file_completion -o default -o bashdefault bash
 
 # for FZF previous command history search `<CTRL> R`
 # Needs to be at the bottom
-[ -f "$HOME"/.fzf.bash ] && source "$HOME"/.fzf.bash
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
