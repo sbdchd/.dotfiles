@@ -50,7 +50,7 @@ link ".tmux.conf"
 link ".uncrustify.cfg"
 link ".vimrc"
 link ".vintrc.yaml"
-
+link ".config/fish/config.fish"
 
 # link dirs
 link -d ".vim"

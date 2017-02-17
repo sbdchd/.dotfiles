@@ -493,6 +493,7 @@ Plug 'rust-lang/rust.vim'
 Plug 'sentientmachine/erics_vim_syntax_and_color_highlighting', {'for': 'java'}
 Plug 'tmux-plugins/vim-tmux'
 Plug 'tpope/vim-markdown'
+Plug 'vim-scripts/fish.vim'
 
 Plug 'fatih/vim-go', {'for': 'go'}
 let g:go_highlight_functions         = 1

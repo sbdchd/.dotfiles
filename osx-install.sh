@@ -15,6 +15,7 @@ chsh -s /usr/local/bin/bash
 brew install autossh
 brew install catimg
 brew install emacs
+brew install fish
 brew install flow
 brew install git
 brew install gpg

@@ -230,7 +230,6 @@ export PATH=$PATH:"$HOME"/.luarocks/bin
 
 # Go setup stuff
 export GOPATH=$HOME/Dropbox/$USER/projects/go
-export PATH=$PATH:$GOPATH/bin
 
 # Rust
 export PATH=$PATH:$HOME/.cargo/bin
