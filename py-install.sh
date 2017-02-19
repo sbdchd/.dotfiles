@@ -16,7 +16,6 @@ pip3 install pylint
 
 pip2 install neovim
 pip3 install neovim
-pip3 install nvr
 
 pip install ipython
 pip3 install ipython

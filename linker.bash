@@ -28,8 +28,6 @@ link() {
 # link files
 link ".agignore"
 link ".astylerc"
-link ".bash_profile"
-link ".bashrc"
 link ".editorconfig"
 link ".eslintrc"
 link ".ghci"
@@ -50,7 +48,7 @@ link ".tmux.conf"
 link ".uncrustify.cfg"
 link ".vimrc"
 link ".vintrc.yaml"
-link ".config/fish/config.fish"
+link ".zshrc"
 
 # link dirs
 link -d ".vim"

@@ -17,7 +17,7 @@ function! RecallCursorPosition()
     if &filetype == 'gitcommit'
         return
     endif
-    if line("'\"") > 1 && line("'\"") <= line("$")
+    if line("'\"") > 1 && line("'\"") <= line('$')
         exe "normal! g'\""
     endif
 endfunction
@@ -367,7 +367,7 @@ Plug 'shime/vim-livedown'
 
 Plug 'junegunn/fzf', {'dir': '~/.fzf', 'do': 'yes \| ./install'}
 Plug 'junegunn/fzf.vim'
-autocmd VimEnter * command! -nargs=* Ag call fzf#vim#ag(
+autocmd! VimEnter * command! -nargs=* Ag call fzf#vim#ag(
             \ <q-args>,
             \ "--hidden -U --ignore .git",
             \ fzf#vim#default_layout)
@@ -493,7 +493,7 @@ Plug 'rust-lang/rust.vim'
 Plug 'sentientmachine/erics_vim_syntax_and_color_highlighting', {'for': 'java'}
 Plug 'tmux-plugins/vim-tmux'
 Plug 'tpope/vim-markdown'
-Plug 'vim-scripts/fish.vim'
+Plug 'aliva/vim-fish'
 
 Plug 'fatih/vim-go', {'for': 'go'}
 let g:go_highlight_functions         = 1

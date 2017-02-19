@@ -1,7 +1,4 @@
 .atom/*
-!.atom/.gitignore
-!.atom/keymap.cson
-!.atom/config.cson
 
 .DS_Store
 

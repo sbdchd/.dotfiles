@@ -129,9 +129,6 @@ brew install netcat6
 brew install nmap
 
 # Homebrew-Cask
-brew cask install atom
-bash atom-install.sh
-
 brew cask install 1password
 brew cask install adobe-illustrator-cc
 brew cask install adobe-photoshop-cc

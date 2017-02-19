@@ -1,5 +1,17 @@
 #!/usr/bin/env bash
 
+# http://stackoverflow.com/a/16771593
+for COLOR in {0..255}
+do
+    for STYLE in "38;5"
+    do
+        TAG="\033[${STYLE};${COLOR}m"
+        STR="${STYLE};${COLOR}"
+        echo -ne "${TAG}${STR}${NONE}  "
+    done
+    echo
+done
+
 # source: https://gist.github.com/XVilka/8346728
 awk 'BEGIN{
     s="/\\/\\/\\/\\/\\"; s=s s s s s s s s s s s s s s s s s s s s s s s;
