@@ -6,13 +6,13 @@ xcode-select --install
 # Install Homebrew
 ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
-# Upgrade Bash
-brew install bash
-sudo bash -c 'echo /usr/local/bin/bash >> /etc/shells'
-chsh -s /usr/local/bin/bash
+# Setup newer version of zsh as default shell
+brew install zsh
+chsh -s /bin/zsh
 
 # General Programs
 brew install autossh
+brew install bash
 brew install catimg
 brew install emacs
 brew install fish
@@ -26,8 +26,7 @@ brew install make --with-default-names
 brew install mercurial
 brew install mosh
 brew install neovim/neovim/neovim
-brew install optipng
-brew install reattach-to-user-namespace
+brew install rename
 brew install ssh-copy-id
 brew install sshuttle
 brew install tig --with-docs
@@ -73,11 +72,7 @@ brew install elixir
 brew install ghc
 brew install cabal-install
 
-brew install lua
-brew install luajit
-brew tap homebrew/versions
-brew install lua51
-bash lua-install.sh
+brew cask install java
 
 # Utilities
 brew install ag
@@ -104,17 +99,6 @@ brew install unp
 brew install wakeonlan
 brew install wget
 
-# Completions
-brew install homebrew/versions/bash-completion2
-brew tap homebrew/completions
-brew install apm-bash-completion
-brew install brew-cask-completion
-brew install docker-completion
-brew install docker-machine-completion
-brew install pip-completion
-brew tap sbdchd/completions
-brew install go-completion
-
 # Other Utilities
 brew install cmatrix
 brew install cowsay
@@ -135,9 +119,9 @@ brew cask install adobe-photoshop-cc
 brew cask install arduino
 brew cask install audacity
 brew cask install basictex
+brew cask install discord
 brew cask install dockertoolbox
 brew cask install dropbox
-brew cask install eclipse-java
 brew cask install firefox
 brew cask install flux
 brew cask install gimp
@@ -147,7 +131,8 @@ brew cask install google-hangouts
 brew cask install grandperspective
 brew cask install handbrake
 brew cask install hashcat
-brew cask install java
+brew cask install intellij-idea
+brew cask install iterm2
 brew cask install keepingyouawake
 brew cask install limechat
 brew cask install mactex
@@ -172,10 +157,6 @@ brew cask install wireshark
 
 # git
 brew cask install gitup
-
-brew cask tap caskroom/versions
-brew cask install intellij-idea-ce
-brew cask install iterm2-beta
 
 brew tap sbdchd/sleep-restart-shutdown
 brew cask install sleep

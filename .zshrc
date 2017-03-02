@@ -9,7 +9,7 @@ else
     OS='unknown'
 fi
 
-if [[ ! -d ~/.zplug ]];then
+if [[ ! -d ~/.zplug ]]; then
     git clone https://github.com/b4b4r07/zplug ~/.zplug
 fi
 
@@ -37,6 +37,9 @@ _comp_options+=(globdots)
 # http://superuser.com/a/1092328
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 
+# make <shift>-<tab> work in completion menu
+bindkey '^[[Z' reverse-menu-complete
+
 setopt correct_all
 setopt dotglob
 
@@ -59,7 +62,7 @@ zplug 'lib/completion', from:oh-my-zsh
 
 zplug 'zsh-users/zsh-completions'
 
-zplug 'zsh-users/zsh-autosuggestions'
+zplug 'zsh-users/zsh-autosuggestions', at:develop
 bindkey '^l' autosuggest-accept
 
 zplug 'zsh-users/zsh-syntax-highlighting', defer:3
@@ -101,7 +104,7 @@ prompt_git() {
             fi
 
             # check for stashed files
-            if [ git rev-parse --verify refs/stash &>/dev/null ]; then
+            if git rev-parse --verify refs/stash &>/dev/null; then
                 s="$s$";
             fi
             # https://gist.github.com/woods/31967
@@ -135,14 +138,25 @@ prompt_git() {
     fi
 }
 
-# http://stackoverflow.com/questions/10406926/how-to-change-default-virtualenvwrapper-prompt
+# disable the default virtualenv prompt
+export VIRTUAL_ENV_DISABLE_PROMPT=1
+
 virtualenv_info(){
     # Get Virtual Env
     if [[ -n "$VIRTUAL_ENV" ]]; then
         # Strip out the path and just leave the env name
         venv="${VIRTUAL_ENV##*/}"
     fi
-    [[ -n "$venv" ]] && echo "$venv"
+    [[ -n "$venv" ]] && echo " $venv"
+}
+
+venv() {
+    local env="$1"
+    if [[ -f "$env/bin/activate" ]] && [[ -z "$VIRTUAL_ENV" ]]; then
+        source "$env/bin/activate"
+    else
+        deactivate
+    fi
 }
 
 autoload -U colors && colors
@@ -158,24 +172,20 @@ White=$'\e[0;37m'
 
 NEWLINE=$'\n'
 
-set_prompts() {
-    PROMPT=$NEWLINE
-    PROMPT+="${Yellow}%n" # username
-    PROMPT+="%{$fg[white]%}@"
-    PROMPT+="%{$Purple%}%m" # host
-    PROMPT+=" %{$Blue%}%~" # working directory
-    PROMPT+="%{$Green%}$(prompt_git)"
-    PROMPT+="%{$Cyan%}$(virtualenv_info)"
-    PROMPT+="$DOCKER_MACHINE_NAME" # display docker machine name
-    # Date See: `man strftime` for more info
-    PROMPT+=" %{$White%}%D{%a %b %f %H:%M %p}" # date
-    PROMPT+=$NEWLINE
-    PROMPT+="%{$Color_Off%}❯ "
-    export PROMPT
-}
-set_prompts
-unset set_prompts
+PROMPT=$NEWLINE
+PROMPT+="${Yellow}%n" # username
+PROMPT+="%{$fg[white]%}@"
+PROMPT+="%{$Purple%}%m" # host
+PROMPT+=" %{$Blue%}%~" # working directory
+PROMPT+='%{$Green%}$(prompt_git)'
+PROMPT+='%{$Cyan%}$(virtualenv_info)'
+PROMPT+="$DOCKER_MACHINE_NAME" # display docker machine name
+# Date See: `man strftime` for more info
+PROMPT+=" %{$White%}%D{%a %b %f %H:%M %p}" # date
+PROMPT+=$NEWLINE
+PROMPT+="%{$Color_Off%}❯ "
 
+setopt promptsubst
 
 
 # Aliases #
@@ -270,9 +280,6 @@ if [[ $OS == mac ]]; then
     alias pubkey="more ~/.ssh/id_rsa.pub | pbcopy | printf '=> Public key copied to pasteboard.\n'"
 fi
 
-
-# disable the default virtualenv prompt
-export VIRTUAL_ENV_DISABLE_PROMPT=1
 
 # set default editor
 if hash nvim 2>/dev/null; then
@@ -473,4 +480,3 @@ if [[ $OS == "mac" ]]; then
         fi
     }
 fi
-
