@@ -149,6 +149,7 @@ brew cask install spectacle
 brew cask install sqlitebrowser
 brew cask install steam
 brew cask install the-unarchiver
+brew cask install torbrowser
 brew cask install transmission
 brew cask install vagrant
 brew cask install virtualbox

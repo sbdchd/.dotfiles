@@ -276,39 +276,44 @@ set noswapfile
 " Commands
 "http://stackoverflow.com/q/356126
 function! TrimWhiteSpace()
-    let l:search = @/
-    let l:view = winsaveview()
+    let search = @/
+    let view = winsaveview()
     " vint: -ProhibitCommandRelyOnUser -ProhibitCommandWithUnintendedSideEffect
     %s/\s\+$//e
     " vint: +ProhibitCommandRelyOnUser +ProhibitCommandWithUnintendedSideEffect
-    let @/ = l:search
-    call winrestview(l:view)
+    let @/ = search
+    call winrestview(view)
 endfunction
 command! TrimWhiteSpace :call TrimWhiteSpace()
 
 function! TrimEndings()
-    let l:search = @/
-    let l:view = winsaveview()
+    let search = @/
+    let view = winsaveview()
     " vint: -ProhibitCommandRelyOnUser -ProhibitCommandWithUnintendedSideEffect
     silent! %s/\r//g
     " vint: +ProhibitCommandRelyOnUser +ProhibitCommandWithUnintendedSideEffect
-    let @/ = l:search
-    call winrestview(l:view)
+    let @/ = search
+    call winrestview(view)
 endfunction
 command! -bar TrimEndings :call TrimEndings()
 
 function! ConvertEndings()
-    let l:search = @/
-    let l:view = winsaveview()
+    let search = @/
+    let view = winsaveview()
     " vint: -ProhibitCommandRelyOnUser -ProhibitCommandWithUnintendedSideEffect
     silent! %s/\r/\r/g
     " vint: +ProhibitCommandRelyOnUser +ProhibitCommandWithUnintendedSideEffect
-    let @/ = l:search
-    call winrestview(l:view)
+    let @/ = search
+    call winrestview(view)
 endfunction
 command! -bar ConvertEndings :call ConvertEndings()
 
-command! -bar ReloadConfig :source $MYVIMRC
+command! -bar ReloadConfig :let s:m = @/
+            \| let s:v = winsaveview()
+            \| source $MYVIMRC
+            \| filetype detect
+            \| let @/ = s:m
+            \| call winrestview(s:v)
 
 " Automatically close vim if only the quickfix window is open
 " http://stackoverflow.com/a/7477056/3720597
@@ -553,6 +558,3 @@ elseif exists('&guicolors')
 else
     set t_Co=256
 endif
-
-" for reloading of vimrc while in vim
-filetype detect
