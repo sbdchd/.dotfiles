@@ -252,10 +252,7 @@ nnoremap <leader>d :Explore<CR>
 
 " List Chars
 " use certain characters to show whitespace characters
-set listchars=tab:▸\ 
-set listchars+=nbsp:⎵
-set listchars+=eol:¬
-set listchars+=trail:·
+set listchars=tab:▸\ ,nbsp:⎵,eol:¬,trail:·
 " use list characters
 set list
 
@@ -356,7 +353,7 @@ call plug#begin('~/.vim/plugged')
 
 " Utilities
 Plug 'duggiefresh/vim-easydir'
-Plug 'editorconfig/editorconfig-vim' 
+Plug 'editorconfig/editorconfig-vim'
 Plug 'junegunn/vader.vim'
 Plug 'justinmk/vim-gtfo'
 Plug 'milkypostman/vim-togglelist'
@@ -377,11 +374,9 @@ autocmd! VimEnter * command! -nargs=* Ag call fzf#vim#ag(
             \ "--hidden -U --ignore .git",
             \ fzf#vim#default_layout)
 nnoremap <silent> <leader>ls :Buffers<CR>
-let g:fzf_buffers_jump = 1 " jump to preexisting window if possible 
+let g:fzf_buffers_jump = 1 " jump to preexisting window if possible
 " search buffer
-nnoremap <silent> <leader>s :BLines<CR> 
-" ag search
-nnoremap <leader>ag :Ag 
+nnoremap <silent> <leader>s :BLines<CR>
 " search help
 nnoremap <silent> <leader>? :Helptags<CR>
 " recent files
