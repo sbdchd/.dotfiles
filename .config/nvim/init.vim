@@ -344,6 +344,9 @@ if has('nvim')
     autocmd! TermClose * call feedkeys('<cr>')
 endif
 
+" make vim reload file if it has changed on disk
+autocmd FocusLost,FocusGained,CursorHold,CursorMoved * checktime
+
 " Plugins
 " https://github.com/junegunn/vim-plug
 function! DoRemote()
