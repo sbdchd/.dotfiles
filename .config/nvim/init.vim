@@ -60,34 +60,35 @@ function! WindowNumber()
 endfunction
 
 set laststatus=2
+
 " left side
-set statusline=%#statuslinenc# " color line with statuslinenc highlight group
-set statusline+=\ 
-set statusline+=%{WindowNumber()}
-set statusline+=\ 
-set statusline+=%n " buffer number
-set statusline+=\ 
-set statusline+=%f " file name
-set statusline+=\ 
-set statusline+=%{GitStatusLine()}
-set statusline+=\ 
-set statusline+=%m " modification flag
-set statusline+=%r " read-only flag
-set statusline+=%h " help flag
-set statusline+=%w " preview flag
+let &statusline = '%#statuslinenc#' " color line with statuslinenc highlight group
+let &statusline .= ' '
+let &statusline .= '%{WindowNumber()}'
+let &statusline .= ' '
+let &statusline .= '%n' " buffer number
+let &statusline .= ' '
+let &statusline .= '%f' " file name
+let &statusline .= ' '
+let &statusline .= '%{GitStatusLine()}'
+let &statusline .= ' '
+let &statusline .= '%m' " modification flag
+let &statusline .= '%r' " read-only flag
+let &statusline .= '%h' " help flag
+let &statusline .= '%w' " preview flag
 
 " right side
-set statusline+=%=               " right align
-set statusline+=%<               " truncate here when necessary
-set statusline+=\ 
-set statusline+=%{&filetype}     " vim
-set statusline+=\ 
-set statusline+=%{&fileencoding} " utf-8
-set statusline+=\ 
-set statusline+=%{&fileformat}   " dos || unix
-set statusline+=\ 
-set statusline+=%P
-set statusline+=\ 
+let &statusline .= '%='               " right align
+let &statusline .= '%<'               " truncate here when necessary
+let &statusline .= ' '
+let &statusline .= '%{&filetype}'     " vim
+let &statusline .= ' '
+let &statusline .= '%{&fileencoding}' " utf-8
+let &statusline .= ' '
+let &statusline .= '%{&fileformat}'   " dos || unix
+let &statusline .= ' '
+let &statusline .= '%P'
+let &statusline .= ' '
 
 " ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -134,9 +135,6 @@ let g:mapleader = ' '
 " more efficient for typing commands
 nnoremap ; :
 vnoremap ; :
-nnoremap K kJ
-" make Y work like D
-nnoremap Y y$
 " helpful stuff
 nnoremap H ^
 nnoremap L $
@@ -177,10 +175,6 @@ endif
 set nofoldenable
 
 " ~~~~~~~~~~SPACESTEVEVIM~~~~~~~~~~
-" better buffer nav
-nnoremap <silent> <leader>bd :bdelete<CR>
-nnoremap <silent> <leader>b# :b#<CR>
-" primary method for navigating buffers
 
 " better window nav
 nnoremap <leader>wl <C-W>l
@@ -345,7 +339,9 @@ if has('nvim')
 endif
 
 " make vim reload file if it has changed on disk
-autocmd FocusLost,FocusGained,CursorHold,CursorMoved * checktime
+autocmd FocusLost,FocusGained,CursorHold,CursorMoved * if &buftype != 'nofile'
+            \| checktime
+            \| endif
 
 " Plugins
 " https://github.com/junegunn/vim-plug
@@ -365,7 +361,6 @@ Plug 'sbdchd/neoformat'
 Plug 'sbdchd/vim-run'
 Plug 'sbdchd/vim-shebang'
 Plug 'tpope/vim-eunuch'
-" Plug 'jiangmiao/auto-pairs'
 Plug 'EinfachToll/DidYouMean'
 Plug 'tpope/vim-unimpaired'
 Plug 'shime/vim-livedown'
@@ -516,8 +511,6 @@ let g:javascript_enable_domhtmlcss = 1
 
 " Autocompletion
 Plug 'Shougo/deoplete.nvim', {'do': function('DoRemote')}
-inoremap <C-j> <Down>
-inoremap <C-k> <Up>
 command! DeopleteEnable     call deoplete#enable()
 command! DeopleteDisable    let b:deoplete_disable_auto_complete = 1
 command! DeopleteDisableAll let g:deoplete#disable_auto_complete = 1
