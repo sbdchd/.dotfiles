@@ -339,7 +339,7 @@ if has('nvim')
 endif
 
 " make vim reload file if it has changed on disk
-autocmd FocusLost,FocusGained,CursorHold,CursorMoved * if &buftype != 'nofile'
+autocmd! FocusLost,FocusGained,CursorHold,CursorMoved * if &buftype == ''
             \| checktime
             \| endif
 
@@ -398,6 +398,10 @@ let g:ale_sign_error = '❯❯'
 let g:ale_sign_warning = '~❯'
 highlight link ALEErrorSign WarningMsg
 highlight link ALEWarningSign WarningMsg
+
+let g:ale_linters = {
+\   'systemverilog': [],
+\}
 
 Plug 'svermeulen/vim-easyclip'
 nnoremap gm m
@@ -488,7 +492,6 @@ Plug 'neovimhaskell/haskell-vim'
 Plug 'othree/html5.vim'
 Plug 'posva/vim-vue'
 Plug 'rust-lang/rust.vim'
-Plug 'sentientmachine/erics_vim_syntax_and_color_highlighting', {'for': 'java'}
 Plug 'tmux-plugins/vim-tmux'
 Plug 'tpope/vim-markdown'
 Plug 'aliva/vim-fish'
