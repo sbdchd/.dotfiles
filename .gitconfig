@@ -15,3 +15,13 @@
   email = steve@dignam.xyz
 [diff-so-fancy]
   stripLeadingSymbols = false
+[stash]
+  showPatch = true
+[pull]
+  ff = only
+[rebase]
+	autostash = true
+[color "status"]
+  added = green
+  changed = yellow bold
+  untracked = red bold
