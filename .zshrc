@@ -37,14 +37,11 @@ _comp_options+=(globdots)
 # http://superuser.com/a/1092328
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 
-# disable correction prompts
-unsetopt correct_all
-
 # make <shift>-<tab> work in completion menu
 bindkey '^[[Z' reverse-menu-complete
 
-setopt correct_all
 setopt dotglob
+setopt NO_NOMATCH
 
 HISTFILE=~/.zsh_history
 HISTSIZE=10000000
@@ -190,7 +187,6 @@ PROMPT+=$NEWLINE
 PROMPT+="%{$Color_Off%}❯ "
 
 setopt promptsubst
-
 
 # Aliases #
 # alias ls according to the current os

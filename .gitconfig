@@ -20,7 +20,7 @@
 [pull]
   ff = only
 [rebase]
-	autostash = true
+  autostash = true
 [color "status"]
   added = green
   changed = yellow bold

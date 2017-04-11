@@ -339,7 +339,7 @@ if has('nvim')
 endif
 
 " make vim reload file if it has changed on disk
-autocmd! FocusLost,FocusGained,CursorHold,CursorMoved * if &buftype == ''
+autocmd! FocusLost,FocusGained,CursorMoved * if &buftype == ''
             \| checktime
             \| endif
 
@@ -401,6 +401,7 @@ highlight link ALEWarningSign WarningMsg
 
 let g:ale_linters = {
 \   'systemverilog': [],
+\   'rust': [],
 \}
 
 Plug 'svermeulen/vim-easyclip'
