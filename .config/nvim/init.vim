@@ -14,14 +14,15 @@ set colorcolumn=81
 set nostartofline
 " remember previous cursor position
 function! RecallCursorPosition()
-    if &filetype == 'gitcommit'
+    " exlclude git commit messages
+    if bufname('%') =~ '\.git\/COMMIT_EDITMSG'
         return
     endif
     if line("'\"") > 1 && line("'\"") <= line('$')
         exe "normal! g'\""
     endif
 endfunction
-autocmd! Filetype * call RecallCursorPosition()
+autocmd! BufReadPost * call RecallCursorPosition()
 
 " don't move the cursor back when exiting from insert mode
 function! DesiredCol()
@@ -439,7 +440,6 @@ Plug 'lifepillar/vim-solarized8'
 Plug 'buztard/vim-rel-jump'
 Plug 'christoomey/vim-sort-motion'
 Plug 'henrik/vim-indexed-search'
-Plug 'jszakmeister/vim-togglecursor'
 Plug 'rhysd/clever-f.vim'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
