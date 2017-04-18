@@ -115,8 +115,6 @@ brew install nmap
 
 # Homebrew-Cask
 brew cask install 1password
-brew cask install adobe-illustrator-cc
-brew cask install adobe-photoshop-cc
 brew cask install arduino
 brew cask install audacity
 brew cask install basictex

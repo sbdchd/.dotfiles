@@ -480,3 +480,6 @@ if [[ $OS == "mac" ]]; then
         fi
     }
 fi
+
+# disable npm's broken zsh completion
+compdef return npm
