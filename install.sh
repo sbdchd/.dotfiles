@@ -6,10 +6,6 @@ xcode-select --install
 # Install Homebrew
 ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
-# Setup newer version of zsh as default shell
-brew install zsh
-chsh -s /bin/zsh
-
 # General Programs
 brew install autossh
 brew install bash
@@ -34,6 +30,7 @@ brew install tig --with-docs
 brew install tmux
 brew install vim
 brew install webarchiver
+brew install zsh
 
 brew install youtube-dl
 # ffmpeg is needed for some youtube-dl features
