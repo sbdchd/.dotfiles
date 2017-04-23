@@ -259,10 +259,13 @@ elif hash python2 2>/dev/null; then
     alias httpserver='python2 -m SimpleHTTPServer'
 fi
 
-# IP addresses - https://github.com/necolas/dotfiles
-if hash dig 2>/dev/null; then
-    alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
-fi
+ip() {
+    curl -s https://freegeoip.net/json/ | jq -r '[.ip, .city, .region_code] | join(" ")'
+}
+
+localip() {
+    ifconfig | grep "inet " | cut -f2 -d' ' | awk 'END {print}'
+}
 
 if [[ $OS == "mac" ]]; then
     # https://github.com/necolas/dotfiles
@@ -454,16 +457,6 @@ man() {
         LESS_TERMCAP_ue=$'\E[0m' \
         LESS_TERMCAP_us=$'\E[04;38;5;146m' \
         man "$@"
-}
-
-# http://stackoverflow.com/a/13322667
-localip() {
-    while IFS=$': \t' read -ra line; do
-        [ -z "${line%inet}" ] && \
-            ip=${line[${#line[1]}>4?1:2]} && \
-            [ "${ip#127.0.0.1}" ]
-    done< <(LANG=C /sbin/ifconfig)
-    echo "$ip"
 }
 
 # http://stackoverflow.com/a/19458217/3720597

@@ -401,7 +401,6 @@ highlight link ALEErrorSign WarningMsg
 highlight link ALEWarningSign WarningMsg
 
 let g:ale_linters = {
-\   'systemverilog': [],
 \   'rust': [],
 \}
 
