@@ -101,8 +101,8 @@ set smartcase
 " ignore case when completing file names and directories
 set wildignorecase
 
-" clear search with <esc>
-nnoremap <esc> :noh<CR>
+" clear search with <esc> + bodge to make :noh not stay at command line
+nnoremap <esc> :noh<CR>:echo ""<CR>
 
 " Tabs & Spaces
 " number of spaces=<tab>
@@ -403,9 +403,6 @@ highlight link ALEWarningSign WarningMsg
 let g:ale_linters = {
 \   'rust': [],
 \}
-
-Plug 'svermeulen/vim-easyclip'
-nnoremap gm m
 
 Plug 't9md/vim-textmanip'
 map <C-j> <Plug>(textmanip-move-down)

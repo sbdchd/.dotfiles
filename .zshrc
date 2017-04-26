@@ -1,14 +1,5 @@
 #!/usr/bin/env zsh
 
-# Determine current OS
-if [[ $OSTYPE == darwin* ]]; then
-    OS='mac'
-elif [[ $OSTYPE == linux-gnu* ]]; then
-    OS='linux'
-else
-    OS='unknown'
-fi
-
 if [[ ! -d ~/.zplug ]]; then
     git clone https://github.com/b4b4r07/zplug ~/.zplug
 fi
@@ -189,12 +180,7 @@ PROMPT+="%{$Color_Off%}❯ "
 setopt promptsubst
 
 # Aliases #
-# alias ls according to the current os
-if [[ $OS == "mac" ]]; then
-    alias ls='ls -A -G -F'
-elif [[ $OS == "linux" ]]; then
-    alias ls='ls -A -F --color=auto'
-fi
+alias ls='ls -A -G -F'
 
 # Prompt user before taking action
 alias rm='rm -iv'
@@ -203,9 +189,6 @@ alias mv='mv -iv'
 
 alias c='clear'
 alias q='exit'
-alias o='open'
-
-alias tmux-kill-extra='tmux kill-session -a'
 
 alias ga='git add'
 alias gb='git branch'
@@ -229,16 +212,6 @@ alias gst='git stash'
 if [[ -n $TMUX ]]; then
     # needed to make fzf render somewhat correctly
     export TERM='screen-256color'
-fi
-
-if hash pmset 2>/dev/null; then
-    alias sleep='pmset sleepnow'
-fi
-
-if hash osascript 2>/dev/null; then
-    # slightly odd names to prevent collisions and accidental triggering
-    alias shutdownc="osascript -e 'tell app \"System Events\" to shut down'"
-    alias restartc="osascript -e 'tell app \"System Events\" to restart'"
 fi
 
 if hash ccat 2>/dev/null; then
@@ -267,21 +240,17 @@ localip() {
     ifconfig | grep "inet " | cut -f2 -d' ' | awk 'END {print}'
 }
 
-if [[ $OS == "mac" ]]; then
-    # https://github.com/necolas/dotfiles
-    alias flushdns="dscacheutil -flushcache"
-    # Empty the Trash on all mounted volumes and the main HDD
-    # Also, clear Apple’s System Logs to improve shell startup speed
-    alias emptytrash="sudo rm -rfv /Volumes/*/.Trashes; sudo rm -rfv ~/.Trash; sudo rm -rfv /private/var/log/asl/*.asl"
+# https://github.com/necolas/dotfiles
+alias flushdns="dscacheutil -flushcache"
+# Empty the Trash on all mounted volumes and the main HDD
+# Also, clear Apple’s System Logs to improve shell startup speed
+alias emptytrash="sudo rm -rfv /Volumes/*/.Trashes; sudo rm -rfv ~/.Trash; sudo rm -rfv /private/var/log/asl/*.asl"
 
-    alias showdotfiles="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
-    alias hidedotfiles="defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder"
-fi
+alias showdotfiles="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
+alias hidedotfiles="defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder"
 
 # Copy my public key to the pasteboard
-if [[ $OS == mac ]]; then
-    alias pubkey="more ~/.ssh/id_rsa.pub | pbcopy | printf '=> Public key copied to pasteboard.\n'"
-fi
+alias pubkey="more ~/.ssh/id_rsa.pub | pbcopy | printf '=> Public key copied to pasteboard.\n'"
 
 
 # set default editor
@@ -296,35 +265,20 @@ alias e='$EDITOR'
 export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/9.4/bin
 # LS Colors
 export CLICOLOR=1
-if [[ $OS == "mac" ]]; then
-    # http://www.freebsd.org/cgi/man.cgi?query=ls&apropos=0&sektion=1&format=html
-    LSCOLORS='ex'   # dir
-    LSCOLORS+='fx'  # symbolic link
-    LSCOLORS+='bx'  # socket
-    LSCOLORS+='bx'  # pipe
-    LSCOLORS+='cx'  # executable
-    LSCOLORS+='bx'  # block special
-    LSCOLORS+='bx'  # character special
-    LSCOLORS+='ab'  # executable with setuid bit set
-    LSCOLORS+='ag'  # executable with setgid bit set
-    LSCOLORS+='ac'  # directory writable to others, with sticky bit
-    LSCOLORS+='ad'  # directory writable to others, without sticky bit
-    export LSCOLORS
-fi
-if [[ $OS == "linux" ]]; then
-    # http://linux-sxs.org/housekeeping/lscolors.html
-    LS_COLORS='di=34'   # directory
-    LS_COLORS+=':fi=0'  # file
-    LS_COLORS+=':ln=35' # symbolic link
-    LS_COLORS+=':pi=5'  # fifo file
-    LS_COLORS+=':so=5'  # socket file
-    LS_COLORS+=':bd=5'  # block (buffered) special file
-    LS_COLORS+=':cd=5'  # character (unbuffered) special file
-    LS_COLORS+=':or=31' # symbolic link pointing to a non-existent file (orphan)
-    LS_COLORS+=':mi=0'  # non-existent file pointed to by a symbolic link (visible when you type ls -l)
-    LS_COLORS+=':ex=32' # executable permissions set
-    export LS_COLORS
-fi
+
+# http://www.freebsd.org/cgi/man.cgi?query=ls&apropos=0&sektion=1&format=html
+LSCOLORS='ex'   # dir
+LSCOLORS+='fx'  # symbolic link
+LSCOLORS+='bx'  # socket
+LSCOLORS+='bx'  # pipe
+LSCOLORS+='cx'  # executable
+LSCOLORS+='bx'  # block special
+LSCOLORS+='bx'  # character special
+LSCOLORS+='ab'  # executable with setuid bit set
+LSCOLORS+='ag'  # executable with setgid bit set
+LSCOLORS+='ac'  # directory writable to others, with sticky bit
+LSCOLORS+='ad'  # directory writable to others, without sticky bit
+export LSCOLORS
 
 export PATH="$PATH:/usr/local/sbin"
 export PATH=$PATH:"$HOME"/bin
@@ -468,19 +422,17 @@ fcs() {
 }
 
 # http://stackoverflow.com/a/19458217/3720597
-if [[ $OS == "mac" ]]; then
-    function clip() {
-        if [[ -p /dev/stdin ]]; then
-            # stdin is a pipe
-            # stdin -> clipboard
-            pbcopy
-        else
-            # stdin is not a pipe
-            # clipboard -> stdout
-            pbpaste
-        fi
-    }
-fi
+function clip() {
+    if [[ -p /dev/stdin ]]; then
+        # stdin is a pipe
+        # stdin -> clipboard
+        pbcopy
+    else
+        # stdin is not a pipe
+        # clipboard -> stdout
+        pbpaste
+    fi
+}
 
 # disable npm's broken zsh completion
 compdef return npm
