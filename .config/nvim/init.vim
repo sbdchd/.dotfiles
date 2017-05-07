@@ -34,7 +34,6 @@ function! DesiredCol()
 endfunction
 autocmd! InsertLeave * call cursor(getpos('.')[1], DesiredCol())
 
-" Syntax
 " limit syntax highlighting on long lines - can help avoid some slow downs
 set synmaxcol=200
 set showcmd
@@ -43,6 +42,8 @@ set noerrorbells
 set visualbell
 " make visual bell do nothing
 set t_vb=
+" disable startup message
+set shortmess=I
 
 " ~~~~~~~~~~Status Line~~~~~~~~~~
 " show current mode below status line
@@ -64,10 +65,6 @@ set laststatus=2
 
 " left side
 let &statusline = '%#statuslinenc#' " color line with statuslinenc highlight group
-let &statusline .= ' '
-let &statusline .= '%{WindowNumber()}'
-let &statusline .= ' '
-let &statusline .= '%n' " buffer number
 let &statusline .= ' '
 let &statusline .= '%f' " file name
 let &statusline .= ' '
@@ -140,10 +137,6 @@ vnoremap ; :
 nnoremap H ^
 nnoremap L $
 
-if exists(':tnoremap')
-    autocmd! TermOpen term://\.//* tnoremap <silent> <buffer><nowait> <esc><esc> <c-\><c-n>
-endif
-
 if exists('+inccommand')
     set inccommand=nosplit
 endif
@@ -191,21 +184,11 @@ nnoremap <leader>wH <C-W>H
 nnoremap <leader>wJ <C-W>J
 nnoremap <leader>wK <C-W>K
 
-" allows for <Leader>w2 to switch to window 2
-function! CreateWindowKeybinds()
-    let i = 1
-    while i <= 9
-        execute 'nnoremap <silent> <Leader>w'.i.' :'.i.'wincmd w<CR>'
-        execute 'nnoremap <silent> <Leader>'.i.' :'.i.'wincmd w<CR>'
-        let i = i + 1
-    endwhile
-endfunction
-call CreateWindowKeybinds()
-
 " window splitting
 nnoremap <leader>wv <C-W>v
 nnoremap <leader>ws <C-W>s
-nnoremap <leader>wt :terminal<CR>
+
+nnoremap <leader>bd :bdelete<CR>
 
 " kill window
 nnoremap <leader>wc <C-W>c
@@ -230,10 +213,6 @@ function! ToggleMaximizeWindow()
     endif
 endfunction
 nnoremap <leader>wm :call ToggleMaximizeWindow()<CR>
-
-" shell
-command! Shell :split | exe "normal! <C-w>j" | terminal
-nnoremap <leader>' :Shell<CR>
 
 " spelling
 syntax spell toplevel
@@ -266,7 +245,6 @@ set diffopt+=vertical
 set noswapfile
 
 " Commands
-"http://stackoverflow.com/q/356126
 function! TrimWhiteSpace()
     let search = @/
     let view = winsaveview()
@@ -325,20 +303,6 @@ augroup MakeQuickFixPrettier
                 \| endif
 augroup END
 
-if has('nvim')
-    " remove new line characters in the terminal
-    autocmd! TermOpen * if &buftype == 'terminal'
-                \| setlocal nolist
-                \| endif
-
-    autocmd! BufEnter * if &buftype == 'terminal'
-                \| startinsert
-                \| endif
-
-    " close term buffer on exit using a bit of a hack
-    autocmd! TermClose * call feedkeys('<cr>')
-endif
-
 " make vim reload file if it has changed on disk
 autocmd! FocusLost,FocusGained,CursorMoved * if &buftype == ''
             \| checktime
@@ -354,17 +318,15 @@ call plug#begin('~/.vim/plugged')
 " Utilities
 Plug 'duggiefresh/vim-easydir'
 Plug 'editorconfig/editorconfig-vim'
-Plug 'junegunn/vader.vim'
 Plug 'justinmk/vim-gtfo'
-Plug 'milkypostman/vim-togglelist'
-Plug 'qpkorr/vim-bufkill'
 Plug 'sbdchd/neoformat'
-Plug 'sbdchd/vim-run'
 Plug 'sbdchd/vim-shebang'
 Plug 'tpope/vim-eunuch'
 Plug 'EinfachToll/DidYouMean'
-Plug 'tpope/vim-unimpaired'
 Plug 'shime/vim-livedown'
+
+Plug 'svermeulen/vim-easyclip'
+nnoremap gm m
 
 Plug 'junegunn/fzf', {'dir': '~/.fzf', 'do': 'yes \| ./install'}
 Plug 'junegunn/fzf.vim'
@@ -387,9 +349,6 @@ Plug 'junegunn/vim-peekaboo'
 let g:peekaboo_delay   = 600
 let g:peekaboo_compact = 1
 
-Plug 'majutsushi/tagbar'
-nnoremap <leader>tt :TagbarToggle<CR>
-
 Plug 'mbbill/undotree', {'on' : 'UndotreeToggle'}
 nnoremap <leader>ut :UndotreeToggle<CR>
 
@@ -407,30 +366,17 @@ let g:ale_linters = {
 Plug 't9md/vim-textmanip'
 map <C-j> <Plug>(textmanip-move-down)
 map <C-k> <Plug>(textmanip-move-up)
-map <C-h> <Plug>(textmanip-move-left)
-map <C-l> <Plug>(textmanip-move-right)
 
 " Git
 Plug 'airblade/vim-gitgutter'
-Plug 'gregsexton/gitv'
-Plug 'jreybert/vimagit'
-Plug 'junegunn/gv.vim'
 Plug 'rhysd/conflict-marker.vim'
 Plug 'tpope/vim-fugitive'
 
-" Interface
 Plug 'kshenoy/vim-signature'
-Plug 'mhinz/vim-startify'
-let g:startify_fortune_use_unicode = 1
-Plug 'junegunn/goyo.vim'
-
 " Syntax & Coloring
-Plug 'ap/vim-css-color'
-Plug 'xu-cheng/brew.vim'
 
-" Themes
+" Theme
 Plug 'joshdick/onedark.vim'
-Plug 'lifepillar/vim-solarized8'
 
 " Motion
 Plug 'buztard/vim-rel-jump'
@@ -466,16 +412,15 @@ nmap ga <Plug>(EasyAlign)
 
 " Text Objects
 Plug 'kana/vim-textobj-user'
-            \| Plug 'glts/vim-textobj-comment'
-            \| Plug 'kana/vim-textobj-entire'
-            \| Plug 'kana/vim-textobj-function'
-            \| Plug 'kana/vim-textobj-line'
-            \| Plug 'michaeljsmith/vim-indent-object'
+Plug 'kana/vim-textobj-function'
+Plug 'michaeljsmith/vim-indent-object'
 
 " Languages
-Plug 'Glench/Vim-Jinja2-Syntax', {'for': ['html', 'jinja']}
+Plug 'Glench/Vim-Jinja2-Syntax', {'for': 'jinja'}
 Plug 'LnL7/vim-nix'
 Plug 'Tyilo/applescript.vim'
+Plug 'aliva/vim-fish'
+Plug 'ap/vim-css-color'
 Plug 'cespare/vim-toml'
 Plug 'dannywillems/vim-icalendar'
 Plug 'digitaltoad/vim-pug'
@@ -487,11 +432,11 @@ Plug 'leafgarland/typescript-vim'
 Plug 'lervag/vimtex'
 Plug 'neovimhaskell/haskell-vim'
 Plug 'othree/html5.vim'
+Plug 'pangloss/vim-javascript'
 Plug 'posva/vim-vue'
 Plug 'rust-lang/rust.vim'
 Plug 'tmux-plugins/vim-tmux'
 Plug 'tpope/vim-markdown'
-Plug 'aliva/vim-fish'
 
 Plug 'fatih/vim-go', {'for': 'go'}
 let g:go_highlight_functions         = 1
@@ -503,20 +448,14 @@ let g:go_highlight_build_constraints = 1
 let g:go_fmt_command                 = 'goimports'
 let g:go_fmt_fail_silently           = 1
 let g:go_fmt_autosave                = 0
-" prevent vim-go from mapping :GoDoc to K
-let g:go_doc_keywordprg_enabled      = 0
 
-Plug 'pangloss/vim-javascript'
-let g:javascript_enable_domhtmlcss = 1
 
 " Autocompletion
 Plug 'Shougo/deoplete.nvim', {'do': function('DoRemote')}
 command! DeopleteEnable     call deoplete#enable()
 command! DeopleteDisable    let b:deoplete_disable_auto_complete = 1
 command! DeopleteDisableAll let g:deoplete#disable_auto_complete = 1
-if has('nvim')
-    let g:deoplete#enable_at_startup = 1
-endif
+let g:deoplete#enable_at_startup = 1
 function! DeopleteToggle()
     if exists('b:deoplete_enabled') && b:deoplete_enabled == 1
         let b:deoplete_enabled = 0
@@ -534,7 +473,6 @@ set completeopt-=preview
 " Sources
 Plug 'Shougo/neco-vim'
 Plug 'carlitux/deoplete-ternjs'
-Plug 'zchee/deoplete-go', {'do': 'make'}
 Plug 'zchee/deoplete-jedi'
 
 call plug#end()

@@ -291,8 +291,6 @@ export PATH=$PATH:$HOME/.cargo/bin
 
 # FZF
 export FZF_DEFAULT_COMMAND='ag --hidden -U --ignore .git -g ""'
-export FZF_DEFAULT_OPTS='--color hl:221,hl+:221
---color pointer:143,info:143,prompt:109,spinner:143,pointer:143,marker:143'
 
 # XDG
 export XDG_CONFIG_HOME="$HOME"/.config
@@ -364,8 +362,6 @@ cl() {
 cdf() {
     cd "$(osascript -e 'tell app "Finder" to POSIX path of (insertion location as alias)')"
 }
-
-alias size='du -sh *'
 
 if hash youtube-dl 2>/dev/null; then
     # https://github.com/exogen/dotfiles/
