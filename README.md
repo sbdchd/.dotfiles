@@ -7,15 +7,8 @@ A collection of dotfiles, mostly for osx.
 ```bash
 git clone https://github.com/sbdchd/.dotfiles && \
 cd .dotfiles && \
-./linker.sh
+./linker
 ./install.bash
-```
-
-## Update
-
-```bash
-git pull
-./update.bash
 ```
 
 ## Notes

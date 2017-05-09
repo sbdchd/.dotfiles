@@ -1,0 +1,69 @@
+#!/usr/bin/env python3.6
+
+import os
+import fnmatch
+from os import path
+import argparse
+
+def validate_path(path):
+    if os.path.isdir(path):
+        return path
+    raise argparse.ArgumentTypeError('Directory must exist')
+
+def main():
+    parser = argparse.ArgumentParser(description='Link dotfiles')
+    parser.add_argument(
+        'dotfiles_dir',
+        metavar='src',
+        default=os.getcwd(),
+        nargs='?',
+        type=validate_path,
+        help='display files to linked',
+        )
+
+    parser.add_argument(
+        '-n',
+        '--dry-run',
+        default=False,
+        action='store_true',
+        help='display files to linked',
+        )
+
+    args = parser.parse_args()
+
+    ignored = (
+        'itermcolors',
+        '.sh',
+        '.bash',
+        '.terminfo',
+        'utils',
+        '.md',
+        '.git',
+        '.DS_Store',
+        'linker')
+
+    files = os.listdir(args.dotfiles_dir)
+
+    filtered_files = (f for f in files if not f.endswith(ignored))
+
+    for f in filtered_files:
+        cwd = path.abspath(path.dirname(__file__))
+        src_dir = path.join(cwd, f)
+        dest_dir = path.join(path.expanduser('~/'), f)
+        if not path.exists(src_dir):
+            print(f"skipping: {f}, {src_dir} doesn't exist")
+        elif path.exists(dest_dir):
+            print(f'skipping: {f}, file already exists at {dest_dir}')
+        elif args.dry_run:
+            print(f'would link: {src_dir} to {dest_dir}')
+        else:
+            try:
+                os.link(src_dir, dest_dir)
+                print(f'linked: {src_dir} to {dest_dir}')
+            except FileNotFoundError:
+                print(f'error: file {src_dir} not found')
+
+
+
+if __name__ == '__main__':
+    main()
