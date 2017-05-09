@@ -58,7 +58,7 @@ def main():
             print(f'would link: {src_dir} to {dest_dir}')
         else:
             try:
-                os.link(src_dir, dest_dir)
+                os.symlink(src_dir, dest_dir)
                 print(f'linked: {src_dir} to {dest_dir}')
             except FileNotFoundError:
                 print(f'error: file {src_dir} not found')
