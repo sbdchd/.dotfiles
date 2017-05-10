@@ -34,6 +34,8 @@ function! DesiredCol()
 endfunction
 autocmd! InsertLeave * call cursor(getpos('.')[1], DesiredCol())
 
+set guicursor=n-v-c-sm:block,i-ci-ve:block,r-cr-o:hor20
+
 " limit syntax highlighting on long lines - can help avoid some slow downs
 set synmaxcol=200
 set showcmd
