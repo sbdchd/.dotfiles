@@ -9,7 +9,15 @@
 [color]
   ui = auto
 [merge]
-  tool = vimdiff
+  tool = nvimdiff
+[mergetool]
+  prompt = true
+[mergetool "nvimdiff"]
+  cmd = nvim -d $BASE $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
+[diff]
+  tool = nvimdiff
+[difftool]
+  prompt = false
 [user]
   name = Steve Dignam
   email = steve@dignam.xyz

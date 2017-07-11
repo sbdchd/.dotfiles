@@ -12,6 +12,8 @@ set matchtime=2
 set colorcolumn=81
 " make cursor stays in general column when moving
 set nostartofline
+" enable mouse for selecting
+set mouse=a
 " remember previous cursor position
 function! RecallCursorPosition()
     " exlclude git commit messages
@@ -34,16 +36,10 @@ function! DesiredCol()
 endfunction
 autocmd! InsertLeave * call cursor(getpos('.')[1], DesiredCol())
 
-set guicursor=n-v-c-sm:block,i-ci-ve:block,r-cr-o:hor20
+set guicursor=n-v-c-sm:block,i-ci-ve:block,r-cr-o:block
 
 " limit syntax highlighting on long lines - can help avoid some slow downs
 set synmaxcol=200
-set showcmd
-" no annoying dings
-set noerrorbells
-set visualbell
-" make visual bell do nothing
-set t_vb=
 " disable startup message
 set shortmess=I
 
@@ -105,11 +101,12 @@ nnoremap <esc> :noh<CR>:echo ""<CR>
 
 " Tabs & Spaces
 " number of spaces=<tab>
-set tabstop=4
+let indent_size = 2
+let &tabstop = indent_size
 " number of spaces for indent/autoindent
-set shiftwidth=4
-" let backspace delete 4 space tab
-set softtabstop=4
+let &shiftwidth = indent_size
+" let backspace delete indent_size space tab
+let &softtabstop = indent_size
 " convert tab to spaces
 set expandtab
 set smartindent
@@ -120,7 +117,8 @@ set showtabline=0
 " Buffers
 " asks to save files before exiting with :q or :e
 set confirm
-" allows buffer to stay loaded
+" prevent vim from asking if you want to save your changes on switching to a
+" new buffer
 set hidden
 " jump to first open window that contains the specified buffer
 set switchbuf=useopen
@@ -132,9 +130,6 @@ set wildmode=list:longest
 " Mappings
 " set the leader key
 let g:mapleader = ' '
-" more efficient for typing commands
-nnoremap ; :
-vnoremap ; :
 " helpful stuff
 nnoremap H ^
 nnoremap L $
@@ -194,7 +189,7 @@ nnoremap <leader>bd :bdelete<CR>
 
 " kill window
 nnoremap <leader>wc <C-W>c
-nnoremap <leader>wd <C-W>c buffer
+nnoremap <leader>wd <C-W>c
 nnoremap <leader>wx <C-W>c
 
 " exit vim
@@ -326,6 +321,8 @@ Plug 'sbdchd/vim-shebang'
 Plug 'tpope/vim-eunuch'
 Plug 'EinfachToll/DidYouMean'
 Plug 'shime/vim-livedown'
+Plug 'Yggdroot/indentLine'
+let g:indentLine_color_gui = '#3B4048'
 
 Plug 'svermeulen/vim-easyclip'
 nnoremap gm m
@@ -335,7 +332,7 @@ Plug 'junegunn/fzf.vim'
 autocmd! VimEnter * command! -nargs=* Ag call fzf#vim#ag(
             \ <q-args>,
             \ "--hidden -U --ignore .git",
-            \ fzf#vim#default_layout)
+            \ {} )
 nnoremap <silent> <leader>ls :Buffers<CR>
 let g:fzf_buffers_jump = 1 " jump to preexisting window if possible
 " search buffer
@@ -361,10 +358,6 @@ let g:ale_sign_warning = '~❯'
 highlight link ALEErrorSign WarningMsg
 highlight link ALEWarningSign WarningMsg
 
-let g:ale_linters = {
-\   'rust': [],
-\}
-
 Plug 't9md/vim-textmanip'
 map <C-j> <Plug>(textmanip-move-down)
 map <C-k> <Plug>(textmanip-move-up)
@@ -384,7 +377,6 @@ Plug 'joshdick/onedark.vim'
 Plug 'buztard/vim-rel-jump'
 Plug 'christoomey/vim-sort-motion'
 Plug 'henrik/vim-indexed-search'
-Plug 'rhysd/clever-f.vim'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
@@ -392,19 +384,6 @@ Plug 'tpope/vim-surround'
 Plug 'wellle/targets.vim'
 " make targets play nice with line text object by disabling `nl`
 let g:targets_nlNL = 'n NL'
-
-Plug 'easymotion/vim-easymotion'
-" Move to char
-map  <Leader><Leader>f <Plug>(easymotion-bd-f)
-nmap <Leader><Leader>f <Plug>(easymotion-overwin-f)
-" s{char}{char} to move to {char}{char}
-nmap s <Plug>(easymotion-overwin-f2)
-" Move to line
-map <Leader><Leader>l <Plug>(easymotion-bd-jk)
-nmap <Leader><Leader>l <Plug>(easymotion-overwin-line)
-" Move to word
-map  <Leader><Leader>w <Plug>(easymotion-bd-w)
-nmap <Leader><Leader>w <Plug>(easymotion-overwin-w)
 
 Plug 'junegunn/vim-easy-align'
 " Start interactive EasyAlign in visual mode (e.g. vipga)
@@ -418,6 +397,7 @@ Plug 'kana/vim-textobj-function'
 Plug 'michaeljsmith/vim-indent-object'
 
 " Languages
+Plug 'mxw/vim-jsx'
 Plug 'Glench/Vim-Jinja2-Syntax', {'for': 'jinja'}
 Plug 'LnL7/vim-nix'
 Plug 'Tyilo/applescript.vim'
@@ -435,7 +415,8 @@ Plug 'lervag/vimtex'
 Plug 'neovimhaskell/haskell-vim'
 Plug 'othree/html5.vim'
 Plug 'pangloss/vim-javascript'
-Plug 'posva/vim-vue'
+" Plug 'posva/vim-vue'" " TODO: make not super slow
+" files
 Plug 'rust-lang/rust.vim'
 Plug 'tmux-plugins/vim-tmux'
 Plug 'tpope/vim-markdown'
@@ -454,22 +435,7 @@ let g:go_fmt_autosave                = 0
 
 " Autocompletion
 Plug 'Shougo/deoplete.nvim', {'do': function('DoRemote')}
-command! DeopleteEnable     call deoplete#enable()
-command! DeopleteDisable    let b:deoplete_disable_auto_complete = 1
-command! DeopleteDisableAll let g:deoplete#disable_auto_complete = 1
 let g:deoplete#enable_at_startup = 1
-function! DeopleteToggle()
-    if exists('b:deoplete_enabled') && b:deoplete_enabled == 1
-        let b:deoplete_enabled = 0
-        echom 'Deoplete: disabled'
-        return deoplete#disable()
-    endif
-    let b:deoplete_enabled = 1
-    echom 'Deoplete: enabled'
-    return deoplete#enable()
-endfunction
-command! DeopleteToggle :call DeopleteToggle()
-noremap <leader>ta :DeopleteToggle<CR>
 " prevent deoplete from creating a buffer above
 set completeopt-=preview
 " Sources

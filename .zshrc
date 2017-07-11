@@ -142,15 +142,6 @@ virtualenv_info(){
     [[ -n "$venv" ]] && echo " $venv"
 }
 
-venv() {
-    local env="$1"
-    if [[ -f "$env/bin/activate" ]] && [[ -z "$VIRTUAL_ENV" ]]; then
-        source "$env/bin/activate"
-    else
-        deactivate
-    fi
-}
-
 autoload -U colors && colors
 
 Color_Off=$'\e[0m'
@@ -259,10 +250,9 @@ if hash nvim 2>/dev/null; then
 else
     export EDITOR=vim
 fi
-alias e='$EDITOR'
 
 # make postgresql cli tools work
-export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/9.4/bin
+# export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/9.4/bin
 # LS Colors
 export CLICOLOR=1
 
@@ -281,6 +271,7 @@ LSCOLORS+='ad'  # directory writable to others, without sticky bit
 export LSCOLORS
 
 export PATH="$PATH:/usr/local/sbin"
+export PATH="$PATH:/usr/local/bin"
 export PATH=$PATH:"$HOME"/bin
 
 # Go setup stuff
@@ -345,18 +336,6 @@ up(){
     d=..
   fi
   cd $d
-}
-
-# https://wiki.archlinux.org/index.php/Bash/Functions#cd_and_ls_in_one
-# cd and ls combined
-cl() {
-    local dir="$1"
-    local dir="${dir:=$HOME}"
-    if [[ -d "$dir" ]]; then
-        cd "$dir" >/dev/null; ls
-    else
-        echo "bash: cl: $dir: Directory not found"
-    fi
 }
 
 # https://github.com/paulirish/dotfiles/blob/master/.functions

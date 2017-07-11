@@ -5,6 +5,7 @@
 node_modules
 __pycache__
 .sass-cache
+.mypy_cache
 
 venv
 
