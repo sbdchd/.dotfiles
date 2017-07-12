@@ -357,6 +357,8 @@ let g:ale_sign_error = '❯❯'
 let g:ale_sign_warning = '~❯'
 highlight link ALEErrorSign WarningMsg
 highlight link ALEWarningSign WarningMsg
+nmap <silent> [e <Plug>(ale_previous_wrap)
+nmap <silent> ]e <Plug>(ale_next_wrap)
 
 Plug 't9md/vim-textmanip'
 map <C-j> <Plug>(textmanip-move-down)
