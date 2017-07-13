@@ -1,14 +1,15 @@
 #!/usr/bin/env python3.6
 
 import os
-import fnmatch
 from os import path
 import argparse
+
 
 def validate_path(path):
     if os.path.isdir(path):
         return path
     raise argparse.ArgumentTypeError('Directory must exist')
+
 
 def main():
     parser = argparse.ArgumentParser(description='Link dotfiles')
@@ -18,16 +19,14 @@ def main():
         default=os.getcwd(),
         nargs='?',
         type=validate_path,
-        help='display files to linked',
-        )
+        help='display files to linked')
 
     parser.add_argument(
         '-n',
         '--dry-run',
         default=False,
         action='store_true',
-        help='display files to linked',
-        )
+        help='display files to linked')
 
     args = parser.parse_args()
 
@@ -62,7 +61,6 @@ def main():
                 print(f'linked: {src_dir} to {dest_dir}')
             except FileNotFoundError:
                 print(f'error: file {src_dir} not found')
-
 
 
 if __name__ == '__main__':
