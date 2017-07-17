@@ -183,7 +183,7 @@ alias q='exit'
 
 alias ga='git add'
 alias gb='git branch'
-alias gc='git commit'
+alias gc='git commit -v'
 alias gd='git diff'
 alias gca='git commit -a'
 alias gcl='git clone'

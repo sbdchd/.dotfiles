@@ -16,3 +16,4 @@ dist
 
 .vim/undo
 .git/*
+jest_*

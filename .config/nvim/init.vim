@@ -184,8 +184,8 @@ nnoremap <leader>wK <C-W>K
 " window splitting
 nnoremap <leader>wv <C-W>v
 nnoremap <leader>ws <C-W>s
-
-nnoremap <leader>bd :bdelete<CR>
+" using vim-bufkill to make delete only remove the buffer, not the window
+nnoremap <leader>bd :BD<CR>
 
 " kill window
 nnoremap <leader>wc <C-W>c
@@ -323,6 +323,7 @@ Plug 'EinfachToll/DidYouMean'
 Plug 'shime/vim-livedown'
 Plug 'Yggdroot/indentLine'
 let g:indentLine_color_gui = '#3B4048'
+Plug 'qpkorr/vim-bufkill'
 
 Plug 'svermeulen/vim-easyclip'
 nnoremap gm m
