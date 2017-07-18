@@ -1,35 +1,35 @@
 [core]
-  editor = nvim
-  autocrlf = false
-  excludesfile = ~/.gitignore
-  attributesfile = ~/.gitattributes
-  pager = "diff-so-fancy | less --tabs=4 -RFX"
+	editor = nvim
+	autocrlf = false
+	excludesfile = ~/.gitignore
+	attributesfile = ~/.gitattributes
+	pager = "diff-so-fancy | less --tabs=4 -RFX"
 [push]
 	default = current
 [color]
-  ui = auto
+	ui = auto
 [merge]
-  tool = nvimdiff
+	tool = nvimdiff
 [mergetool]
-  prompt = true
+	prompt = true
 [mergetool "nvimdiff"]
-  cmd = nvim -d $BASE $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
+	cmd = nvim -d $BASE $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
 [diff]
-  tool = nvimdiff
+	tool = nvimdiff
 [difftool]
-  prompt = false
+	prompt = false
 [user]
-  name = Steve Dignam
-  email = steve@dignam.xyz
+	name = Steve Dignam
+	email = steve@dignam.xyz
 [diff-so-fancy]
-  stripLeadingSymbols = false
+	stripLeadingSymbols = false
 [stash]
-  showPatch = true
+	showPatch = true
 [pull]
-  ff = only
+	ff = only
 [rebase]
-  autostash = true
+	autostash = true
 [color "status"]
-  added = green
-  changed = yellow bold
-  untracked = red bold
+	added = green
+	changed = yellow bold
+	untracked = red bold
