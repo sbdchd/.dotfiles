@@ -217,10 +217,6 @@ nnoremap <leader>ts :set spell! spelllang=en<CR>
 
 " ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-" disable netrw help banner
-let g:netrw_banner = 0
-nnoremap <leader>d :Explore<CR>
-
 " List Chars
 " use certain characters to show whitespace characters
 set listchars=tab:▸\ ,nbsp:⎵,eol:¬,trail:·
@@ -449,6 +445,7 @@ Plug 'zchee/deoplete-jedi'
 call plug#end()
 
 silent! colorscheme onedark
+highlight! Normal guibg=None
 " https://github.com/neovim/neovim/wiki/Following-HEAD#20160511
 " see: https://github.com/neovim/neovim/issues/4696
 if exists('&termguicolors') && has('nvim')

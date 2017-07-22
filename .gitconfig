@@ -4,8 +4,6 @@
 	excludesfile = ~/.gitignore
 	attributesfile = ~/.gitattributes
 	pager = "diff-so-fancy | less --tabs=4 -RFX"
-[push]
-	default = current
 [color]
 	ui = auto
 [merge]
