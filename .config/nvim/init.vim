@@ -296,6 +296,9 @@ augroup MakeQuickFixPrettier
                 \| endif
 augroup END
 
+
+autocmd! TermOpen * setlocal nonumber norelativenumber
+
 " make vim reload file if it has changed on disk
 autocmd! FocusLost,FocusGained,CursorMoved * if &buftype == ''
             \| checktime
@@ -330,8 +333,8 @@ autocmd! VimEnter * command! -nargs=* Ag call fzf#vim#ag(
             \ <q-args>,
             \ "--hidden -U --ignore .git",
             \ {} )
+
 nnoremap <silent> <leader>ls :Buffers<CR>
-let g:fzf_buffers_jump = 1 " jump to preexisting window if possible
 " search buffer
 nnoremap <silent> <leader>s :BLines<CR>
 " search help
