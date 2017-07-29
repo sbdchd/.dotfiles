@@ -165,6 +165,10 @@ brew tap caskroom/fonts
 brew cask install font-latin-modern
 brew cask install font-inconsolata
 brew cask install font-source-code-pro
+brew cask install font-lato
+brew cask install font-fira-sans
+brew cask install font-open-sans
+brew cask install font-montserrat
 brew cask install font-merriweather
 
 # Install Vim Plug Package Manager
