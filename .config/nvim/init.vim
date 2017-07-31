@@ -47,26 +47,12 @@ set shortmess=I
 " show current mode below status line
 set showmode
 
-function! GitStatusLine()
-    if !exists('b:git_dir')
-        return ''
-    endif
-    " Note: idk why there is a 7 as an argument, I am just taking this from the fugitive repo
-    return 'git:' . fugitive#head(7)
-endfunction
-
-function! WindowNumber()
-  return tabpagewinnr(tabpagenr())
-endfunction
-
 set laststatus=2
 
 " left side
 let &statusline = '%#statuslinenc#' " color line with statuslinenc highlight group
 let &statusline .= ' '
 let &statusline .= '%f' " file name
-let &statusline .= ' '
-let &statusline .= '%{GitStatusLine()}'
 let &statusline .= ' '
 let &statusline .= '%m' " modification flag
 let &statusline .= '%r' " read-only flag
@@ -369,7 +355,6 @@ Plug 'airblade/vim-gitgutter'
 Plug 'rhysd/conflict-marker.vim'
 Plug 'tpope/vim-fugitive'
 
-Plug 'kshenoy/vim-signature'
 " Syntax & Coloring
 
 " Theme
