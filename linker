@@ -1,17 +1,18 @@
 #!/usr/bin/env python3.6
 
+import argparse
 import os
 from os import path
-import argparse
+from typing import Optional
 
 
-def validate_path(path):
+def validate_path(path: str) -> Optional[str]:
     if os.path.isdir(path):
         return path
     raise argparse.ArgumentTypeError('Directory must exist')
 
 
-def main():
+def main() -> None:
     parser = argparse.ArgumentParser(description='Link dotfiles')
     parser.add_argument(
         'dotfiles_dir',
