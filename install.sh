@@ -127,6 +127,7 @@ brew cask install google-hangouts
 brew cask install grandperspective
 brew cask install handbrake
 brew cask install hashcat
+brew cask install insomnia
 brew cask install intellij-idea
 brew cask install iterm2
 brew cask install keepingyouawake
@@ -138,7 +139,6 @@ brew cask install mobile-mouse-server
 brew cask install origin
 brew cask install pgadmin3
 brew cask install postgres
-brew cask install postman
 brew cask install spectacle
 brew cask install sqlitebrowser
 brew cask install steam
