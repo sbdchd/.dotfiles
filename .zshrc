@@ -162,7 +162,6 @@ PROMPT+="%{$Purple%}%m" # host
 PROMPT+=" %{$Blue%}%~" # working directory
 PROMPT+='%{$Green%}$(prompt_git)'
 PROMPT+='%{$Cyan%}$(virtualenv_info)'
-PROMPT+="$DOCKER_MACHINE_NAME" # display docker machine name
 # Date See: `man strftime` for more info
 PROMPT+=" %{$White%}%D{%a %b %f %H:%M %p}" # date
 PROMPT+=$NEWLINE
@@ -296,6 +295,8 @@ export HOMEBREW_NO_ANALYTICS=1
 if [[ -e "$HOME/.homebrew_analytics_user_uuid" ]]; then
     rm -f "$HOME/.homebrew_analytics_user_uuid"
 fi
+
+export HOMEBREW_NO_AUTO_UPDATE=1
 
 # Functions #
 ft() {

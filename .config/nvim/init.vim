@@ -116,9 +116,6 @@ set wildmode=list:longest
 " Mappings
 " set the leader key
 let g:mapleader = ' '
-" helpful stuff
-nnoremap H ^
-nnoremap L $
 
 if exists('+inccommand')
     set inccommand=nosplit
@@ -307,8 +304,24 @@ Plug 'tpope/vim-eunuch'
 Plug 'EinfachToll/DidYouMean'
 Plug 'shime/vim-livedown'
 Plug 'Yggdroot/indentLine'
+Plug 'mattn/emmet-vim'
 let g:indentLine_color_gui = '#3B4048'
 Plug 'qpkorr/vim-bufkill'
+Plug 'tpope/tpope-vim-abolish'
+Plug 'junegunn/vader.vim'
+Plug 'easymotion/vim-easymotion'
+" <Leader>f{char} to move to {char}
+map  <Leader><Leader>f <Plug>(easymotion-bd-f)
+nmap <Leader><Leader>f <Plug>(easymotion-overwin-f)
+
+" s{char}{char} to move to {char}{char}
+nmap s <Plug>(easymotion-overwin-f2)
+
+nmap <Leader><Leader>l <Plug>(easymotion-overwin-line)
+
+" Move to word
+map  <Leader><Leader>w <Plug>(easymotion-bd-w)
+nmap <Leader><Leader>w <Plug>(easymotion-overwin-w)
 
 Plug 'svermeulen/vim-easyclip'
 nnoremap gm m
@@ -329,6 +342,7 @@ nnoremap <silent> <leader>? :Helptags<CR>
 nnoremap <silent> <leader>r :History<CR>
 " find files
 nnoremap <leader>f :FZF<CR>
+nnoremap <leader>; :Commands<CR>
 
 Plug 'junegunn/vim-peekaboo'
 let g:peekaboo_delay   = 600
@@ -389,7 +403,6 @@ Plug 'Glench/Vim-Jinja2-Syntax', {'for': 'jinja'}
 Plug 'LnL7/vim-nix'
 Plug 'Tyilo/applescript.vim'
 Plug 'aliva/vim-fish'
-Plug 'ap/vim-css-color'
 Plug 'cespare/vim-toml'
 Plug 'dannywillems/vim-icalendar'
 Plug 'digitaltoad/vim-pug'

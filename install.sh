@@ -115,6 +115,7 @@ brew cask install 1password
 brew cask install arduino
 brew cask install audacity
 brew cask install basictex
+brew cask install clion
 brew cask install discord
 brew cask install dockertoolbox
 brew cask install dropbox
