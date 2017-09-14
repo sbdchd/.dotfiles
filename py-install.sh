@@ -11,6 +11,8 @@ pip install waybackpack
 pip install yamllint
 pip install yapf
 
+pip3 install pipenv
+
 pip install pylint
 pip3 install pylint
 

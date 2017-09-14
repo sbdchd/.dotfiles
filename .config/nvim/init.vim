@@ -150,6 +150,9 @@ set nofoldenable
 
 " ~~~~~~~~~~SPACESTEVEVIM~~~~~~~~~~
 
+" space (g)it (u)ndo
+nnoremap <leader>gu :GitGutterUndoHunk<CR>
+
 " better window nav
 nnoremap <leader>wl <C-W>l
 nnoremap <leader>wh <C-W>h

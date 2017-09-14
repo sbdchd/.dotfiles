@@ -7,6 +7,7 @@ __pycache__
 .sass-cache
 .mypy_cache
 coverage
+cmake-build-debug
 
 venv
 
