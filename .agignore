@@ -8,6 +8,8 @@ __pycache__
 .mypy_cache
 coverage
 cmake-build-debug
+_site
+.asset-cache
 
 venv
 
