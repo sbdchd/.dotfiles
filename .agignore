@@ -10,6 +10,7 @@ coverage
 cmake-build-debug
 _site
 .asset-cache
+.cache
 
 venv
 
