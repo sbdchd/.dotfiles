@@ -22,6 +22,7 @@ brew install make --with-default-names
 brew install mercurial
 brew install mosh
 brew install neovim/neovim/neovim
+brew install qpdf
 brew install ranger
 brew install rename
 brew install ssh-copy-id

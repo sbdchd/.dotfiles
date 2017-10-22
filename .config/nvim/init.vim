@@ -8,8 +8,6 @@ set scrolloff=5
 set showmatch
 " set time of match cursor switch
 set matchtime=2
-" add highlight guide at column number
-set colorcolumn=81
 " make cursor stays in general column when moving
 set nostartofline
 " enable mouse for selecting
@@ -171,7 +169,9 @@ nnoremap <leader>wK <C-W>K
 nnoremap <leader>wv <C-W>v
 nnoremap <leader>ws <C-W>s
 " using vim-bufkill to make delete only remove the buffer, not the window
-nnoremap <leader>bd :BD<CR>
+nnoremap <leader>bd :silent! BD<CR>
+" <leader>[k]eep
+nnoremap <leader>k :w<CR>
 
 " kill window
 nnoremap <leader>wc <C-W>c
@@ -290,11 +290,28 @@ autocmd! FocusLost,FocusGained,CursorMoved * if &buftype == ''
             \| checktime
             \| endif
 
+" https://github.com/lingceng/z.vim/blob/e68fbd29fb437e9912962b1fb54135b8bed9845f/plugin/z.vim
+function! ZSortByFrequency(a, b)
+  return split(a:b, '|')[1] - split(a:a, '|')[1]
+endfunction
+
+function! Z(keyword)
+  let list = readfile(expand('~/.z'))
+  call filter(list, 'v:val =~ "' . a:keyword . '"')
+  if len(list) < 1
+    return
+  endif
+  let max = sort(list, 'ZSortByFrequency')[0]
+  let path = split(max, '|')[0]
+
+  execute "cd  " . path
+  echom path
+endfunction
+
+command! -nargs=1 Z :call Z(<q-args>)
+
 " Plugins
 " https://github.com/junegunn/vim-plug
-function! DoRemote()
-    UpdateRemotePlugins
-endfunction
 call plug#begin('~/.vim/plugged')
 
 " Utilities
@@ -332,10 +349,18 @@ nnoremap gm m
 
 Plug 'junegunn/fzf', {'dir': '~/.fzf', 'do': 'yes \| ./install'}
 Plug 'junegunn/fzf.vim'
-autocmd! VimEnter * command! -nargs=* Ag call fzf#vim#ag(
-            \ <q-args>,
-            \ "--hidden -U --ignore .git",
-            \ {} )
+
+" set the conceallevel so IndentLines doesn't show
+autocmd! TermOpen * if &buftype == 'terminal'
+            \| set conceallevel=0
+            \| set nonumber norelativenumber
+            \| endif
+
+command! -bang -nargs=* Ag
+  \ call fzf#vim#ag(<q-args>, fzf#vim#with_preview(), <bang>0)
+
+command! -bang -nargs=? -complete=dir Files
+  \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
 
 nnoremap <silent> <leader>ls :Buffers<CR>
 " search buffer
@@ -345,7 +370,7 @@ nnoremap <silent> <leader>? :Helptags<CR>
 " recent files
 nnoremap <silent> <leader>r :History<CR>
 " find files
-nnoremap <leader>f :FZF<CR>
+nnoremap <leader>f :Files<CR>
 nnoremap <leader>; :Commands<CR>
 
 Plug 'junegunn/vim-peekaboo'
@@ -404,23 +429,15 @@ Plug 'michaeljsmith/vim-indent-object'
 " Languages
 Plug 'mxw/vim-jsx'
 Plug 'Glench/Vim-Jinja2-Syntax', {'for': 'jinja'}
-Plug 'LnL7/vim-nix'
-Plug 'Tyilo/applescript.vim'
-Plug 'aliva/vim-fish'
 Plug 'cespare/vim-toml'
-Plug 'dannywillems/vim-icalendar'
 Plug 'digitaltoad/vim-pug'
-Plug 'elixir-lang/vim-elixir'
 Plug 'hail2u/vim-css3-syntax'
 Plug 'kchmck/vim-coffee-script'
-Plug 'keith/swift.vim'
 Plug 'leafgarland/typescript-vim'
 Plug 'lervag/vimtex'
-Plug 'neovimhaskell/haskell-vim'
 Plug 'othree/html5.vim'
 Plug 'pangloss/vim-javascript'
-" Plug 'posva/vim-vue'" " TODO: make not super slow
-" files
+Plug 'posva/vim-vue'
 Plug 'rust-lang/rust.vim'
 Plug 'tmux-plugins/vim-tmux'
 Plug 'tpope/vim-markdown'
@@ -438,7 +455,7 @@ let g:go_fmt_autosave                = 0
 
 
 " Autocompletion
-Plug 'Shougo/deoplete.nvim', {'do': function('DoRemote')}
+Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'}
 let g:deoplete#enable_at_startup = 1
 " prevent deoplete from creating a buffer above
 set completeopt-=preview

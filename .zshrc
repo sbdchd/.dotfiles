@@ -68,6 +68,8 @@ fi
 
 zplug load
 
+export SHELL='/usr/local/bin/zsh/'
+
 # https://github.com/necolas/dotfiles/blob/master/shell/bash_prompt
 prompt_git() {
     local s=""
@@ -270,7 +272,8 @@ LSCOLORS+='ad'  # directory writable to others, without sticky bit
 export LSCOLORS
 
 export PATH="$PATH:/usr/local/sbin"
-export PATH="$PATH:/usr/local/bin"
+# make sure our zsh, not mac osx, is the first on the path
+export PATH="/usr/local/bin:$PATH"
 export PATH=$PATH:"$HOME"/bin
 
 # Go setup stuff
@@ -281,6 +284,7 @@ export PATH=$PATH:$HOME/.cargo/bin
 
 # FZF
 export FZF_DEFAULT_COMMAND='ag --hidden -U --ignore .git -g ""'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_DEFAULT_OPTS='--color hl:221,hl+:221
 --color pointer:143,info:143,prompt:109,spinner:143,pointer:143,marker:143'
 
