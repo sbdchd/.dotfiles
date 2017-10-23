@@ -19,6 +19,6 @@ venv
 
 dist
 
-.vim/undo
+nvim/undo
 .git/*
 jest_*

@@ -128,7 +128,7 @@ set clipboard=unnamed
 " use an undo file
 set undofile
 " undo file directory
-set undodir=~/.config/nvim/undo
+set undodir=~/.local/share/nvim/undo
 " number of undo levels
 set undolevels=5000
 " make vim update more rapidly
@@ -312,7 +312,7 @@ command! -nargs=1 Z :call Z(<q-args>)
 
 " Plugins
 " https://github.com/junegunn/vim-plug
-call plug#begin('~/.config/nvim/plugged')
+call plug#begin('~/.local/share/nvim/plugged')
 
 " Utilities
 Plug 'duggiefresh/vim-easydir'
