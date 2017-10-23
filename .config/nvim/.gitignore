@@ -2,3 +2,4 @@
 plugged/
 autoload/
 init.vim
+undo/*

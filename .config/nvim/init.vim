@@ -128,7 +128,7 @@ set clipboard=unnamed
 " use an undo file
 set undofile
 " undo file directory
-set undodir=~/.vim/undo
+set undodir=~/.config/nvim/undo
 " number of undo levels
 set undolevels=5000
 " make vim update more rapidly
@@ -312,7 +312,7 @@ command! -nargs=1 Z :call Z(<q-args>)
 
 " Plugins
 " https://github.com/junegunn/vim-plug
-call plug#begin('~/.vim/plugged')
+call plug#begin('~/.config/nvim/plugged')
 
 " Utilities
 Plug 'duggiefresh/vim-easydir'
@@ -387,7 +387,7 @@ let g:peekaboo_compact = 1
 Plug 'mbbill/undotree', {'on' : 'UndotreeToggle'}
 nnoremap <leader>ut :UndotreeToggle<CR>
 
-Plug 'w0rp/ale'
+" Plug 'w0rp/ale'
 let g:ale_sign_column_always = 1
 let g:ale_sign_error = '❯❯'
 let g:ale_sign_warning = '~❯'
