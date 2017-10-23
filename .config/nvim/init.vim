@@ -356,11 +356,18 @@ autocmd! TermOpen * if &buftype == 'terminal'
             \| set nonumber norelativenumber
             \| endif
 
-command! -bang -nargs=* Ag
-  \ call fzf#vim#ag(<q-args>, fzf#vim#with_preview(), <bang>0)
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --ignore-case --no-heading --hidden --no-ignore-vcs --color=always '
+  \   . shellescape(<q-args>), 1,
+  \   <bang>0 ? fzf#vim#with_preview('up:60%')
+  \           : fzf#vim#with_preview('right:50%', '?'),
+  \   <bang>0)
 
 command! -bang -nargs=? -complete=dir Files
-  \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
+  \ call fzf#vim#files(<q-args>,
+  \   fzf#vim#with_preview('right:50%', '?'),
+  \   <bang>0)
 
 nnoremap <silent> <leader>ls :Buffers<CR>
 " search buffer

@@ -40,7 +40,8 @@ def main() -> None:
         '.md',
         '.git',
         '.DS_Store',
-        'linker')
+        'linker',
+        'cache')
 
     files = os.listdir(args.dotfiles_dir)
 

@@ -283,7 +283,7 @@ export GOPATH=$HOME/Dropbox/$USER/projects/go
 export PATH=$PATH:$HOME/.cargo/bin
 
 # FZF
-export FZF_DEFAULT_COMMAND='ag --hidden -U --ignore .git -g ""'
+export FZF_DEFAULT_COMMAND='rg --hidden --files --no-ignore-vcs -g ""'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_DEFAULT_OPTS='--color hl:221,hl+:221
 --color pointer:143,info:143,prompt:109,spinner:143,pointer:143,marker:143'
