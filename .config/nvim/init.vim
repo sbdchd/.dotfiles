@@ -323,8 +323,7 @@ Plug 'sbdchd/vim-shebang'
 Plug 'tpope/vim-eunuch'
 Plug 'EinfachToll/DidYouMean'
 Plug 'shime/vim-livedown'
-Plug 'Yggdroot/indentLine'
-let g:indentLine_color_gui = '#3B4048'
+Plug 'sbdchd/indentline.vim'
 Plug 'rstacruz/vim-closer'
 Plug 'mattn/emmet-vim'
 Plug 'qpkorr/vim-bufkill'
@@ -350,9 +349,7 @@ nnoremap gm m
 Plug 'junegunn/fzf', {'dir': '~/.fzf', 'do': 'yes \| ./install'}
 Plug 'junegunn/fzf.vim'
 
-" set the conceallevel so IndentLines doesn't show
 autocmd! TermOpen * if &buftype == 'terminal'
-            \| set conceallevel=0
             \| set nonumber norelativenumber
             \| endif
 
@@ -475,6 +472,10 @@ call plug#end()
 
 silent! colorscheme onedark
 highlight! Normal guibg=None
+
+" highlighting for indentline
+highlight Conceal cterm=NONE ctermfg=239 ctermbg=None
+highlight Conceal gui=NONE guifg=#3B4048 guibg=None
 " https://github.com/neovim/neovim/wiki/Following-HEAD#20160511
 " see: https://github.com/neovim/neovim/issues/4696
 if exists('&termguicolors') && has('nvim')
