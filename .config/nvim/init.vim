@@ -205,7 +205,7 @@ nnoremap <leader>ts :set spell! spelllang=en<CR>
 
 " List Chars
 " use certain characters to show whitespace characters
-set listchars=tab:▸\ ,nbsp:⎵,eol:¬,trail:·
+set listchars=tab:▸\ ,nbsp:⎵,trail:·
 " use list characters
 set list
 
@@ -323,7 +323,6 @@ Plug 'sbdchd/vim-shebang'
 Plug 'tpope/vim-eunuch'
 Plug 'EinfachToll/DidYouMean'
 Plug 'shime/vim-livedown'
-Plug 'sbdchd/indentline.vim'
 Plug 'rstacruz/vim-closer'
 Plug 'mattn/emmet-vim'
 Plug 'qpkorr/vim-bufkill'
