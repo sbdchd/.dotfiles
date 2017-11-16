@@ -303,44 +303,24 @@ fi
 
 export HOMEBREW_NO_AUTO_UPDATE=1
 
-# Functions #
-ft() {
-    # 2nd optional argument for directory. Defaults to $PWD.
-    if (( $# < 2 )); then
-        local arg2=$PWD
-    else
-        local arg2="$2"
-    fi
-    if hash ag 2>/dev/null; then
-        # -t search all text files
-        # -Q match pattern litterally,
-        # -f follow symlinks
-        # --silent suppress log msgs & errors
-        # --hidden search hidden files
-        ag  -Q -f --silent --hidden "$1" "$arg2"
-    else
-        grep -riI --color "$1" "$arg2" 2>/dev/null
-    fi
-}
-
-# Make directory and enter it
 md() {
     mkdir -p "$@" && cd "$@"
 }
 
-# http://serverfault.com/a/28649
-# move up directories more easily
-up(){
+up() {
   local d=""
-  limit=$1
-  for ((i=1 ; i <= limit ; i++))
-    do
-      d=$d/..
-    done
-  d=$(echo $d | sed 's/^\///')
+  local limit=$1
+
+  for _ in {1..$limit}; {
+    d=$d/..
+  }
+
+  d=$(sed 's/^\///' <<< $d)
+
   if [ -z "$d" ]; then
     d=..
   fi
+
   cd $d
 }
 
