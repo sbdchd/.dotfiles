@@ -2,6 +2,8 @@
 
 .DS_Store
 
+*.dSYM
+
 node_modules
 __pycache__
 .sass-cache

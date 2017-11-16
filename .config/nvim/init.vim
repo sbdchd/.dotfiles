@@ -168,8 +168,7 @@ nnoremap <leader>wK <C-W>K
 " window splitting
 nnoremap <leader>wv <C-W>v
 nnoremap <leader>ws <C-W>s
-" using vim-bufkill to make delete only remove the buffer, not the window
-nnoremap <leader>bd :silent! BD<CR>
+nnoremap <leader>bd :bd<CR>
 " <leader>[k]eep
 nnoremap <leader>k :w<CR>
 
@@ -319,13 +318,11 @@ Plug 'duggiefresh/vim-easydir'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'justinmk/vim-gtfo'
 Plug 'sbdchd/neoformat'
-Plug 'sbdchd/vim-shebang'
 Plug 'tpope/vim-eunuch'
 Plug 'EinfachToll/DidYouMean'
 Plug 'shime/vim-livedown'
 Plug 'rstacruz/vim-closer'
 Plug 'mattn/emmet-vim'
-Plug 'qpkorr/vim-bufkill'
 Plug 'tpope/tpope-vim-abolish'
 Plug 'junegunn/vader.vim'
 Plug 'easymotion/vim-easymotion'
@@ -383,7 +380,7 @@ let g:peekaboo_compact = 1
 Plug 'mbbill/undotree', {'on' : 'UndotreeToggle'}
 nnoremap <leader>ut :UndotreeToggle<CR>
 
-" Plug 'w0rp/ale'
+Plug 'w0rp/ale'
 let g:ale_sign_column_always = 1
 let g:ale_sign_error = '❯❯'
 let g:ale_sign_warning = '~❯'
@@ -435,7 +432,6 @@ Plug 'Glench/Vim-Jinja2-Syntax', {'for': 'jinja'}
 Plug 'cespare/vim-toml'
 Plug 'digitaltoad/vim-pug'
 Plug 'hail2u/vim-css3-syntax'
-Plug 'kchmck/vim-coffee-script'
 Plug 'leafgarland/typescript-vim'
 Plug 'lervag/vimtex'
 Plug 'othree/html5.vim'
@@ -459,7 +455,7 @@ let g:go_fmt_autosave                = 0
 
 " Autocompletion
 Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'}
-let g:deoplete#enable_at_startup = 1
+autocmd! CursorHold * call deoplete#enable()
 " prevent deoplete from creating a buffer above
 set completeopt-=preview
 " Sources
@@ -472,9 +468,6 @@ call plug#end()
 silent! colorscheme onedark
 highlight! Normal guibg=None
 
-" highlighting for indentline
-highlight Conceal cterm=NONE ctermfg=239 ctermbg=None
-highlight Conceal gui=NONE guifg=#3B4048 guibg=None
 " https://github.com/neovim/neovim/wiki/Following-HEAD#20160511
 " see: https://github.com/neovim/neovim/issues/4696
 if exists('&termguicolors') && has('nvim')

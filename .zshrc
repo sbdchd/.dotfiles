@@ -194,6 +194,7 @@ alias glist='git log --pretty=format: --name-status | cut -f2- | sort -u'
 alias glpretty="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative"
 alias gls='git ls-files'
 alias gp='git push'
+alias gps='git push --set-upstream origin $(git symbolic-ref --short HEAD)'
 alias gpl='git pull'
 alias gr='git remote'
 alias grb='git rebase'
