@@ -322,7 +322,7 @@ Plug 'tpope/vim-eunuch'
 Plug 'EinfachToll/DidYouMean'
 Plug 'shime/vim-livedown'
 Plug 'rstacruz/vim-closer'
-Plug 'mattn/emmet-vim'
+Plug 'mattn/emmet-vim', { 'for': ['html', 'vue'] }
 Plug 'tpope/tpope-vim-abolish'
 Plug 'junegunn/vader.vim'
 Plug 'easymotion/vim-easymotion'
@@ -455,7 +455,23 @@ let g:go_fmt_autosave                = 0
 
 " Autocompletion
 Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'}
-autocmd! CursorHold * call deoplete#enable()
+
+function! s:lazy_load()
+  call deoplete#enable()
+
+  " clear group so it only evals s:lazy_load() once
+  augroup IdleBoot
+    autocmd!
+  augroup END
+endfunction
+
+augroup IdleBoot
+  autocmd!
+  if has('vim_starting')
+    autocmd CursorHold,CursorHoldI * call s:lazy_load()
+  endif
+augroup END
+
 " prevent deoplete from creating a buffer above
 set completeopt-=preview
 " Sources
