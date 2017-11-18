@@ -207,10 +207,7 @@ if [[ -n $TMUX ]]; then
     export TERM='screen-256color'
 fi
 
-if hash ccat 2>/dev/null; then
-    # better for cat abuse
-    alias cat='ccat'
-fi
+alias cat='ccat'
 
 alias wget='wget -c'
 
@@ -218,12 +215,7 @@ alias grep='grep --color=always'
 
 alias airport="/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport"
 
-# alias python http server if python is installed
-if hash python3 2>/dev/null; then
-    alias httpserver='python3 -m http.server'
-elif hash python2 2>/dev/null; then
-    alias httpserver='python2 -m SimpleHTTPServer'
-fi
+alias httpserver='python3 -m http.server'
 
 ip() {
     curl -s https://freegeoip.net/json/ | jq -r '[.ip, .city, .region_code] | join(" ")'
@@ -247,11 +239,7 @@ alias pubkey="more ~/.ssh/id_rsa.pub | pbcopy | printf '=> Public key copied to 
 
 
 # set default editor
-if hash nvim 2>/dev/null; then
-    export EDITOR=nvim
-else
-    export EDITOR=vim
-fi
+export EDITOR=nvim
 
 # make postgresql cli tools work
 # export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/9.4/bin
@@ -330,39 +318,37 @@ cdf() {
     cd "$(osascript -e 'tell app "Finder" to POSIX path of (insertion location as alias)')"
 }
 
-if hash youtube-dl 2>/dev/null; then
-    # https://github.com/exogen/dotfiles/
-    play() {
-        # Skip DASH manifest for speed purposes. This might actually disable
-        # being able to specify things like 'bestaudio' as the requested format,
-        # but try anyway.
-        # Get the best audio that isn't WebM, because afplay doesn't support it.
-        # Use "$*" so that quoting the requested song isn't necessary.
-        youtube-dl --default-search=ytsearch: \
-            --youtube-skip-dash-manifest \
-            --output="${TMPDIR:-/tmp/}%(title)s-%(id)s.%(ext)s" \
-            --restrict-filenames \
-            --format="bestaudio[ext!=webm]" \
-            --exec=afplay "$*"
-    }
+# https://github.com/exogen/dotfiles/
+play() {
+    # Skip DASH manifest for speed purposes. This might actually disable
+    # being able to specify things like 'bestaudio' as the requested format,
+    # but try anyway.
+    # Get the best audio that isn't WebM, because afplay doesn't support it.
+    # Use "$*" so that quoting the requested song isn't necessary.
+    youtube-dl --default-search=ytsearch: \
+        --youtube-skip-dash-manifest \
+        --output="${TMPDIR:-/tmp/}%(title)s-%(id)s.%(ext)s" \
+        --restrict-filenames \
+        --format="bestaudio[ext!=webm]" \
+        --exec=afplay "$*"
+}
 
-    mp3() {
-        # Get the best audio, convert it to MP3, and save it to the current
-        # directory.
-        youtube-dl --default-search=ytsearch: \
-            --restrict-filenames \
-            --format=bestaudio \
-            --extract-audio \
-            --audio-format=mp3 \
-            --audio-quality=1 "$*"
-    }
+mp3() {
+    # Get the best audio, convert it to MP3, and save it to the current
+    # directory.
+    youtube-dl --default-search=ytsearch: \
+        --restrict-filenames \
+        --format=bestaudio \
+        --extract-audio \
+        --audio-format=mp3 \
+        --audio-quality=1 "$*"
+}
 
-    mp4() {
-        youtube-dl --default-search=ytsearch: \
-            --restrict-filenames \
-            --format=best "$*"
-    }
-fi
+mp4() {
+    youtube-dl --default-search=ytsearch: \
+        --restrict-filenames \
+        --format=best "$*"
+}
 
 # https://wiki.archlinux.org/index.php/Man_page#Colored_man_pages
 man() {
