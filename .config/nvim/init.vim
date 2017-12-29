@@ -38,8 +38,13 @@ set guicursor=n-v-c-sm:block,i-ci-ve:block,r-cr-o:block
 
 " limit syntax highlighting on long lines - can help avoid some slow downs
 set synmaxcol=200
-" disable startup message
-set shortmess=I
+
+" (I) disable startup message
+" (a) apply all abbrivations to message
+" (t)runcate at mddle of line with ...
+" (F) don't give file info when editing a file. Used to prevent more from
+" appearing when opening files via FZF
+set shortmess=IaTF
 
 " ~~~~~~~~~~Status Line~~~~~~~~~~
 " show current mode below status line
@@ -176,6 +181,8 @@ nnoremap <leader>k :w<CR>
 nnoremap <leader>wc <C-W>c
 nnoremap <leader>wd <C-W>c
 nnoremap <leader>wx <C-W>c
+
+nnoremap <leader>o :only<CR>
 
 " exit vim
 nnoremap <leader>qa :qa<CR>

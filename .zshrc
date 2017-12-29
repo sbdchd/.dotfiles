@@ -135,6 +135,10 @@ prompt_git() {
 # disable the default virtualenv prompt
 export VIRTUAL_ENV_DISABLE_PROMPT=1
 
+# make sure pipenv instantiates a subshell in a normal manner such that the
+# prompt will get reevaluated. Necessary for the nesting shell detecting code to work.
+export PIPENV_SHELL_FANCY=1
+
 virtualenv_info(){
     # Get Virtual Env
     if [[ -n "$VIRTUAL_ENV" ]]; then
@@ -157,6 +161,15 @@ White=$'\e[0;37m'
 
 NEWLINE=$'\n'
 
+if [[ -n "$TMUX" || -n "$VIRTUAL_ENV" ]]; then
+  LVL=$(($SHLVL-1))
+else
+  LVL=$SHLVL
+fi
+
+# print the ❯ for each nested zsh session
+SUFFIX=$(printf '❯%.0s' {1..$LVL})
+
 PROMPT=$NEWLINE
 PROMPT+="${Yellow}%n" # username
 PROMPT+="%{$fg[white]%}@"
@@ -165,9 +178,10 @@ PROMPT+=" %{$Blue%}%~" # working directory
 PROMPT+='%{$Green%}$(prompt_git)'
 PROMPT+='%{$Cyan%}$(virtualenv_info)'
 # Date See: `man strftime` for more info
-PROMPT+=" %{$White%}%D{%a %b %f %H:%M %p}" # date
+PROMPT+=" %{$White%}%D{%a %b %f %H:%M}" # date
+PROMPT+=" %{$Purple%}%(1j.β.)" # display β if background jobs exit
 PROMPT+=$NEWLINE
-PROMPT+="%{$Color_Off%}❯ "
+PROMPT+="%{$Color_Off%}${SUFFIX} "
 
 setopt promptsubst
 
