@@ -151,6 +151,8 @@ endif
 " disable folding
 set nofoldenable
 
+cnoreabbrev Wqa wqa
+
 " ~~~~~~~~~~SPACESTEVEVIM~~~~~~~~~~
 
 " space (g)it (u)ndo

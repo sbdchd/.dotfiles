@@ -15,6 +15,7 @@ _site
 .cache
 .coverage
 .coverage.*
+tags
 
 venv
 
