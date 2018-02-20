@@ -48,6 +48,9 @@ setopt HIST_IGNORE_DUPS
 setopt HIST_FIND_NO_DUPS
 setopt HIST_REDUCE_BLANKS
 
+# make comments work in commandline
+setopt interactivecomments
+
 source ~/.zplug/init.zsh
 
 zplug 'lib/completion', from:oh-my-zsh
@@ -197,6 +200,7 @@ alias c='clear'
 alias q='exit'
 
 alias ga='git add'
+alias gap='git add --patch'
 alias gb='git branch'
 alias gc='git commit -v'
 alias gd='git diff'
@@ -249,11 +253,19 @@ alias showdotfiles="defaults write com.apple.finder AppleShowAllFiles -bool true
 alias hidedotfiles="defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder"
 
 # Copy my public key to the pasteboard
-alias pubkey="more ~/.ssh/id_rsa.pub | pbcopy | printf '=> Public key copied to pasteboard.\n'"
+alias pubkey="< ~/.ssh/id_rsa.pub | pbcopy | printf '=> Public key copied to pasteboard.\n'"
 
 
 # set default editor
 export EDITOR=nvim
+
+e() {
+  if [[ -n "$(jobs)" ]]; then
+    fg
+  else
+    $EDITOR
+  fi
+}
 
 # make postgresql cli tools work
 # export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/9.4/bin
@@ -294,16 +306,11 @@ export FZF_DEFAULT_OPTS='--color hl:221,hl+:221
 # XDG
 export XDG_CONFIG_HOME="$HOME"/.config
 
-# Ignore Homebrew change
-export HOMEBREW_CASK_OPTS='--caskroom=/opt/homebrew-cask/Caskroom'
-
 # Disable Homebrew Analytics
 export HOMEBREW_NO_ANALYTICS=1
 if [[ -e "$HOME/.homebrew_analytics_user_uuid" ]]; then
     rm -f "$HOME/.homebrew_analytics_user_uuid"
 fi
-
-export HOMEBREW_NO_AUTO_UPDATE=1
 
 md() {
     mkdir -p "$@" && cd "$@"
@@ -361,7 +368,7 @@ mp3() {
 mp4() {
     youtube-dl --default-search=ytsearch: \
         --restrict-filenames \
-        --format=best "$*"
+        --format=mp4 "$*"
 }
 
 # https://wiki.archlinux.org/index.php/Man_page#Colored_man_pages
@@ -376,12 +383,26 @@ man() {
         man "$@"
 }
 
+in_git_repo() {
+  git rev-parse HEAD > /dev/null 2>&1
+}
+
 # git commit picker
 fcs() {
   local commits commit
-  commits=$(git log --color=always --pretty=oneline --abbrev-commit --reverse) &&
-  commit=$(echo "$commits" | fzf --tac +s +m -e --ansi --reverse) &&
-  echo -n $(echo "$commit" | sed "s/ .*//")
+  if (in_git_repo) {
+    commits=$(git log --color=always --pretty=oneline --abbrev-commit --reverse) &&
+    commit=$(echo "$commits" | fzf --height 40% --tac +s +m -e --ansi --reverse) &&
+    echo -n $(echo "$commit" | sed "s/ .*//")
+  }
+}
+
+fcb() {
+  if (in_git_repo) {
+    git branch -a -vv --color=always | grep -v '/HEAD\s' |
+    fzf --height 40% --ansi --reverse --tac | sed 's/^..//' | awk '{print $1}' |
+    sed 's#^remotes/[^/]*/##'
+  }
 }
 
 # http://stackoverflow.com/a/19458217/3720597

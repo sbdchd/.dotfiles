@@ -12,6 +12,7 @@ tags
 # Files that might appear on external disks
 .Spotlight-V100
 .Trashes
+.ropeproject
 
 # Always-ignore extensions
 *~
@@ -24,3 +25,4 @@ tags
 *.sass-cache
 *.sw?
 *.vi
+.config/nvim/spell

@@ -37,6 +37,7 @@ brew install youtube-dl
 # ffmpeg is needed for some youtube-dl features
 brew install ffmpeg
 brew install lame
+brew install hub
 
 brew tap d12frosted/emacs-plus
 brew install emacs-plus --with-cocoa --with-gnutls --with-librsvg --with-imagemagick --with-spacemacs-icon
@@ -151,6 +152,7 @@ brew cask install vagrant
 brew cask install virtualbox
 brew cask install vlc
 brew cask install wireshark
+brew cask install imageoptim
 
 # git
 brew cask install gitup

@@ -16,6 +16,7 @@ _site
 .coverage
 .coverage.*
 tags
+.ropeproject
 
 venv
 

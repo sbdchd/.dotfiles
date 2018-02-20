@@ -187,7 +187,7 @@ nnoremap <leader>wx <C-W>c
 nnoremap <leader>o :only<CR>
 
 " exit vim
-nnoremap <leader>qa :qa<CR>
+nnoremap <leader>q :qa<CR>
 
 command! Maximize :exe "normal! <C-w>\|<C-W>_"
 command! Minimize :exe "normal! <C-W>="
@@ -318,6 +318,8 @@ endfunction
 
 command! -nargs=1 Z :call Z(<q-args>)
 
+nnoremap <leader>.. :<c-u><c-r><c-r>='let @q = '. string(getreg('q'))<cr><c-f><left>
+
 " Plugins
 " https://github.com/junegunn/vim-plug
 call plug#begin('~/.local/share/nvim/plugged')
@@ -331,7 +333,7 @@ Plug 'tpope/vim-eunuch'
 Plug 'EinfachToll/DidYouMean'
 Plug 'shime/vim-livedown'
 Plug 'rstacruz/vim-closer'
-Plug 'mattn/emmet-vim', { 'for': ['html', 'vue'] }
+Plug 'mattn/emmet-vim', { 'for': ['html', 'vue', 'javascript.jsx'] }
 Plug 'tpope/tpope-vim-abolish'
 Plug 'junegunn/vader.vim'
 Plug 'easymotion/vim-easymotion'
@@ -360,8 +362,8 @@ autocmd! TermOpen * if &buftype == 'terminal'
 
 command! -bang -nargs=* Rg
   \ call fzf#vim#grep(
-  \   'rg --column --line-number --ignore-case --no-heading --hidden --no-ignore-vcs --color=always '
-  \   . shellescape(<q-args>), 1,
+  \   'rg --column --line-number --ignore-case --no-heading --no-messages --hidden --no-ignore-vcs --color=always '
+  \   . <q-args>, 1,
   \   <bang>0 ? fzf#vim#with_preview('up:60%')
   \           : fzf#vim#with_preview('right:50%', '?'),
   \   <bang>0)
@@ -389,7 +391,37 @@ let g:peekaboo_compact = 1
 Plug 'mbbill/undotree', {'on' : 'UndotreeToggle'}
 nnoremap <leader>ut :UndotreeToggle<CR>
 
-Plug 'w0rp/ale'
+Plug 'autozimu/LanguageClient-neovim', {'tag': 'binary-*-x86_64-apple-darwin'}
+
+" Automatically start language servers.
+let g:LanguageClient_autoStart = 1
+
+" Minimal LSP configuration for JavaScript
+let g:LanguageClient_serverCommands = {}
+
+if executable('javascript-typescript-stdio')
+  let g:LanguageClient_serverCommands.javascript = ['javascript-typescript-stdio']
+  " Use LanguageServer for omnifunc completion
+  autocmd FileType javascript setlocal omnifunc=LanguageClient#complete
+endif
+
+if executable('pyls')
+  let g:LanguageClient_serverCommands.python = ['pyls']
+endif
+
+function! LSRename()
+    let search = @/
+    let view = winsaveview()
+    undojoin | call LanguageClient_textDocument_rename()
+    let @/ = search
+    call winrestview(view)
+endfunction
+
+command! LSRename :call LSRename()
+command! LSRefs :call LanguageClient_textDocument_references()
+command! LSHover :call LanguageClient_textDocument_hover()
+
+" Plug 'w0rp/ale'
 let g:ale_sign_column_always = 1
 let g:ale_sign_error = '❯❯'
 let g:ale_sign_warning = '~❯'
@@ -445,7 +477,7 @@ Plug 'leafgarland/typescript-vim'
 Plug 'lervag/vimtex'
 Plug 'othree/html5.vim'
 Plug 'pangloss/vim-javascript'
-Plug 'posva/vim-vue'
+" Plug 'posva/vim-vue'
 Plug 'rust-lang/rust.vim'
 Plug 'tmux-plugins/vim-tmux'
 Plug 'tpope/vim-markdown'
