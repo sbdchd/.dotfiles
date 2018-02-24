@@ -259,13 +259,8 @@ alias pubkey="< ~/.ssh/id_rsa.pub | pbcopy | printf '=> Public key copied to pas
 # set default editor
 export EDITOR=nvim
 
-e() {
-  if [[ -n "$(jobs)" ]]; then
-    fg
-  else
-    $EDITOR
-  fi
-}
+alias e="$EDITOR"
+alias f="fg"
 
 # make postgresql cli tools work
 # export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/9.4/bin

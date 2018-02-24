@@ -7,12 +7,9 @@ xcode-select --install
 ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
 # General Programs
-brew install autossh
 brew install bash
 brew install catimg
 brew install emacs
-brew install fish
-brew install flow
 brew install git
 brew install gpg
 brew install grep
@@ -43,11 +40,6 @@ brew tap d12frosted/emacs-plus
 brew install emacs-plus --with-cocoa --with-gnutls --with-librsvg --with-imagemagick --with-spacemacs-icon
 brew linkapps
 
-# DBs
-brew install mongodb
-brew install mysql
-brew install postgresql
-brew install redis
 brew install sqlite
 
 # Languages
@@ -83,15 +75,12 @@ brew install cloc
 brew install ctags
 brew install curl
 brew install git-extras
-brew install global
-brew install highlight
 brew install htop-osx
 brew install httpie
 brew install jlhonora/lsusb/lsusb
 brew install jq
 brew install sbdchd/macchanger/macchanger
 brew install shellcheck
-brew install tidy-html5
 brew install trash
 brew install tree
 brew install uncrustify
@@ -103,7 +92,6 @@ brew install wget
 brew install cmatrix
 brew install cowsay
 brew install fortune
-brew install no-more-secrets
 brew install screenfetch
 
 # Netsec
@@ -113,23 +101,25 @@ brew install netcat6
 brew install nmap
 
 # Homebrew-Cask
+brew cask install firefox
+brew cask install firefoxnightly
+brew cask install google-chrome
+
 brew cask install 1password
 brew cask install arduino
 brew cask install audacity
 brew cask install basictex
 brew cask install clion
 brew cask install discord
-brew cask install dockertoolbox
+brew cask install docker
 brew cask install dropbox
-brew cask install firefox
 brew cask install flux
 brew cask install gimp
 brew cask install gmail-notifier
-brew cask install google-chrome
-brew cask install google-hangouts
 brew cask install grandperspective
 brew cask install handbrake
 brew cask install hashcat
+brew cask install imageoptim
 brew cask install insomnia
 brew cask install intellij-idea
 brew cask install iterm2
@@ -139,12 +129,12 @@ brew cask install mactex
 brew cask install malwarebytes-anti-malware
 brew cask install microsoft-office
 brew cask install mobile-mouse-server
-brew cask install origin
 brew cask install pgadmin3
-brew cask install postgres
+brew cask install soulseek
 brew cask install spectacle
 brew cask install sqlitebrowser
 brew cask install steam
+brew cask install sublime-text
 brew cask install the-unarchiver
 brew cask install torbrowser
 brew cask install transmission
@@ -152,7 +142,6 @@ brew cask install vagrant
 brew cask install virtualbox
 brew cask install vlc
 brew cask install wireshark
-brew cask install imageoptim
 
 # git
 brew cask install gitup
@@ -174,6 +163,7 @@ brew cask install font-fira-sans
 brew cask install font-open-sans
 brew cask install font-montserrat
 brew cask install font-merriweather
+brew cask install font-pacifico
 
 # Install Vim Plug Package Manager
 bash vimplug-install.sh
