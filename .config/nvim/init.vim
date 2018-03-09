@@ -186,6 +186,9 @@ nnoremap <leader>wx <C-W>c
 
 nnoremap <leader>o :only<CR>
 
+" the default lookup docs is troublesome
+nnoremap K <NOP>
+
 " exit vim
 nnoremap <leader>q :qa<CR>
 
@@ -392,6 +395,9 @@ Plug 'mbbill/undotree', {'on' : 'UndotreeToggle'}
 nnoremap <leader>ut :UndotreeToggle<CR>
 
 Plug 'autozimu/LanguageClient-neovim', {'tag': 'binary-*-x86_64-apple-darwin'}
+
+" quickfix is used by :Rg
+let g:LanguageClient_diagnosticsList = 'location'
 
 " Automatically start language servers.
 let g:LanguageClient_autoStart = 1
