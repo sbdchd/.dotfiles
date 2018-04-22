@@ -188,6 +188,8 @@ nnoremap <leader>o :only<CR>
 
 " the default lookup docs is troublesome
 nnoremap K <NOP>
+" Ex mode is also annoying
+nnoremap Q <NOP>
 
 " exit vim
 nnoremap <leader>q :qa<CR>
