@@ -185,6 +185,7 @@ nnoremap <leader>wd <C-W>c
 nnoremap <leader>wx <C-W>c
 
 nnoremap <leader>o :only<CR>
+nnoremap <leader>a ==
 
 " the default lookup docs is troublesome
 nnoremap K <NOP>
@@ -399,7 +400,7 @@ nnoremap <leader>ut :UndotreeToggle<CR>
 Plug 'autozimu/LanguageClient-neovim', {'tag': 'binary-*-x86_64-apple-darwin'}
 
 " quickfix is used by :Rg
-let g:LanguageClient_diagnosticsList = 'location'
+let g:LanguageClient_diagnosticsList = 'Location'
 
 " Automatically start language servers.
 let g:LanguageClient_autoStart = 1
@@ -409,13 +410,18 @@ let g:LanguageClient_serverCommands = {}
 
 if executable('javascript-typescript-stdio')
   let g:LanguageClient_serverCommands.javascript = ['javascript-typescript-stdio']
+  let g:LanguageClient_serverCommands.typescript = ['javascript-typescript-stdio']
   " Use LanguageServer for omnifunc completion
   autocmd FileType javascript setlocal omnifunc=LanguageClient#complete
 endif
 
-if executable('pyls')
-  let g:LanguageClient_serverCommands.python = ['pyls']
+if executable('vls')
+  let g:LanguageClient_serverCommands.vue = ['vls']
 endif
+
+" if executable('pyls')
+"   let g:LanguageClient_serverCommands.python = ['pyls']
+" endif
 
 function! LSRename()
     let search = @/
@@ -489,6 +495,8 @@ Plug 'pangloss/vim-javascript'
 Plug 'rust-lang/rust.vim'
 Plug 'tmux-plugins/vim-tmux'
 Plug 'tpope/vim-markdown'
+Plug 'Vimjas/vim-python-pep8-indent'
+Plug 'LnL7/vim-nix'
 
 Plug 'fatih/vim-go', {'for': 'go'}
 let g:go_highlight_functions         = 1
@@ -525,7 +533,6 @@ augroup END
 set completeopt-=preview
 " Sources
 Plug 'Shougo/neco-vim'
-Plug 'carlitux/deoplete-ternjs'
 Plug 'zchee/deoplete-jedi'
 
 call plug#end()

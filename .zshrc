@@ -180,8 +180,6 @@ PROMPT+="%{$Purple%}%m" # host
 PROMPT+=" %{$Blue%}%~" # working directory
 PROMPT+='%{$Green%}$(prompt_git)'
 PROMPT+='%{$Cyan%}$(virtualenv_info)'
-# Date See: `man strftime` for more info
-PROMPT+=" %{$White%}%D{%a %b %f %H:%M}" # date
 PROMPT+=" %{$Purple%}%(1j.β.)" # display β if background jobs exit
 PROMPT+=$NEWLINE
 PROMPT+="%{$Color_Off%}${SUFFIX} "
@@ -399,6 +397,50 @@ fcb() {
     sed 's#^remotes/[^/]*/##'
   }
 }
+
+# Mesaure time for last command to complete
+# see: https://github.com/wincent/wincent/blob/c1a9be84f781b360219fb57613ffdd95c683c1b4/roles/dotfiles/files/.zshrc#L242-L279
+autoload -U add-zsh-hook
+
+export RPROMPT=
+
+typeset -F SECONDS
+function record-start-time() {
+  emulate -L zsh
+  ZSH_START_TIME=${ZSH_START_TIME:-$SECONDS}
+}
+add-zsh-hook preexec record-start-time
+
+function report-start-time() {
+  if [ $ZSH_START_TIME ]; then
+    local DELTA=$(($SECONDS - $ZSH_START_TIME))
+    local DAYS=$((~~($DELTA / 86400)))
+    local HOURS=$((~~(($DELTA - $DAYS * 86400) / 3600)))
+    local MINUTES=$((~~(($DELTA - $DAYS * 86400 - $HOURS * 3600) / 60)))
+    local SECS=$(($DELTA - $DAYS * 86400 - $HOURS * 3600 - $MINUTES * 60))
+    local ELAPSED=''
+    test "$DAYS" != '0' && ELAPSED="${DAYS}d"
+    test "$HOURS" != '0' && ELAPSED="${ELAPSED}${HOURS}h"
+    test "$MINUTES" != '0' && ELAPSED="${ELAPSED}${MINUTES}m"
+    if [ "$ELAPSED" = '' ]; then
+      SECS="$(print -f "%.2f" $SECS)s"
+    elif [ "$DAYS" != '0' ]; then
+      SECS=''
+    else
+      SECS="$((~~$SECS))s"
+    fi
+    ELAPSED="${ELAPSED}${SECS}"
+    local ITALIC_ON=$'\e[3m'
+    local ITALIC_OFF=$'\e[23m'
+    export RPROMPT="%F{white}%{$ITALIC_ON%}${ELAPSED}%{$ITALIC_OFF%}%f"
+    unset ZSH_START_TIME
+
+  else
+    # clear prompt on non-commands
+    export RPROMPT=""
+  fi
+}
+add-zsh-hook precmd report-start-time
 
 # http://stackoverflow.com/a/19458217/3720597
 function clip() {

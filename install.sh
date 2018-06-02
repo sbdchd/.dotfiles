@@ -110,6 +110,7 @@ brew cask install arduino
 brew cask install audacity
 brew cask install basictex
 brew cask install clion
+brew cask install dash
 brew cask install discord
 brew cask install docker
 brew cask install dropbox
