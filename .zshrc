@@ -14,7 +14,7 @@ zle -N edit-command-line
 bindkey -M vicmd v edit-command-line
 
 # Setup z: https://github.com/rupa/z
-source /usr/local/etc/profile.d/z.sh
+[ -f /usr/local/etc/profile.d/z.sh ] && source /usr/local/etc/profile.d/z.sh
 
 # Setup fzf for ^r
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

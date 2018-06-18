@@ -29,6 +29,8 @@ brew install tmux
 brew install vim
 brew install webarchiver
 brew install zsh
+brew install z
+brew install diff-so-fancy
 
 brew install youtube-dl
 # ffmpeg is needed for some youtube-dl features
