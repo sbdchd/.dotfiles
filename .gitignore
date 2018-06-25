@@ -27,3 +27,5 @@ tags
 *.sw?
 *.vi
 .config/nvim/spell
+.config/yarn
+.config/configstore

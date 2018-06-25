@@ -26,6 +26,6 @@ venv
 dist
 
 nvim/undo
-.git/*
+.git
 target
-.meteor/*
+.meteor
