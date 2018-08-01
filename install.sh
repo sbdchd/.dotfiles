@@ -118,7 +118,6 @@ brew cask install docker
 brew cask install dropbox
 brew cask install flux
 brew cask install gimp
-brew cask install gmail-notifier
 brew cask install grandperspective
 brew cask install handbrake
 brew cask install hashcat

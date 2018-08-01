@@ -217,6 +217,7 @@ alias grb='git rebase'
 alias gre='git reset'
 alias gs='git status -sb'
 alias gst='git stash'
+alias gstp='git stash pop'
 
 if [[ -n $TMUX ]]; then
     # needed to make fzf render somewhat correctly

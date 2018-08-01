@@ -278,6 +278,11 @@ command! -bar ReloadConfig :let s:m = @/
             \| let @/ = s:m
             \| call winrestview(s:v)
 
+function! CopyFileName()
+  let @* = expand('%:p')
+endfunction
+command! -bar Filename :call CopyFileName()
+
 " Automatically close vim if only the quickfix window is open
 " http://stackoverflow.com/a/7477056/3720597
 augroup QuickFixClose
