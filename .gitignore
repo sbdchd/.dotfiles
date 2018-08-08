@@ -29,3 +29,5 @@ tags
 .config/nvim/spell
 .config/yarn
 .config/configstore
+.config/hub
+.config/wireshark
