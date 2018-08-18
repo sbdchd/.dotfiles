@@ -40,6 +40,10 @@ def main() -> None:
         '.md',
         '.git',
         '.DS_Store',
+        '.ropeproject',
+        '.tern-port',
+        'tags',
+        '.log',
         'linker',
         'cache')
 

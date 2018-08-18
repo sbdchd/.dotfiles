@@ -1,0 +1,17 @@
+// Place your settings in this file to overwrite the default settings
+{
+    "window.title": "${activeEditorLong}",
+    "workbench.iconTheme": "vs-minimal",
+    "editor.lineNumbers": "relative",
+    "editor.cursorBlinking": "solid",
+    "editor.renderIndentGuides": false,
+    "editor.folding": false,
+    "editor.minimap.enabled": false,
+    "editor.wordWrap": "on",
+    "editor.wordWrapColumn": 120,
+    "vim.enableNeovim": true,
+    "vim.useSystemClipboard": true,
+    "vim.hlsearch": true,
+    "workbench.activityBar.visible": false,
+    "workbench.statusBar.visible": false,
+}
