@@ -31,3 +31,4 @@ tags
 .config/configstore
 .config/hub
 .config/wireshark
+.config/nixpkgs
