@@ -420,6 +420,10 @@ if executable('javascript-typescript-stdio')
   autocmd FileType javascript setlocal omnifunc=LanguageClient#complete
 endif
 
+if executable('rustup')
+  let g:LanguageClient_serverCommands.rust = ['rustup', 'run', 'nightly-2017-10-24', 'rls']
+endif
+
 if executable('vls')
   let g:LanguageClient_serverCommands.vue = ['vls']
 endif
