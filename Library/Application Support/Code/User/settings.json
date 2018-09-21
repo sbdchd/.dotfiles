@@ -14,4 +14,6 @@
     "vim.hlsearch": true,
     "workbench.activityBar.visible": false,
     "workbench.statusBar.visible": false,
+    "window.zoomLevel": 0,
+    "telemetry.enableTelemetry": false
 }
