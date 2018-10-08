@@ -339,6 +339,7 @@ call plug#begin('~/.local/share/nvim/plugged')
 Plug 'duggiefresh/vim-easydir'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'justinmk/vim-gtfo'
+Plug 'prakashdanish/vim-githubinator'
 Plug 'sbdchd/neoformat'
 Plug 'tpope/vim-eunuch'
 Plug 'EinfachToll/DidYouMean'
