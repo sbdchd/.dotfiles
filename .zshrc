@@ -300,6 +300,9 @@ export FZF_DEFAULT_OPTS='--color hl:221,hl+:221
 # XDG
 export XDG_CONFIG_HOME="$HOME"/.config
 
+# Disable Homebrew auto update
+export HOMEBREW_NO_AUTO_UPDATE=1
+
 # Disable Homebrew Analytics
 export HOMEBREW_NO_ANALYTICS=1
 if [[ -e "$HOME/.homebrew_analytics_user_uuid" ]]; then
