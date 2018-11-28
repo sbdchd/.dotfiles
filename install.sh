@@ -50,6 +50,7 @@ bash go-install.sh
 
 brew install python
 brew install python3
+brew install pyenv
 brew install pypy
 brew install pypy3
 bash py-install.sh
