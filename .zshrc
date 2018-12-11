@@ -224,8 +224,6 @@ if [[ -n $TMUX ]]; then
     export TERM='screen-256color'
 fi
 
-alias cat='ccat'
-
 alias wget='wget -c'
 
 alias grep='grep --color=always'
@@ -284,9 +282,6 @@ export PATH="$PATH:/usr/local/sbin"
 # make sure our zsh, not mac osx, is the first on the path
 export PATH="/usr/local/bin:$PATH"
 export PATH=$PATH:"$HOME"/bin
-
-# Go setup stuff
-export GOPATH=$HOME/Dropbox/$USER/projects/go
 
 # Pyenv
 export PYENV_ROOT="$HOME/.pyenv"

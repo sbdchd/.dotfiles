@@ -403,36 +403,6 @@ let g:peekaboo_compact = 1
 Plug 'mbbill/undotree', {'on' : 'UndotreeToggle'}
 nnoremap <leader>ut :UndotreeToggle<CR>
 
-Plug 'autozimu/LanguageClient-neovim', {'tag': 'binary-*-x86_64-apple-darwin'}
-
-" quickfix is used by :Rg
-let g:LanguageClient_diagnosticsList = 'Location'
-
-" Automatically start language servers.
-let g:LanguageClient_autoStart = 1
-
-" Minimal LSP configuration for JavaScript
-let g:LanguageClient_serverCommands = {}
-
-if executable('javascript-typescript-stdio')
-  let g:LanguageClient_serverCommands.javascript = ['javascript-typescript-stdio']
-  let g:LanguageClient_serverCommands.typescript = ['javascript-typescript-stdio']
-  " Use LanguageServer for omnifunc completion
-  autocmd FileType javascript setlocal omnifunc=LanguageClient#complete
-endif
-
-if executable('rustup')
-  let g:LanguageClient_serverCommands.rust = ['rustup', 'run', 'nightly-2017-10-24', 'rls']
-endif
-
-if executable('vls')
-  let g:LanguageClient_serverCommands.vue = ['vls']
-endif
-
-" if executable('pyls')
-"   let g:LanguageClient_serverCommands.python = ['pyls']
-" endif
-
 function! LSRename()
     let search = @/
     let view = winsaveview()
@@ -441,18 +411,33 @@ function! LSRename()
     call winrestview(view)
 endfunction
 
-command! LSRename :call LSRename()
-command! LSRefs :call LanguageClient_textDocument_references()
-command! LSHover :call LanguageClient_textDocument_hover()
 
-" Plug 'w0rp/ale'
-let g:ale_sign_column_always = 1
-let g:ale_sign_error = '❯❯'
-let g:ale_sign_warning = '~❯'
-highlight link ALEErrorSign WarningMsg
-highlight link ALEWarningSign WarningMsg
-nmap <silent> [e <Plug>(ale_previous_wrap)
-nmap <silent> ]e <Plug>(ale_next_wrap)
+Plug 'prabirshrestha/async.vim'
+Plug 'prabirshrestha/vim-lsp'
+
+if executable('pyls')
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'pyls',
+        \ 'cmd': {server_info->['pyls']},
+        \ 'whitelist': ['python'],
+        \ })
+endif
+
+if executable('typescript-language-server')
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'typescript-language-server',
+        \ 'cmd': {server_info->[&shell, &shellcmdflag, 'typescript-language-server --stdio']},
+        \ 'root_uri':{server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'tsconfig.json'))},
+        \ 'whitelist': ['typescript'],
+        \ })
+endif
+
+let g:lsp_log_verbose = 1
+let g:lsp_log_file = expand('~/vim-lsp.log')
+
+" command! LSRename :call LSRename()
+" command! LSRefs :call LanguageClient_textDocument_references()
+" command! LSHover :call LanguageClient_textDocument_hover()
 
 Plug 't9md/vim-textmanip'
 map <C-j> <Plug>(textmanip-move-down)
