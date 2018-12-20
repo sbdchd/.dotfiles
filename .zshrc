@@ -283,6 +283,9 @@ export PATH="$PATH:/usr/local/sbin"
 export PATH="/usr/local/bin:$PATH"
 export PATH=$PATH:"$HOME"/bin
 
+# setup xelatex
+export PATH=$PATH:"/usr/local/texlive/2017/bin/x86_64-darwin/"
+
 # Pyenv
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
@@ -463,3 +466,5 @@ function clip() {
 
 # disable npm's broken zsh completion
 compdef return npm
+
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
