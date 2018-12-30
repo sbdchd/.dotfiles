@@ -15,5 +15,10 @@
     "workbench.activityBar.visible": false,
     "workbench.statusBar.visible": true,
     "window.zoomLevel": 0,
-    "telemetry.enableTelemetry": false
+    "telemetry.enableTelemetry": false,
+    "files.associations": {
+        "*.star": "python",
+        "*.sky": "python"
+    },
+    "search.useGlobalIgnoreFiles": true
 }
