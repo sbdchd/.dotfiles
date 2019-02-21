@@ -53,7 +53,7 @@ setopt interactivecomments
 
 source ~/.zplug/init.zsh
 
-zplug 'lib/completion', from:oh-my-zsh
+# zplug 'lib/completion', from:oh-my-zsh
 
 zplug 'zsh-users/zsh-completions'
 
@@ -100,10 +100,6 @@ prompt_git() {
                 s="$s?";
             fi
 
-            # check for stashed files
-            if git rev-parse --verify refs/stash &>/dev/null; then
-                s="$s$";
-            fi
             # https://gist.github.com/woods/31967
             # Set arrow icon based on status against remote.
             remote_pattern="# Your branch is (.*) of"
@@ -228,17 +224,7 @@ alias wget='wget -c'
 
 alias grep='grep --color=always'
 
-alias airport="/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport"
-
-alias httpserver='python3 -m http.server'
-
-ip() {
-    curl -s https://freegeoip.net/json/ | jq -r '[.ip, .city, .region_code] | join(" ")'
-}
-
-localip() {
-    ifconfig | grep "inet " | cut -f2 -d' ' | awk 'END {print}'
-}
+alias tmp='cd $(mktemp -d)'
 
 # https://github.com/necolas/dotfiles
 alias flushdns="dscacheutil -flushcache"
@@ -334,6 +320,10 @@ up() {
 
   cd $d
 }
+
+if hash bat 2>/dev/null; then
+  alias cat='bat'
+fi
 
 # https://github.com/paulirish/dotfiles/blob/master/.functions
 # open most recent finder window directory in terminal

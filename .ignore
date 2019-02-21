@@ -29,3 +29,4 @@ nvim/undo
 .git
 target
 .meteor
+.venv

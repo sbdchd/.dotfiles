@@ -32,3 +32,5 @@ tags
 .config/hub
 .config/wireshark
 .config/nixpkgs
+.venv
+.vscode

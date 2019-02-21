@@ -20,5 +20,11 @@
         "*.star": "python",
         "*.sky": "python"
     },
-    "search.useGlobalIgnoreFiles": true
+    "search.useGlobalIgnoreFiles": true,
+    "typescript.preferences.importModuleSpecifier": "non-relative",
+    "python.linting.mypyEnabled": true,
+    "python.jediEnabled": false,
+    "typescript.updateImportsOnFileMove.enabled": "always",
+    "vim.neovimPath": "/usr/local/bin/nvim",
+    "vim.autoindent": false
 }
