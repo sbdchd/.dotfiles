@@ -532,6 +532,10 @@ Plug 'zchee/deoplete-jedi'
 
 call plug#end()
 
+" see: https://github.com/tweekmonster/nvim-python-doctor/wiki/Advanced:-Using-pyenv#setting-up-neovim-virtual-environments
+let g:python_host_prog = expand('~/.pyenv/versions/neovim2/bin/python')
+let g:python3_host_prog = expand('~/.pyenv/versions/neovim3/bin/python')
+
 silent! colorscheme onedark
 highlight! Normal guibg=None
 
