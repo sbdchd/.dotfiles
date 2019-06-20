@@ -243,6 +243,7 @@ alias pubkey="< ~/.ssh/id_rsa.pub | pbcopy | printf '=> Public key copied to pas
 export EDITOR=nvim
 
 alias e="$EDITOR"
+alias vim=e
 alias f="fg"
 
 # make postgresql cli tools work
@@ -265,20 +266,13 @@ LSCOLORS+='ad'  # directory writable to others, without sticky bit
 export LSCOLORS
 
 export PATH="$PATH:/usr/local/sbin"
+export PATH="$PATH:/usr/local/bin"
 # make sure our zsh, not mac osx, is the first on the path
 export PATH="/usr/local/bin:$PATH"
 export PATH=$PATH:"$HOME"/bin
 
 # setup xelatex
 export PATH=$PATH:"/usr/local/texlive/2017/bin/x86_64-darwin/"
-
-# Pyenv
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
-if command -v pyenv 1>/dev/null 2>&1; then
-  eval "$(pyenv init -)"
-  eval "$(pyenv virtualenv-init -)"
-fi
 
 # Poetry
 export PATH=$PATH:$HOME/.poetry/bin
@@ -303,6 +297,26 @@ export HOMEBREW_NO_ANALYTICS=1
 if [[ -e "$HOME/.homebrew_analytics_user_uuid" ]]; then
     rm -f "$HOME/.homebrew_analytics_user_uuid"
 fi
+
+# Disable Gatsby Analytics
+export GATSBY_TELEMETRY_DISABLED=1
+
+alias ports="lsof -PiTCP -sTCP:LISTEN"
+
+gifify() {
+  # from: https://gist.github.com/SlexAxton/4989674
+  if [[ -n "$1" ]]; then
+    if [[ $2 == '--good' ]]; then
+      ffmpeg -i $1 -r 10 -vcodec png out-static-%05d.png
+      time convert -verbose +dither -layers Optimize -resize 600x600\> out-static*.png  GIF:- | gifsicle --colors 128 --delay=5 --loop --optimize=3 --multifile - > $1.gif
+      rm -f out-static*.png
+    else
+      ffmpeg -i $1 -s 600x400 -pix_fmt rgb24 -r 10 -f gif - | gifsicle --optimize=3 --delay=3 > $1.gif
+    fi
+  else
+    echo "proper usage: gifify <input_movie.mov>. You DO need to include extension."
+  fi
+}
 
 md() {
     mkdir -p "$@" && cd "$@"
