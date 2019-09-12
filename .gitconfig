@@ -22,6 +22,8 @@
 	stripLeadingSymbols = false
 [stash]
 	showPatch = true
+[push]
+	default = current
 [pull]
 	ff = only
 [rebase]
