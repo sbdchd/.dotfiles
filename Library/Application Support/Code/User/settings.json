@@ -29,7 +29,6 @@
   "explorer.confirmDragAndDrop": false,
   "editor.suggestSelection": "first",
   "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
-  "editor.formatOnSave": true,
   "remotefs.remote": {
     "570": {
       "scheme": "sftp",
@@ -107,5 +106,14 @@
       "name": "Vue Green",
       "value": "#42b883"
     }
-  ]
+  ],
+  "python.testing.promptToConfigure": false,
+  "python.testing.autoTestDiscoverOnSaveEnabled": false,
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "editor.formatOnSave": true,
+  "javascript.format.semicolons": "remove",
+  "eslint.alwaysShowStatus": true,
+  "eslint.autoFixOnSave": true
 }

@@ -277,6 +277,10 @@ export PATH=$PATH:"/usr/local/texlive/2017/bin/x86_64-darwin/"
 # Poetry
 export PATH=$PATH:$HOME/.poetry/bin
 
+# Pipx
+export PATH="$PATH:$HOME/.local/bin"
+export PATH="$PATH:$HOME/Library/Python/3.7/bin/"
+
 # Rust
 export PATH=$PATH:$HOME/.cargo/bin
 
