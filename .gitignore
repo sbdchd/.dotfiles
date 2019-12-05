@@ -34,4 +34,5 @@ tags
 .config/nixpkgs
 .venv
 .vscode
+hidden*
 .history

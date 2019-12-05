@@ -270,6 +270,11 @@ export PATH="$PATH:/usr/local/bin"
 # make sure our zsh, not mac osx, is the first on the path
 export PATH="/usr/local/bin:$PATH"
 export PATH=$PATH:"$HOME"/bin
+export PATH="$PATH:$HOME/Library/Python/3.7/bin"
+export PATH="$PATH:$HOME/.local/bin"
+
+# add more memory for typescript
+export NODE_OPTIONS='--max_old_space_size=8192'
 
 # setup xelatex
 export PATH=$PATH:"/usr/local/texlive/2017/bin/x86_64-darwin/"

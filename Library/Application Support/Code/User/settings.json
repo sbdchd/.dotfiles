@@ -42,7 +42,6 @@
   "files.insertFinalNewline": true,
   "editor.fontFamily": "Menlo",
   "files.trimTrailingWhitespace": true,
-  "editor.formatOnPaste": true,
   "editor.multiCursorModifier": "ctrlCmd",
   "editor.snippetSuggestions": "top",
   "[typescriptreact]": {
@@ -107,13 +106,14 @@
       "value": "#42b883"
     }
   ],
-  "python.testing.promptToConfigure": false,
-  "python.testing.autoTestDiscoverOnSaveEnabled": false,
+  "explorer.confirmDelete": false,
   "[javascript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "editor.formatOnSave": true,
-  "javascript.format.semicolons": "remove",
-  "eslint.alwaysShowStatus": true,
-  "eslint.autoFixOnSave": true
+  "eslint.autoFixOnSave": true,
+  "eslint.lintTask.enable": true,
+"editor.detectIndentation": false,
+"editor.tabSize": 2,
+"emmet.showAbbreviationSuggestions": false,
+"eslint.alwaysShowStatus": true
 }
