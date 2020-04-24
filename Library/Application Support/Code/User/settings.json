@@ -9,7 +9,6 @@
   "editor.minimap.enabled": false,
   "editor.wordWrap": "on",
   "editor.wordWrapColumn": 120,
-  "vim.enableNeovim": true,
   "vim.useSystemClipboard": true,
   "vim.hlsearch": true,
   "workbench.activityBar.visible": false,
@@ -115,5 +114,9 @@
 "editor.detectIndentation": false,
 "editor.tabSize": 2,
 "emmet.showAbbreviationSuggestions": false,
-"eslint.alwaysShowStatus": true
+"eslint.alwaysShowStatus": true,
+"vim.enableNeovim": true,
+"editor.codeActionsOnSave": {
+  "source.fixAll.eslint": true
+}
 }
