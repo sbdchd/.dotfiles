@@ -279,15 +279,31 @@ export NODE_OPTIONS='--max_old_space_size=8192'
 # setup xelatex
 export PATH=$PATH:"/usr/local/texlive/2017/bin/x86_64-darwin/"
 
+# needs ipdb to be installed but most projects have it
+# export PYTHONBREAKPOINT=ipdb.set_trace
+
 # Poetry
 export PATH=$PATH:$HOME/.poetry/bin
 
-# Pipx
+# Pipx / pip
 export PATH="$PATH:$HOME/.local/bin"
 export PATH="$PATH:$HOME/Library/Python/3.7/bin/"
+export PATH="$PATH:$HOME/Library/Python/3.9/bin/"
+
+# ruby
+export PATH="/usr/local/opt/ruby/bin:$PATH"
+export PATH="$PATH:$HOME/.gem/ruby/3.0.0/bin"
+
+# ansible
+export ANSIBLE_NOCOWS=1
 
 # Rust
 export PATH=$PATH:$HOME/.cargo/bin
+
+# llvm
+export PATH="/usr/local/opt/llvm/bin:$PATH"
+
+export PATH="/usr/local/opt/curl/bin:$PATH"
 
 # FZF
 export FZF_DEFAULT_COMMAND='rg --hidden --files --no-ignore-vcs -g ""'
@@ -300,6 +316,8 @@ export XDG_CONFIG_HOME="$HOME"/.config
 
 # Disable Homebrew auto update
 export HOMEBREW_NO_AUTO_UPDATE=1
+
+export HOMEBREW_NO_INSTALLED_DEPENDENTS_CHECK=1
 
 # Disable Homebrew Analytics
 export HOMEBREW_NO_ANALYTICS=1
@@ -381,8 +399,7 @@ mp3() {
 }
 
 mp4() {
-    youtube-dl --default-search=ytsearch: \
-        --restrict-filenames \
+    yt-dlp --default-search=ytsearch: \
         --format=mp4 "$*"
 }
 
@@ -481,3 +498,5 @@ function clip() {
 compdef return npm
 
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+export VOLTA_HOME="$HOME/.volta"
+export PATH="$VOLTA_HOME/bin:$PATH"

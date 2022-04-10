@@ -1,19 +1,30 @@
 // Place your settings in this file to overwrite the default settings
 {
   "window.title": "${activeEditorLong}",
+  // "window.title": "${rootName}",
+  // "window.titleBarStyle": "native",
+
   "workbench.iconTheme": "vs-minimal",
+  "workbench.editor.showTabs": false,
+  "workbench.startupEditor": "none",
+
   "editor.lineNumbers": "relative",
   "editor.cursorBlinking": "solid",
   "editor.renderIndentGuides": false,
   "editor.folding": false,
   "editor.minimap.enabled": false,
+  // "workbench.tree.indent": 16,
+  // "workbench.useExperimentalGridLayout": true,
+
+  // "breadcrumbs.enabled": true,
+  // "breadcrumbs.filePath": "on",
+
   "editor.wordWrap": "on",
   "editor.wordWrapColumn": 120,
   "vim.useSystemClipboard": true,
   "vim.hlsearch": true,
   "workbench.activityBar.visible": false,
   "workbench.statusBar.visible": true,
-  "window.zoomLevel": 0,
   "telemetry.enableTelemetry": false,
   "files.associations": {
     "*.star": "python",
@@ -48,6 +59,10 @@
   },
   "[typescript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  // https://github.com/rust-lang/rls-vscode/issues/458
+  "[rust]": {
+    "editor.codeLens": false
   },
   "editor.fontSize": 13,
   "liveshare.featureSet": "insiders",
@@ -111,12 +126,26 @@
   },
   "eslint.autoFixOnSave": true,
   "eslint.lintTask.enable": true,
-"editor.detectIndentation": false,
-"editor.tabSize": 2,
-"emmet.showAbbreviationSuggestions": false,
-"eslint.alwaysShowStatus": true,
-"vim.enableNeovim": true,
-"editor.codeActionsOnSave": {
-  "source.fixAll.eslint": true
-}
+  "editor.detectIndentation": false,
+  "editor.tabSize": 2,
+  "emmet.showAbbreviationSuggestions": false,
+  "eslint.alwaysShowStatus": true,
+  "vim.enableNeovim": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "editor.formatOnSave": true,
+  "javascript.format.semicolons": "remove",
+  "eslint.alwaysShowStatus": true,
+  "eslint.autoFixOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "python.jediEnabled": false,
+  "rust.clippy_preference": "on",
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "explorer.confirmDelete": false,
+  "python.languageServer": "Pylance"
 }
