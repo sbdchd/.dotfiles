@@ -273,6 +273,9 @@ export PATH=$PATH:"$HOME"/bin
 export PATH="$PATH:$HOME/Library/Python/3.7/bin"
 export PATH="$PATH:$HOME/.local/bin"
 
+export FLYCTL_INSTALL="/Users/steve/.fly"
+export PATH="$FLYCTL_INSTALL/bin:$PATH"
+
 # add more memory for typescript
 export NODE_OPTIONS='--max_old_space_size=8192'
 
