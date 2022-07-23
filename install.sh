@@ -17,6 +17,7 @@ brew install \
   rename \
   tmux \
   zsh \
+  bat \
   z \
   ffmpeg \
   lame \
@@ -35,14 +36,19 @@ brew install \
   shellcheck \
   trash \
   tree \
+  pipx \
+  yarn \
   unp \
+  postgres \
   wget \
+  ngrok \
   netcat6 \
   nmap
 
 # Homebrew-Cask
 
-brew install --cask basictex \
+brew install --cask \
+  texlive \
   discord \
   dropbox \
   flux \
@@ -59,6 +65,7 @@ brew install --cask basictex \
   firefox \
   google-chrome \
   1password \
+  dbngin \
   virtualbox \
   wireshark \
   tableplus
@@ -69,5 +76,6 @@ bash vimplug-install.sh
 # python
 echo "### Install python from the website! ###"
 python3 -m pip install -U yt-dlp
+pipx install poetry
 
 bash osx-defaults.sh

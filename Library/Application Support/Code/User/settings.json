@@ -10,7 +10,6 @@
 
   "editor.lineNumbers": "relative",
   "editor.cursorBlinking": "solid",
-  "editor.renderIndentGuides": false,
   "editor.folding": false,
   "editor.minimap.enabled": false,
   // "workbench.tree.indent": 16,
@@ -127,7 +126,6 @@
   "eslint.autoFixOnSave": true,
   "eslint.lintTask.enable": true,
   "editor.detectIndentation": false,
-  "editor.tabSize": 2,
   "emmet.showAbbreviationSuggestions": false,
   "eslint.alwaysShowStatus": true,
   "vim.enableNeovim": true,
@@ -147,5 +145,6 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "explorer.confirmDelete": false,
-  "python.languageServer": "Pylance"
+  "python.languageServer": "Pylance",
+  "editor.guides.indentation": false
 }
