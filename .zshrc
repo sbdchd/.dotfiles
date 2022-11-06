@@ -393,7 +393,7 @@ play() {
 mp3() {
     # Get the best audio, convert it to MP3, and save it to the current
     # directory.
-    youtube-dl --default-search=ytsearch: \
+    yt-dlp --default-search=ytsearch: \
         --restrict-filenames \
         --format=bestaudio \
         --extract-audio \
@@ -506,3 +506,4 @@ export PATH="$VOLTA_HOME/bin:$PATH"
 export PYENV_ROOT="$HOME/.pyenv"
 command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
+export PATH="/Applications/Sublime Text.app/Contents/SharedSupport/bin:$PATH"

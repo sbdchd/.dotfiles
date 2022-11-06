@@ -7,6 +7,7 @@
 	ui = auto
 [merge]
 	tool = nvimdiff
+	autoStash = true
 [mergetool]
 	prompt = true
 [mergetool "nvimdiff"]

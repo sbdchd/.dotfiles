@@ -146,5 +146,16 @@
   },
   "explorer.confirmDelete": false,
   "python.languageServer": "Pylance",
-  "editor.guides.indentation": false
+  "editor.guides.indentation": false,
+  "[html]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[scss]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "redhat.telemetry.enabled": true,
+  "python.linting.mypyArgs": ["--show-column-numbers", "--no-pretty"]
 }

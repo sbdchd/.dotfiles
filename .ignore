@@ -31,3 +31,5 @@ nvim/undo
 target
 .meteor
 .venv
+
+yarn.lock

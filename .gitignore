@@ -36,3 +36,6 @@ tags
 .vscode
 hidden*
 .history
+*.pem
+*.crt
+target
