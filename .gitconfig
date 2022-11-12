@@ -25,6 +25,7 @@
 	showPatch = true
 [push]
 	default = current
+	autoSetupRemote = true
 [pull]
 	ff = only
 [rebase]
