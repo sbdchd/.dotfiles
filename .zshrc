@@ -215,6 +215,23 @@ alias gs='git status -sb'
 alias gst='git stash'
 alias gstp='git stash pop'
 
+fail() {
+    echo "Error: $1" >&2
+    exit 1
+}
+
+gnew() {
+    git stash | grep -q 'No local changes to save'
+    # 1 if local changes, 0 if no local changes
+    local local_changes=$?
+    git checkout main || fail "Could not checkout main"
+    git pull || fail "Could not pull main"
+    git checkout -b "$USER-$(uuidgen)" || fail "Could not create new branch"
+    if [[ $local_changes -eq 1 ]]; then
+        git stash apply || fail "Could not apply stash"
+    fi
+}
+
 if [[ -n $TMUX ]]; then
     # needed to make fzf render somewhat correctly
     export TERM='screen-256color'
@@ -403,6 +420,7 @@ mp3() {
 
 mp4() {
     yt-dlp --default-search=ytsearch: \
+        --trim-filenames 200 \
         --format=mp4 "$*"
 }
 

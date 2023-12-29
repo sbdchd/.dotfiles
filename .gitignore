@@ -33,7 +33,6 @@ tags
 .config/wireshark
 .config/nixpkgs
 .venv
-.vscode
 hidden*
 .history
 *.pem
