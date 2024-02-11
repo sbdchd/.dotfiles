@@ -5,7 +5,7 @@
   // "window.titleBarStyle": "native",
 
   "workbench.iconTheme": "vs-minimal",
-  "workbench.editor.showTabs": false,
+  "workbench.editor.showTabs": "single",
   "workbench.startupEditor": "none",
 
   "editor.lineNumbers": "relative",
@@ -22,7 +22,6 @@
   "editor.wordWrapColumn": 120,
   "vim.useSystemClipboard": true,
   "vim.hlsearch": true,
-  "workbench.activityBar.visible": false,
   "workbench.statusBar.visible": true,
   "telemetry.enableTelemetry": false,
   "files.associations": {
@@ -50,7 +49,6 @@
   },
   "files.insertFinalNewline": true,
   "editor.fontFamily": "Menlo",
-  "files.trimTrailingWhitespace": true,
   "editor.multiCursorModifier": "ctrlCmd",
   "editor.snippetSuggestions": "top",
   "[typescriptreact]": {
@@ -130,9 +128,8 @@
   "eslint.alwaysShowStatus": true,
   "vim.enableNeovim": true,
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true
+    "source.fixAll.eslint": "explicit"
   },
-  "editor.formatOnSave": true,
   "javascript.format.semicolons": "remove",
   "eslint.alwaysShowStatus": true,
   "eslint.autoFixOnSave": true,
@@ -157,5 +154,27 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "redhat.telemetry.enabled": true,
-  "python.linting.mypyArgs": ["--show-column-numbers", "--no-pretty"]
+  "python.linting.mypyArgs": ["--show-column-numbers", "--no-pretty"],
+  "window.commandCenter": true,
+  "isort.args": ["--sp", "./backend/pyproject.toml"],
+  "python.testing.autoTestDiscoverOnSaveEnabled": false,
+  "explorer.excludeGitIgnore": true,
+  "evenBetterToml.schema.enabled": false,
+  "languageServerExample.trace.server": "verbose",
+  "editor.formatOnSave": true,
+  "sass.format.enabled": false,
+  "update.mode": "manual",
+  "[python]": {
+    "editor.defaultFormatter": "charliermarsh.ruff"
+  },
+  "explorer.fileNesting.enabled": true,
+  "explorer.fileNesting.patterns": {
+    "*.py": "${capture}_test.py",
+    "*.ts": "${capture}.test.ts",
+    "*.tsx": "${capture}.test.tsx"
+  },
+  "prettier.ignorePath": "",
+  "workbench.activityBar.location": "hidden",
+  "search.useParentIgnoreFiles": true,
+  "extensions.ignoreRecommendations": true
 }

@@ -214,6 +214,7 @@ alias gre='git reset'
 alias gs='git status -sb'
 alias gst='git stash'
 alias gstp='git stash pop'
+alias gf='git commit -am "fix";git push'
 
 fail() {
     echo "Error: $1" >&2
@@ -228,7 +229,7 @@ gnew() {
     git pull || fail "Could not pull main"
     git checkout -b "$USER-$(uuidgen)" || fail "Could not create new branch"
     if [[ $local_changes -eq 1 ]]; then
-        git stash apply || fail "Could not apply stash"
+        git stash apply --index || fail "Could not apply stash"
     fi
 }
 
@@ -419,9 +420,7 @@ mp3() {
 }
 
 mp4() {
-    yt-dlp --default-search=ytsearch: \
-        --trim-filenames 200 \
-        --format=mp4 "$*"
+    yt-dlp -o "%(uploader)s:%(id)s:%(title).100B.%(ext)s" --format=mp4 "$*"
 }
 
 # https://wiki.archlinux.org/index.php/Man_page#Colored_man_pages
@@ -525,3 +524,11 @@ export PYENV_ROOT="$HOME/.pyenv"
 command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
 export PATH="/Applications/Sublime Text.app/Contents/SharedSupport/bin:$PATH"
+export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
+
+# bun completions
+[ -s "/Users/steve/.bun/_bun" ] && source "/Users/steve/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"

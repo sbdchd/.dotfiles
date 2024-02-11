@@ -25,5 +25,10 @@
     "key": "ctrl+shift+cmd+8 ctrl+shift+cmd+0",
     "command": "editor.action.indentLines",
     "when": "editorTextFocus && !editorReadonly"
+  },
+  {
+    "key": "ctrl+r",
+    "command": "-extension.vim_ctrl+r",
+    "when": "editorTextFocus && vim.active && vim.use<C-r> && !inDebugRepl"
   }
 ]
