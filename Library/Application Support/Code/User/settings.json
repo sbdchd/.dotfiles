@@ -112,5 +112,9 @@
   "zig.zls.path": "/Users/steve/Library/Application Support/Code/User/globalStorage/ziglang.vscode-zig/zls_install/zls",
   "zig.initialSetupDone": true,
   "debug.allowBreakpointsEverywhere": true,
-  "workbench.colorTheme": "Mariana Pro (Cool)"
+  "workbench.colorTheme": "Mariana Pro (Cool)",
+  "vscode-neovim.neovimInitVimPaths.darwin": "/Users/steve/.config/vscode-vim/init.lua",
+  "extensions.experimental.affinity": {
+    "asvetliakov.vscode-neovim": 1
+  }
 }
