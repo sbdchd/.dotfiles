@@ -16,9 +16,6 @@ bindkey -M vicmd v edit-command-line
 # Setup z: https://github.com/rupa/z
 source /opt/homebrew/etc/profile.d/z.sh
 
-# Setup fzf for ^r
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
 # improve tab completion
 autoload -Uz compinit
 compinit
@@ -218,7 +215,6 @@ alias gf='git commit -am "fix";git push'
 
 fail() {
     echo "Error: $1" >&2
-    exit 1
 }
 
 gnew() {
@@ -532,3 +528,7 @@ export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
+export PATH="/opt/homebrew/opt/postgresql@16/bin:$PATH"
+
+# atuin an fzf alternative
+eval "$(atuin init zsh)"

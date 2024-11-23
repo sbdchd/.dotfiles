@@ -1,6 +1,7 @@
 // Place your settings in this file to overwrite the default settings
 {
   "window.title": "${activeEditorLong}",
+  "window.newWindowDimensions": "maximized",
   // "window.title": "${rootName}",
   // "window.titleBarStyle": "native",
 
@@ -30,23 +31,11 @@
   },
   "search.useGlobalIgnoreFiles": true,
   "typescript.preferences.importModuleSpecifier": "non-relative",
-  "python.linting.mypyEnabled": true,
   "typescript.updateImportsOnFileMove.enabled": "always",
   "vim.neovimPath": "/usr/local/bin/nvim",
   "vim.autoindent": false,
   "explorer.confirmDragAndDrop": false,
   "editor.suggestSelection": "first",
-  "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
-  "remotefs.remote": {
-    "570": {
-      "scheme": "sftp",
-      "host": "localhost",
-      "port": 2222,
-      "username": "group6",
-      "privateKeyPath": "/Users/steve/.ssh/id_rsa",
-      "rootPath": "/home/group6"
-    }
-  },
   "files.insertFinalNewline": true,
   "editor.fontFamily": "Menlo",
   "editor.multiCursorModifier": "ctrlCmd",
@@ -59,64 +48,10 @@
   },
   // https://github.com/rust-lang/rls-vscode/issues/458
   "[rust]": {
-    "editor.codeLens": false
+    "editor.codeLens": true
   },
   "editor.fontSize": 13,
   "liveshare.featureSet": "insiders",
-  "peacock.favoriteColors": [
-    {
-      "name": "Angular Red",
-      "value": "#b52e31"
-    },
-    {
-      "name": "Auth0 Orange",
-      "value": "#eb5424"
-    },
-    {
-      "name": "Azure Blue",
-      "value": "#007fff"
-    },
-    {
-      "name": "C# Purple",
-      "value": "#68217A"
-    },
-    {
-      "name": "Gatsby Purple",
-      "value": "#639"
-    },
-    {
-      "name": "Go Cyan",
-      "value": "#5dc9e2"
-    },
-    {
-      "name": "Java Blue-Gray",
-      "value": "#557c9b"
-    },
-    {
-      "name": "JavaScript Yellow",
-      "value": "#f9e64f"
-    },
-    {
-      "name": "Mandalorian Blue",
-      "value": "#1857a4"
-    },
-    {
-      "name": "Node Green",
-      "value": "#215732"
-    },
-    {
-      "name": "React Blue",
-      "value": "#00b3e6"
-    },
-    {
-      "name": "Something Different",
-      "value": "#832561"
-    },
-    {
-      "name": "Vue Green",
-      "value": "#42b883"
-    }
-  ],
   "explorer.confirmDelete": false,
   "[javascript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
@@ -136,8 +71,6 @@
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
   },
-  "python.jediEnabled": false,
-  "rust.clippy_preference": "on",
   "[jsonc]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
@@ -154,13 +87,10 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "redhat.telemetry.enabled": true,
-  "python.linting.mypyArgs": ["--show-column-numbers", "--no-pretty"],
   "window.commandCenter": true,
-  "isort.args": ["--sp", "./backend/pyproject.toml"],
   "python.testing.autoTestDiscoverOnSaveEnabled": false,
   "explorer.excludeGitIgnore": true,
   "evenBetterToml.schema.enabled": false,
-  "languageServerExample.trace.server": "verbose",
   "editor.formatOnSave": true,
   "sass.format.enabled": false,
   "update.mode": "manual",
@@ -176,5 +106,11 @@
   "prettier.ignorePath": "",
   "workbench.activityBar.location": "hidden",
   "search.useParentIgnoreFiles": true,
-  "extensions.ignoreRecommendations": true
+  "extensions.ignoreRecommendations": true,
+  "debug.onTaskErrors": "debugAnyway",
+  "zig.path": "/Users/steve/Library/Application Support/Code/User/globalStorage/ziglang.vscode-zig/zig_install/zig",
+  "zig.zls.path": "/Users/steve/Library/Application Support/Code/User/globalStorage/ziglang.vscode-zig/zls_install/zls",
+  "zig.initialSetupDone": true,
+  "debug.allowBreakpointsEverywhere": true,
+  "workbench.colorTheme": "Mariana Pro (Cool)"
 }

@@ -8,6 +8,7 @@ node_modules
 __pycache__
 .sass-cache
 .mypy_cache
+.pytest_cache
 coverage
 cmake-build-debug
 _site
