@@ -1,8 +1,6 @@
 #!/usr/bin/env zsh
 
-if [[ ! -d ~/.zplug ]]; then
-    git clone https://github.com/b4b4r07/zplug ~/.zplug
-fi
+# zmodload zsh/zprof
 
 # enable vi mode
 set -o vi
@@ -17,8 +15,6 @@ bindkey -M vicmd v edit-command-line
 source /opt/homebrew/etc/profile.d/z.sh
 
 # improve tab completion
-autoload -Uz compinit
-compinit
 # make tab complete "hidden files"
 _comp_options+=(globdots)
 # make tab complete case insensitive
@@ -48,136 +44,11 @@ setopt HIST_REDUCE_BLANKS
 # make comments work in commandline
 setopt interactivecomments
 
-source ~/.zplug/init.zsh
-
-# zplug 'lib/completion', from:oh-my-zsh
-
-zplug 'zsh-users/zsh-completions'
-
-zplug 'zsh-users/zsh-autosuggestions', at:develop
-bindkey '^l' autosuggest-accept
-
-zplug 'zsh-users/zsh-syntax-highlighting', defer:3
-
-if ! zplug check --verbose; then
-    printf 'Install zplug plugins? [y/N]: '
-    if read -q; then
-        echo; zplug install
-    fi
-fi
-
-zplug load
-
 export SHELL='/usr/local/bin/zsh/'
-
-# https://github.com/necolas/dotfiles/blob/master/shell/bash_prompt
-prompt_git() {
-    local s=""
-    local branchName=""
-
-    # check if the current directory is in a git repository
-    if [[ "$(git rev-parse --is-inside-work-tree &>/dev/null; printf "%s" $?)" == 0 ]]; then
-        # check if the current directory is in .git before running git checks
-        if [[ "$(git rev-parse --is-inside-git-dir 2> /dev/null)" == "false" ]]; then
-            # ensure index is up to date
-            git update-index --really-refresh  -q &>/dev/null
-
-            # check for uncommitted changes in the index
-            if ! git diff --quiet --ignore-submodules --cached; then
-                s="$s+";
-            fi
-
-            # check for unstaged changes
-            if ! git diff-files --quiet --ignore-submodules; then
-                s="$s!";
-            fi
-
-            # check for untracked files
-            if [[ -n "$(git ls-files --others --exclude-standard)" ]]; then
-                s="$s?";
-            fi
-
-            # https://gist.github.com/woods/31967
-            # Set arrow icon based on status against remote.
-            remote_pattern="# Your branch is (.*) of"
-            if [[ $(git status 2> /dev/null) =~ ${remote_pattern} ]]; then
-                if [[ ${BASH_REMATCH[1]} == "ahead" ]]; then
-                    remote=">" # Ahead
-                else
-                    remote="<" # Behind
-                fi
-            else
-                remote="" # Equal
-            fi
-            diverge_pattern="# Your branch and (.*) have diverged"
-            if [[ $(git status 2> /dev/null) =~ ${diverge_pattern} ]]; then
-                remote="<>" # Diverged
-            fi
-        fi
-
-        # get the short symbolic ref
-        # if HEAD isn't a symbolic ref, get the short SHA
-        # otherwise, just give up
-        branchName="$(git symbolic-ref --quiet --short HEAD 2> /dev/null || \
-            git rev-parse --short HEAD 2> /dev/null || \
-            printf "(unknown)")"
-
-        [ -n "$s" ] && s=" [$s]"
-
-        printf " %s" "$1$branchName$s$remote"
-    fi
-}
 
 # disable the default virtualenv prompt
 export VIRTUAL_ENV_DISABLE_PROMPT=1
 
-# make sure pipenv instantiates a subshell in a normal manner such that the
-# prompt will get reevaluated. Necessary for the nesting shell detecting code to work.
-export PIPENV_SHELL_FANCY=1
-
-virtualenv_info(){
-    # Get Virtual Env
-    if [[ -n "$VIRTUAL_ENV" ]]; then
-        # Strip out the path and just leave the env name
-        venv="${VIRTUAL_ENV##*/}"
-    fi
-    [[ -n "$venv" ]] && echo " $venv"
-}
-
-autoload -U colors && colors
-
-Color_Off=$'\e[0m'
-Green=$'\e[0;32m'
-Yellow=$'\e[0;33m'
-Blue=$'\e[0;34m'
-Purple=$'\e[0;35m'
-Cyan=$'\e[0;36m'
-Red=$'\e[0;31m'
-White=$'\e[0;37m'
-
-NEWLINE=$'\n'
-
-if [[ -n "$TMUX" || -n "$VIRTUAL_ENV" ]]; then
-  LVL=$(($SHLVL-1))
-else
-  LVL=$SHLVL
-fi
-
-# print the ❯ for each nested zsh session
-SUFFIX=$(printf '❯%.0s' {1..$LVL})
-
-PROMPT=$NEWLINE
-PROMPT+="${Yellow}%n" # username
-PROMPT+="%{$fg[white]%}@"
-PROMPT+="%{$Purple%}%m" # host
-PROMPT+=" %{$Blue%}%~" # working directory
-PROMPT+='%{$Green%}$(prompt_git)'
-PROMPT+='%{$Cyan%}$(virtualenv_info)'
-PROMPT+=" %{$Purple%}%(1j.β.)" # display β if background jobs exit
-PROMPT+=$NEWLINE
-PROMPT+="%{$Color_Off%}${SUFFIX} "
-
-setopt promptsubst
 
 # Aliases #
 alias ls='ls -A -G -F'
@@ -229,29 +100,11 @@ gnew() {
     fi
 }
 
-if [[ -n $TMUX ]]; then
-    # needed to make fzf render somewhat correctly
-    export TERM='screen-256color'
-fi
-
 alias wget='wget -c'
 
 alias grep='grep --color=always'
 
 alias tmp='cd $(mktemp -d)'
-
-# https://github.com/necolas/dotfiles
-alias flushdns="dscacheutil -flushcache"
-# Empty the Trash on all mounted volumes and the main HDD
-# Also, clear Apple’s System Logs to improve shell startup speed
-alias emptytrash="sudo rm -rfv /Volumes/*/.Trashes; sudo rm -rfv ~/.Trash; sudo rm -rfv /private/var/log/asl/*.asl"
-
-alias showdotfiles="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
-alias hidedotfiles="defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder"
-
-# Copy my public key to the pasteboard
-alias pubkey="< ~/.ssh/id_rsa.pub | pbcopy | printf '=> Public key copied to pasteboard.\n'"
-
 
 # set default editor
 export EDITOR=nvim
@@ -389,21 +242,6 @@ cdf() {
     cd "$(osascript -e 'tell app "Finder" to POSIX path of (insertion location as alias)')"
 }
 
-# https://github.com/exogen/dotfiles/
-play() {
-    # Skip DASH manifest for speed purposes. This might actually disable
-    # being able to specify things like 'bestaudio' as the requested format,
-    # but try anyway.
-    # Get the best audio that isn't WebM, because afplay doesn't support it.
-    # Use "$*" so that quoting the requested song isn't necessary.
-    youtube-dl --default-search=ytsearch: \
-        --youtube-skip-dash-manifest \
-        --output="${TMPDIR:-/tmp/}%(title)s-%(id)s.%(ext)s" \
-        --restrict-filenames \
-        --format="bestaudio[ext!=webm]" \
-        --exec=afplay "$*"
-}
-
 mp3() {
     # Get the best audio, convert it to MP3, and save it to the current
     # directory.
@@ -431,72 +269,6 @@ man() {
         man "$@"
 }
 
-in_git_repo() {
-  git rev-parse HEAD > /dev/null 2>&1
-}
-
-# git commit picker
-fcs() {
-  local commits commit
-  if (in_git_repo) {
-    commits=$(git log --color=always --pretty=oneline --abbrev-commit --reverse) &&
-    commit=$(echo "$commits" | fzf --height 40% --tac +s +m -e --ansi --reverse) &&
-    echo -n $(echo "$commit" | sed "s/ .*//")
-  }
-}
-
-fcb() {
-  if (in_git_repo) {
-    git branch -a -vv --color=always | grep -v '/HEAD\s' |
-    fzf --height 40% --ansi --reverse --tac | sed 's/^..//' | awk '{print $1}' |
-    sed 's#^remotes/[^/]*/##'
-  }
-}
-
-# Mesaure time for last command to complete
-# see: https://github.com/wincent/wincent/blob/c1a9be84f781b360219fb57613ffdd95c683c1b4/roles/dotfiles/files/.zshrc#L242-L279
-autoload -U add-zsh-hook
-
-export RPROMPT=
-
-typeset -F SECONDS
-function record-start-time() {
-  emulate -L zsh
-  ZSH_START_TIME=${ZSH_START_TIME:-$SECONDS}
-}
-add-zsh-hook preexec record-start-time
-
-function report-start-time() {
-  if [ $ZSH_START_TIME ]; then
-    local DELTA=$(($SECONDS - $ZSH_START_TIME))
-    local DAYS=$((~~($DELTA / 86400)))
-    local HOURS=$((~~(($DELTA - $DAYS * 86400) / 3600)))
-    local MINUTES=$((~~(($DELTA - $DAYS * 86400 - $HOURS * 3600) / 60)))
-    local SECS=$(($DELTA - $DAYS * 86400 - $HOURS * 3600 - $MINUTES * 60))
-    local ELAPSED=''
-    test "$DAYS" != '0' && ELAPSED="${DAYS}d"
-    test "$HOURS" != '0' && ELAPSED="${ELAPSED}${HOURS}h"
-    test "$MINUTES" != '0' && ELAPSED="${ELAPSED}${MINUTES}m"
-    if [ "$ELAPSED" = '' ]; then
-      SECS="$(print -f "%.2f" $SECS)s"
-    elif [ "$DAYS" != '0' ]; then
-      SECS=''
-    else
-      SECS="$((~~$SECS))s"
-    fi
-    ELAPSED="${ELAPSED}${SECS}"
-    local ITALIC_ON=$'\e[3m'
-    local ITALIC_OFF=$'\e[23m'
-    export RPROMPT="%F{white}%{$ITALIC_ON%}${ELAPSED}%{$ITALIC_OFF%}%f"
-    unset ZSH_START_TIME
-
-  else
-    # clear prompt on non-commands
-    export RPROMPT=""
-  fi
-}
-add-zsh-hook precmd report-start-time
-
 # http://stackoverflow.com/a/19458217/3720597
 function clip() {
     if [[ -p /dev/stdin ]]; then
@@ -510,25 +282,17 @@ function clip() {
     fi
 }
 
-# disable npm's broken zsh completion
-compdef return npm
-
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 export VOLTA_HOME="$HOME/.volta"
 export PATH="$VOLTA_HOME/bin:$PATH"
-export PYENV_ROOT="$HOME/.pyenv"
-command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
 export PATH="/Applications/Sublime Text.app/Contents/SharedSupport/bin:$PATH"
 export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
 
-# bun completions
-[ -s "/Users/steve/.bun/_bun" ] && source "/Users/steve/.bun/_bun"
-
-# bun
-export BUN_INSTALL="$HOME/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH"
 export PATH="/opt/homebrew/opt/postgresql@16/bin:$PATH"
 
 # atuin an fzf alternative
 eval "$(atuin init zsh)"
+
+eval "$(starship init zsh)"
+
+# zprof

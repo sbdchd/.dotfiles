@@ -1,0 +1,52 @@
+# left prompt
+format = """$username$hostname$directory$git_branch$git_status$jobs$fill$time$cmd_duration\n$character"""
+
+# don't use right prompt so we can have the cmd_duration on the first line of the prompt
+# right_format = """$fill$cmd_duration"""
+
+scan_timeout = 10
+command_timeout = 150
+
+[fill]
+symbol = ' '
+
+[time]
+disabled = false
+format = '[$time]($style) '
+style = "white"
+
+[username]
+style_user = 'yellow'
+style_root = 'black bold'
+format = '[$user]($style)@'
+disabled = false
+show_always = true
+
+[hostname]
+ssh_only = false
+format = '[$ssh_symbol$hostname]($style) '
+style = 'purple'
+
+[directory]
+truncate_to_repo = false
+style = 'blue'
+
+[git_branch]
+format = '[$symbol$branch(:$remote_branch)]($style) '
+style = 'green'
+symbol = ''
+
+[git_status]
+stashed = ''
+style = 'green'
+format = '([$all_status$ahead_behind]($style) )'
+
+[jobs]
+symbol = 'β'
+style = 'purple'
+
+[cmd_duration]
+min_time = 0
+format = '[$duration]($style) '
+style = "italic white"
+show_milliseconds = true
