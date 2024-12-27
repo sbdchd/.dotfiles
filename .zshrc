@@ -14,6 +14,15 @@ bindkey -M vicmd v edit-command-line
 # Setup z: https://github.com/rupa/z
 source /opt/homebrew/etc/profile.d/z.sh
 
+# these are slow
+# source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+# bindkey '^l' autosuggest-accept
+
+# this is extra slow
+# FPATH=/opt/homebrew/share/zsh-completions:$FPATH
+# autoload -Uz compinit
+# compinit
+
 # improve tab completion
 # make tab complete "hidden files"
 _comp_options+=(globdots)

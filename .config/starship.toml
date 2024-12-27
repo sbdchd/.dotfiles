@@ -46,7 +46,7 @@ symbol = 'β'
 style = 'purple'
 
 [cmd_duration]
-min_time = 0
+min_time = 75
 format = '[$duration]($style) '
 style = "italic white"
 show_milliseconds = true
