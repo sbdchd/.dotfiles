@@ -33,7 +33,7 @@ tags
 .config/wireshark
 .config/nixpkgs
 .venv
-hidden*
+# hidden*
 .history
 *.pem
 *.crt

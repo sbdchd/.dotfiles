@@ -27,7 +27,8 @@
   "telemetry.enableTelemetry": false,
   "files.associations": {
     "*.star": "python",
-    "*.sky": "python"
+    "*.sky": "python",
+    "*.snap": "insta-snapshots"
   },
   "search.useGlobalIgnoreFiles": true,
   "typescript.preferences.importModuleSpecifier": "non-relative",
@@ -64,7 +65,7 @@
   "vim.enableNeovim": true,
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "explicit"
-  },
+},
   "javascript.format.semicolons": "remove",
   "eslint.alwaysShowStatus": true,
   "eslint.autoFixOnSave": true,
@@ -116,5 +117,13 @@
   "vscode-neovim.neovimInitVimPaths.darwin": "/Users/steve/.config/vscode-vim/init.lua",
   "extensions.experimental.affinity": {
     "asvetliakov.vscode-neovim": 1
+  },
+  "editor.renderWhitespace": "all",
+  "git.openRepositoryInParentFolders": "never",
+  "github.copilot.enable": {
+    "*": false,
+    "plaintext": false,
+    "markdown": false,
+    "scminput": false
   }
 }
