@@ -1,5 +1,5 @@
 # left prompt
-format = """$username$hostname$directory$git_branch$git_status$jobs$fill$time$cmd_duration\n$character"""
+format = """$username$hostname$directory$jobs$fill$git_branch$git_status$time$cmd_duration\n$character"""
 
 # don't use right prompt so we can have the cmd_duration on the first line of the prompt
 # right_format = """$fill$cmd_duration"""
@@ -9,6 +9,10 @@ command_timeout = 150
 
 [fill]
 symbol = ' '
+
+[character]
+vimcmd_symbol = '[❮](white)'
+success_symbol = '[❯](white)'
 
 [time]
 disabled = false
@@ -20,10 +24,10 @@ style_user = 'yellow'
 style_root = 'black bold'
 format = '[$user]($style)@'
 disabled = false
-show_always = true
+show_always = false
 
 [hostname]
-ssh_only = false
+ssh_only = true
 format = '[$ssh_symbol$hostname]($style) '
 style = 'purple'
 

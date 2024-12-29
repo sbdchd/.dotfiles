@@ -2,8 +2,6 @@
 {
   "window.title": "${activeEditorLong}",
   "window.newWindowDimensions": "maximized",
-  // "window.title": "${rootName}",
-  // "window.titleBarStyle": "native",
 
   "workbench.iconTheme": "vs-minimal",
   "workbench.editor.showTabs": "single",
@@ -13,18 +11,11 @@
   "editor.cursorBlinking": "solid",
   "editor.folding": false,
   "editor.minimap.enabled": false,
-  // "workbench.tree.indent": 16,
-  // "workbench.useExperimentalGridLayout": true,
-
-  // "breadcrumbs.enabled": true,
-  // "breadcrumbs.filePath": "on",
-
   "editor.wordWrap": "on",
   "editor.wordWrapColumn": 120,
   "vim.useSystemClipboard": true,
   "vim.hlsearch": true,
   "workbench.statusBar.visible": true,
-  "telemetry.enableTelemetry": false,
   "files.associations": {
     "*.star": "python",
     "*.sky": "python",
@@ -38,7 +29,7 @@
   "explorer.confirmDragAndDrop": false,
   "editor.suggestSelection": "first",
   "files.insertFinalNewline": true,
-  "editor.fontFamily": "Menlo",
+  "editor.fontFamily": "SFMono-Regular,Menlo",
   "editor.multiCursorModifier": "ctrlCmd",
   "editor.snippetSuggestions": "top",
   "[typescriptreact]": {
@@ -53,24 +44,15 @@
   },
   "editor.fontSize": 13,
   "liveshare.featureSet": "insiders",
-  "explorer.confirmDelete": false,
   "[javascript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "eslint.autoFixOnSave": true,
   "eslint.lintTask.enable": true,
   "editor.detectIndentation": false,
-  "emmet.showAbbreviationSuggestions": false,
-  "eslint.alwaysShowStatus": true,
   "vim.enableNeovim": true,
+  "javascript.format.semicolons": "remove",
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "explicit"
-},
-  "javascript.format.semicolons": "remove",
-  "eslint.alwaysShowStatus": true,
-  "eslint.autoFixOnSave": true,
-  "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true
   },
   "[jsonc]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
@@ -111,10 +93,8 @@
   "debug.onTaskErrors": "debugAnyway",
   "zig.path": "/Users/steve/Library/Application Support/Code/User/globalStorage/ziglang.vscode-zig/zig_install/zig",
   "zig.zls.path": "/Users/steve/Library/Application Support/Code/User/globalStorage/ziglang.vscode-zig/zls_install/zls",
-  "zig.initialSetupDone": true,
   "debug.allowBreakpointsEverywhere": true,
   "workbench.colorTheme": "Mariana Pro (Cool)",
-  "vscode-neovim.neovimInitVimPaths.darwin": "/Users/steve/.config/vscode-vim/init.lua",
   "extensions.experimental.affinity": {
     "asvetliakov.vscode-neovim": 1
   },
@@ -125,5 +105,16 @@
     "plaintext": false,
     "markdown": false,
     "scminput": false
-  }
+  },
+  "chat.commandCenter.enabled": false,
+  "workbench.colorCustomizations": {
+    "terminal.background": "#343D46",
+    "terminal.selectionBackground": "#d0f4ff30",
+    "terminal.foreground": "#ffffffdd",
+    "terminal.ansiBlack": "#343D46",
+    "panel.background": "#23292e"
+  },
+  "terminal.integrated.minimumContrastRatio": 1,
+  "terminal.integrated.shellIntegration.enabled": false,
+  "terminal.integrated.fontSize": 13
 }
