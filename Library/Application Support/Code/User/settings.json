@@ -38,10 +38,6 @@
   "[typescript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  // https://github.com/rust-lang/rls-vscode/issues/458
-  "[rust]": {
-    "editor.codeLens": true
-  },
   "editor.fontSize": 13,
   "liveshare.featureSet": "insiders",
   "[javascript]": {
@@ -94,18 +90,11 @@
   "zig.path": "/Users/steve/Library/Application Support/Code/User/globalStorage/ziglang.vscode-zig/zig_install/zig",
   "zig.zls.path": "/Users/steve/Library/Application Support/Code/User/globalStorage/ziglang.vscode-zig/zls_install/zls",
   "debug.allowBreakpointsEverywhere": true,
-  "workbench.colorTheme": "Mariana Pro (Cool)",
   "extensions.experimental.affinity": {
     "asvetliakov.vscode-neovim": 1
   },
   "editor.renderWhitespace": "all",
   "git.openRepositoryInParentFolders": "never",
-  "github.copilot.enable": {
-    "*": false,
-    "plaintext": false,
-    "markdown": false,
-    "scminput": false
-  },
   "chat.commandCenter.enabled": false,
   "workbench.colorCustomizations": {
     "terminal.background": "#343D46",
@@ -116,5 +105,31 @@
   },
   "terminal.integrated.minimumContrastRatio": 1,
   "terminal.integrated.shellIntegration.enabled": false,
-  "terminal.integrated.fontSize": 13
+  "terminal.integrated.fontSize": 13,
+  "editor.tokenColorCustomizations": {
+    "textMateRules": [
+      {
+        "scope": "markup.underline",
+        "settings": {
+          "fontStyle": "underline"
+        }
+      }
+    ]
+  },
+  "editor.semanticTokenColorCustomizations": {
+    "enabled": true,
+    "rules": {
+      "variable": "#FFFFFFDD",
+      "parameter": "#FFFFFFDD",
+      "enumMember": "#C594C5",
+      "keyword": "#C594C5",
+      "selfKeyword": { "fontStyle": "italic" },
+      "decorator": "#5fb3b3",
+      "builtinAttribute": "#5fb3b3",
+      "macro": { "fontStyle": "italic" },
+      "lifetime": "#FA8763",
+      "function": { "foreground": "#5fb3b3", "fontStyle": "" }
+    }
+  },
+  "workbench.colorTheme": "Mariana Pro (Cool)"
 }
