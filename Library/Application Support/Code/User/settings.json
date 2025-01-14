@@ -119,17 +119,35 @@
   "editor.semanticTokenColorCustomizations": {
     "enabled": true,
     "rules": {
+      // match macro attributes
+      "*.consuming": "#FFFFFFDD",
       "variable": "#FFFFFFDD",
       "parameter": "#FFFFFFDD",
       "enumMember": "#C594C5",
       "keyword": "#C594C5",
+      "const": {
+        "foreground": "#C594C5"
+        // "fontStyle": "italic"
+      },
       "selfKeyword": { "fontStyle": "italic" },
       "decorator": "#5fb3b3",
+      "interface": "#FAB763",
+      "deriveHelper": "#5fb3b3",
+      "method": "#5fb3b3",
+      //   "method": "#FFFFFFDD",
       "builtinAttribute": "#5fb3b3",
-      "macro": { "fontStyle": "italic" },
+      //   "macro": { "fontStyle": "italic" },
       "lifetime": "#FA8763",
+      "formatSpecifier": "#5fb3b3",
       "function": { "foreground": "#5fb3b3", "fontStyle": "" }
     }
   },
-  "workbench.colorTheme": "Mariana Pro (Cool)"
+  "workbench.colorTheme": "Mariana Pro (Cool)",
+  "github.copilot.enable": {
+    "*": false,
+    "plaintext": false,
+    "markdown": false,
+    "scminput": false,
+    "rust": false
+  }
 }

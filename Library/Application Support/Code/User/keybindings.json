@@ -78,6 +78,18 @@
     "command": "magit.reverting",
     "when": "editorTextFocus && editorLangId == 'magit' && vim.mode =~ /^(?!SearchInProgressMode|CommandlineInProgress).*$/"
   },
+  //   {
+  //     "key": "space t",
+  //     // "command": "workbench.action.terminal.focus",
+  //     "command": "workbench.action.terminal.toggleTerminal",
+  //     "when": "vim.active && vim.mode != 'Insert' && !findInputFocussed && !replaceInputFocussed && vim.mode =~ /^(?!SearchInProgressMode|CommandlineInProgress).*$/ && !terminalFocus && !searchInputBoxFocus && (terminalHasBeenCreated || terminalProcessSupported)"
+  //   },
+  {
+    "key": "cmd+t",
+    // "command": "workbench.action.terminal.focus",
+    "command": "workbench.action.terminal.toggleTerminal"
+    // "when": "terminalFocus"
+  },
   {
     "key": "shift+v",
     "command": "-magit.reverting"
