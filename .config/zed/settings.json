@@ -7,7 +7,35 @@
 // custom settings, run the `open default settings` command
 // from the command palette or from `Zed` application menu.
 {
+  "vim_mode": true,
+  "cursor_blink": false,
+  "chat_panel": {
+    "button": "never"
+  },
+  "features": {
+    "copilot": false,
+    "inline_completion_provider": "none"
+  },
+  "collaboration_panel": {
+    "button": false
+  },
+  "assistant": {
+    "enabled": false,
+    "version": "1",
+    "button": false
+  },
+  "assistant_v2": {
+    "enabled": false
+  },
+  "notification_panel": {
+    "dock": "left",
+    "button": false
+  },
   "theme": "One Dark",
   "ui_font_size": 16,
-  "buffer_font_size": 16
+  "buffer_font_size": 13,
+  "telemetry": {
+    "diagnostics": false,
+    "metrics": false
+  }
 }

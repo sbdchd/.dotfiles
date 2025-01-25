@@ -262,7 +262,7 @@ mp3() {
 }
 
 mp4() {
-    yt-dlp -o "%(uploader)s:%(id)s:%(title).100B.%(ext)s" --format=mp4 "$*"
+    yt-dlp -o "%(uploader)s:%(id)s:%(title).100B.%(ext)s" "$*"
 }
 
 # https://wiki.archlinux.org/index.php/Man_page#Colored_man_pages

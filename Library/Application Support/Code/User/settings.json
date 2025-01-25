@@ -149,5 +149,6 @@
     "markdown": false,
     "scminput": false,
     "rust": false
-  }
+  },
+  "rust-analyzer.runnables.askBeforeUpdateTest": false
 }
